@@ -64,11 +64,10 @@ export async function uploadDirectoryToIPFS(
     const form = new FormData();
 
     for (const file of files) {
-      const bytes =
-        typeof file.content === "string"
-          ? new TextEncoder().encode(file.content)
-          : file.content;
-      const blob = new Blob([bytes]);
+      const bytes = typeof file.content === "string"
+        ? new TextEncoder().encode(file.content)
+        : (file.content as Uint8Array);
+      const blob = new Blob([bytes as BlobPart]);
       form.append("file", blob, file.path);
     }
 
