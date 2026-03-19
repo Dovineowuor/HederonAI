@@ -1,36 +1,270 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 ExecuAI – Your AI Executive Team
 
-## Getting Started
+> Run a company of one — powered by intelligent agents and Hedera.
 
-First, run the development server:
+---
+
+## 🧠 Overview
+
+ExecuAI is an AI-powered executive assistant platform that enables individuals to operate like full-scale companies. Users input a goal, and a team of specialized AI agents — CEO, Strategy, Marketing, and Operations — collaborate to break it down, generate insights, and execute tasks. Built on Hedera, ExecuAI introduces transparent logging and agent-based microtransactions, laying the foundation for autonomous digital work.
+
+---
+
+## 🎯 Problem
+
+Modern entrepreneurship is overwhelming. To build anything meaningful, individuals must juggle:
+- Strategy
+- Marketing  
+- Operations
+- Execution
+
+This creates a bottleneck where ideas don't scale due to limited human bandwidth.
+
+---
+
+## 💡 Solution
+
+ExecuAI provides a **coordinated AI executive team** that:
+- Transforms goals into structured execution plans
+- Delegates tasks across specialized agents
+- Automates research, planning, and workflows
+- Tracks all activity transparently using Hedera
+
+---
+
+## 🤖 AI Agents
+
+### 👑 CEO Agent
+- Breaks down goals into actionable steps
+- Coordinates execution
+
+### 📊 Strategy Analyst
+- Market research
+- Opportunity analysis
+
+### 📣 Marketing Manager
+- Growth strategies
+- Content generation
+
+### ⚙️ Operations Manager
+- Workflow design
+- Task optimization
+
+---
+
+## ⛓️ Hedera Integration
+
+### 🔹 Hedera Consensus Service (HCS)
+- Logs: Task creation, Agent actions, Outputs
+- Provides immutable and transparent records
+
+### 🔹 Hedera Token Service (HTS)
+- Simulates microtransactions
+- Enables agent-based reward system
+
+---
+
+## 🖥️ Features
+
+- Goal-to-execution pipeline
+- Multi-agent collaboration
+- Interactive dashboard
+- Real-time agent outputs
+- Blockchain-backed activity logs
+
+---
+
+## 🏗️ Tech Stack
+
+- **Frontend:** Next.js 16, React 19, TypeScript
+- **Backend:** Node.js, Next.js API Routes
+- **AI:** OpenAI API (GPT-4o-mini) + Kilo Gateway fallback models
+- **Blockchain:** Hedera (HCS + HTS) + Smart Contracts
+- **Storage:** IPFS for decentralized file storage
+- **Styling:** TailwindCSS 4, Framer Motion
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+- Node.js 18+ 
+- npm or yarn
+
+### Installation
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/your-repo/execuai.git
+cd execuai
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Environment Variables
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Create a `.env.local` file:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```env
+# AI Services
+OPENAI_API_KEY=your_openai_api_key_here
+KILO_API_KEY=your_kilo_api_key_here
 
-## Learn More
+# Hedera Testnet Credentials
+HEDERA_ACCOUNT_ID=0.0.xxxxxx
+HEDERA_PRIVATE_KEY=your_hedera_private_key_here
 
-To learn more about Next.js, take a look at the following resources:
+# IPFS Configuration
+IPFS_GATEWAY_URL=https://ipfs.io
+IPFS_API_URL=http://localhost:5001/api
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Application Settings
+NODE_ENV=development
+PORT=3000
+NEXT_PUBLIC_APP_URL=http://localhost:3000
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Feature Flags
+ENABLE_MOCK_MODE=false
+ENABLE_IPFS_STORAGE=true
+ENABLE_KILO_FALLBACK=true
 
-## Deploy on Vercel
+# Model Selection
+DEFAULT_AI_MODEL=gpt-4o-mini
+FALLBACK_AI_MODEL=minimax-8b
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Running the Application
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+# Development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Start production server
+npm start
+```
+
+Open [http://localhost:3000](http://localhost:3000) to view the application.
+
+---
+
+## 🔄 How It Works
+
+1. User inputs a goal
+2. CEO Agent creates execution plan
+3. Tasks distributed to agents
+4. Agents generate outputs
+5. Results displayed in dashboard
+6. Actions logged on Hedera
+7. Payments simulated between agents
+
+---
+
+## 📱 Demo
+
+- **Live Demo:** [https://execuai-demo.vercel.app](https://execuai-demo.vercel.app)
+- **Demo Video:** [https://youtu.be/demo-video-link](https://youtu.be/demo-video-link)
+
+---
+
+## 🌍 Impact
+
+ExecuAI enables:
+- Solo founders to operate like full teams
+- Global access to AI-powered productivity
+- A shift from "AI as a tool" → "AI as an economic participant"
+
+---
+
+## 🚀 Future Roadmap
+
+### Phase 1: Foundation (COMPLETED ✅)
+- Multi-agent system with industry SOPs
+- Hedera blockchain integration
+- IPFS decentralized storage
+- Fallback AI models (Kilo Gateway)
+- Tangible deliverables generation
+
+### Phase 2: Intelligence (IN PROGRESS 🚧)
+- Decentralized agent marketplace
+- Smart contract deployment on Hedera
+- Agent reputation system
+- Economic engine with microtransactions
+- Multi-agent coordination layer
+
+### Phase 3: Autonomy (PLANNED 📋)
+- Self-improving agent learning loops
+- Swarm intelligence systems
+- Autonomous agent economies
+- Governance and staking systems
+- Cross-agent communication protocols
+
+---
+
+## 🤖 Decentralized Agent Marketplace
+
+ExecuAI is evolving into the **world's first decentralized AI agent marketplace** where:
+
+### 🏪 Marketplace Features
+- **Agent Registration**: Onboard AI agents with capabilities
+- **Reputation System**: Weighted 0-1000 reputation scoring
+- **Service Exchange**: Complete marketplace with escrow
+- **Smart Contracts**: Secure agent-client agreements
+
+### 💰 Economic Engine
+- **Microtransactions**: Hedera-based agent payments
+- **Dynamic Pricing**: Market-driven agent rates
+- **Token Staking**: Governance and reputation
+- **Batch Processing**: Efficient transaction handling
+
+### 🤝 Agent Coordination
+- **Multi-Agent Orchestration**: Swarm coordination protocols
+- **Communication Channels**: Secure agent-to-agent messaging
+- **Dispute Resolution**: Automated conflict resolution
+- **Learning Systems**: Self-improving agent capabilities
+
+---
+
+## 🧪 Testing
+
+```bash
+# Run tests
+npm test
+
+# Run linting
+npm run lint
+
+# Type checking
+npm run type-check
+
+# Test smart contracts
+cd contracts && npm run test
+```
+
+---
+
+## 📄 License
+
+MIT License - see [LICENSE](LICENSE) file for details.
+
+---
+
+## 👥 Team
+
+[Add your team members here]
+
+---
+
+## 🏁 Conclusion
+
+ExecuAI is not just a tool — it's the foundation for a future where individuals can build, run, and scale entire companies using AI agents. With our decentralized marketplace, we're creating the infrastructure for **autonomous agent economies** where AI entities can think, transact, and collaborate independently.
+
+---
+
+## 🔗 Links
+
+- **Hackathon Submission:** Hedera Hello Future Apex 2026
+- **Track:** AI & Agents
+- **GitHub:** https://github.com/your-repo/execuai
+- **Smart Contracts:** https://github.com/your-repo/execuai/tree/main/contracts
+- **Contact:** [your-email@example.com]

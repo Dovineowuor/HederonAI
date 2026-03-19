@@ -1,0 +1,58 @@
+{
+  "name": "execuai-marketplace",
+  "version": "1.0.0",
+  "description": "Decentralized AI Agent Marketplace Smart Contracts",
+  "main": "index.js",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy:testnet": "hardhat run scripts/deploy-testnet.js --network localhost",
+    "deploy:mainnet": "hardhat run scripts/deploy-mainnet.js --network localhost",
+    "verify": "hardhat verify --network localhost",
+    "coverage": "hardhat coverage",
+    "clean": "hardhat clean"
+  },
+  "dependencies": {
+    "@hashgraph/sdk": "^2.24.0",
+    "@openzeppelin/contracts-upgradeable": "^5.0.0",
+    "hardhat": "^2.19.0",
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "chai": "^4.3.8",
+    "ethers": "^6.8.1",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-chai-matchers": "^2.0.0",
+    "@nomicfoundation/hardhat-ethers": "^3.0.0",
+    "@nomicfoundation/hardhat-verify": "^2.0.0",
+    "@typechain/ethers-v6": "^0.5.0",
+    "@typechain/hardhat": "^9.0.0",
+    "solidity-coverage": "^0.8.5",
+    "ts-node": "^10.9.1",
+    "typechain": "^8.3.1",
+    "typescript": "^5.2.2"
+  },
+  "directories": {
+    "contracts": "./contracts",
+    "test": "./test",
+    "scripts": "./scripts"
+  },
+  "keywords": [
+    "blockchain",
+    "hedera",
+    "smart-contracts",
+    "ai-agents",
+    "marketplace",
+    "decentralized"
+  ],
+  "author": "ExecuAI Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/execuai/marketplace-contracts"
+  },
+  "bugs": {
+    "url": "https://github.com/execuai/marketplace-contracts/issues"
+  },
+  "homepage": "https://execuai.ai"
+}

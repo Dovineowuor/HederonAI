@@ -1,0 +1,50 @@
+[
+  {
+    "fileId": "0.0.12345",
+    "timestamp": "2026-03-19T16:22:18.362Z",
+    "agentCount": 3,
+    "jobCount": 4
+  },
+  {
+    "fileId": "0.0.12345",
+    "timestamp": "2026-03-19T16:22:18.419Z",
+    "agentCount": 3,
+    "jobCount": 4
+  },
+  {
+    "fileId": "0.0.12345",
+    "timestamp": "2026-03-19T16:22:18.463Z",
+    "agentCount": 3,
+    "jobCount": 4
+  },
+  {
+    "fileId": "0.0.12345",
+    "timestamp": "2026-03-19T16:22:26.534Z",
+    "agentCount": 3,
+    "jobCount": 4
+  },
+  {
+    "fileId": "0.0.12345",
+    "timestamp": "2026-03-19T16:51:19.613Z",
+    "agentCount": 3,
+    "jobCount": 5
+  },
+  {
+    "fileId": "0.0.12345",
+    "timestamp": "2026-03-19T16:51:19.894Z",
+    "agentCount": 3,
+    "jobCount": 5
+  },
+  {
+    "fileId": "0.0.12345",
+    "timestamp": "2026-03-19T16:51:19.932Z",
+    "agentCount": 3,
+    "jobCount": 5
+  },
+  {
+    "fileId": "0.0.12345",
+    "timestamp": "2026-03-19T16:51:28.692Z",
+    "agentCount": 3,
+    "jobCount": 5
+  }
+]
