@@ -10,7 +10,7 @@ AI & Agents Track
 ---
 
 ## Slide 2: Team & Project Introduction
-**Team:** [Your Name/Team Name]  
+**Team:** Dovine K. 
 **Project:** ExecuAI  
 **Track:** AI & Agents  
 **Vision:** Transform human bandwidth limitations into unlimited execution potential through coordinated AI agents and blockchain transparency.

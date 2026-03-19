@@ -265,6 +265,6 @@ ExecuAI is not just a tool — it's the foundation for a future where individual
 
 - **Hackathon Submission:** Hedera Hello Future Apex 2026
 - **Track:** AI & Agents
-- **GitHub:** https://github.com/your-repo/execuai
-- **Smart Contracts:** https://github.com/your-repo/execuai/tree/main/contracts
-- **Contact:** [your-email@example.com]
+- **GitHub:** https://github.com/dovineowuor/ExecuAI
+- **Smart Contracts:** https://github.com/dovineowuor/ExecuAI/tree/main/contracts
+- **Contact:** [owuordove@gmail.com](mailto:owuordove@gmail.com)

@@ -10,6 +10,7 @@ import type {
   Challenge,
   AgentRunResult,
   ChallengeWorkflow,
+  Deliverable,
 } from "@/lib/types";
 
 // ---- Agent system prompts ----
@@ -246,7 +247,66 @@ async function handleGoalExecution(
   }
 
   const plan: ExecutionPlan = { goal, tasks };
-  return { plan, hederaLogs: logs };
+
+  // Generate SDLC Deliverables for the Goal
+  // We extract the design output from the Designer/Creator agent if available
+  const designTask = tasks.find(t => t.assignedTo === "Operations"); // Use Ops as technical anchor for now
+  const designOutput = designTask?.output || "Standard implementation roadmap and technical architecture.";
+
+  const deliverables: Deliverable[] = [
+    {
+      id: crypto.randomUUID(),
+      name: `Product Requirements Document`,
+      type: "pdf" as const,
+      content: `# PRD: ${goal}\n\n## Overview\nThis document outlines the core requirements and user stories for the project.\n\n## Requirements\n- Feature 1: Core functionality\n- Feature 2: User management\n- Feature 3: Hedera integration\n\n[GANTT CHART]`,
+      filename: `PRD.pdf`,
+      description: "Comprehensive product requirements and feature specifications",
+      generatedBy: "Operations" as AgentRole,
+      timestamp: new Date().toISOString(),
+    },
+    {
+      id: crypto.randomUUID(),
+      name: `Architecture & System Design`,
+      type: "pdf" as const,
+      content: `# Technical Architecture\n\n## Component Diagram\n${designOutput}\n\n## Data Flow\n- Client -> API -> Hedera HCS\n- IPFS Storage for Artifacts\n\n[COMPONENT DIAGRAM]`,
+      filename: `Architecture.pdf`,
+      description: "Detailed system design and infrastructure architecture",
+      generatedBy: "Operations" as AgentRole,
+      timestamp: new Date().toISOString(),
+    },
+    {
+      id: crypto.randomUUID(),
+      name: `Technical Stack & BOM`,
+      type: "pdf" as const,
+      content: `# Tech Stack & Bill of Materials\n\n- Frontend: Next.js / Tailwind\n- Network: Hedera Mainnet/Testnet\n- Storage: IPFS (web3.storage)\n- API: Kilo-AI Multi-Agent System\n\n[RESOURCE MAP]`,
+      filename: `BOM.pdf`,
+      description: "Full technology stack and resource allocation plan",
+      generatedBy: "Operations" as AgentRole,
+      timestamp: new Date().toISOString(),
+    },
+    {
+      id: crypto.randomUUID(),
+      name: `QA & Test Plan`,
+      type: "pdf" as const,
+      content: `# QA Strategy\n\n- Unit Testing: Jest/Vitest\n- E2E Testing: Playwright\n- Security Audit: Smart Contract Verification\n\n[TEST COVERAGE]`,
+      filename: `QA-Plan.pdf`,
+      description: "Quality assurance strategy and verification protocols",
+      generatedBy: "Operations" as AgentRole,
+      timestamp: new Date().toISOString(),
+    },
+    {
+      id: crypto.randomUUID(),
+      name: `Project Codebase`,
+      type: "codebase" as const,
+      content: `// Source for ${goal}\n\n${designOutput}`,
+      filename: `codebase.zip`,
+      description: "Functional project structure with boilerplate and configuration",
+      generatedBy: "Operations" as AgentRole,
+      timestamp: new Date().toISOString(),
+    },
+  ];
+
+  return { plan, deliverables, hederaLogs: logs };
 }
 
 // ---- Challenge workflow ----

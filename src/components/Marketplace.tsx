@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ShoppingCart, Star, ShieldCheck, Cpu, Loader2 } from "lucide-react";
