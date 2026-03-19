@@ -108,10 +108,11 @@ export async function POST(req: NextRequest) {
     });
   } catch (error) {
     console.error('Kilo API error:', error);
+    const errorMessage = error instanceof Error ? error.message : String(error);
     return NextResponse.json(
       { 
         success: false, 
-        error: `Kilo model call failed: ${error.message}` 
+        error: `Kilo model call failed: ${errorMessage}` 
       },
       { status: 500 }
     );
