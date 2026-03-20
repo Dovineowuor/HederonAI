@@ -53,16 +53,26 @@ export async function POST(req: NextRequest) {
     }
 
     const appUrl = req.nextUrl.origin;
+    
+    // Auth context for User/Project isolation
+    const { auth } = await import("@/auth");
+    const session = await auth();
+    const userId = session?.user?.id || session?.user?.email || "anonymous_user";
+    const projectId = deliverable.id || deliverable.name || "unnamed_project";
+    
+    // Sanitize ID strings for filesystem use
+    const sanitizePath = (str: string) => str.replace(/[^a-zA-Z0-9_-]/g, "_").substring(0, 40);
+    const orgPath = `${sanitizePath(userId)}/${sanitizePath(projectId)}`;
 
     // Upload to IPFS for decentralized storage
     let ipfsResult;
     if (deliverable.type === "codebase") {
       // For codebases, upload as directory
       const files = parseCodebaseFiles(deliverable.content, deliverable.name);
-      ipfsResult = await uploadDirectoryToIPFS(files, deliverable.name, appUrl);
+      ipfsResult = await uploadDirectoryToIPFS(files, deliverable.name, appUrl, orgPath);
     } else {
       // For single files, upload directly
-      ipfsResult = await uploadToIPFS(fileContent, filename, contentType, appUrl);
+      ipfsResult = await uploadToIPFS(fileContent, filename, contentType, appUrl, orgPath);
     }
 
     // Return IPFS information

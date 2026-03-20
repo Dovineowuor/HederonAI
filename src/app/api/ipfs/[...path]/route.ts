@@ -13,15 +13,34 @@ export async function GET(
 ) {
   const params = await context.params;
   const pathParts = params.path;
-  const cid = pathParts[0];
-  const subPath = pathParts.slice(1).join("/");
+  const appUrl = req.nextUrl.origin;
 
-  const fullPath = path.join(MOCK_STORAGE_DIR, cid, subPath);
-  const singleFilePath = path.join(MOCK_STORAGE_DIR, cid);
+  // Find the CID (always starts with 'QmHost' for mocks)
+  const hashIndex = pathParts.findIndex(p => p.startsWith('QmHost'));
+  
+  if (hashIndex === -1) {
+    return new NextResponse("File Not Found (No valid mock CID)", { status: 404 });
+  }
+
+  const orgParts = pathParts.slice(0, hashIndex);
+  const cid = pathParts[hashIndex];
+  const fileParts = pathParts.slice(hashIndex + 1);
+
+  const isProd = process.env.NODE_ENV === 'production';
+  const MOCK_STORAGE_DIR = isProd 
+    ? path.join("/tmp", "ipfs_mock") 
+    : path.join(process.cwd(), ".data", "ipfs_mock");
+
+  const targetDir = orgParts.length > 0 
+    ? path.join(MOCK_STORAGE_DIR, ...orgParts) 
+    : MOCK_STORAGE_DIR;
+
+  const fullPath = path.join(targetDir, cid, ...fileParts);
+  const singleFilePath = path.join(targetDir, cid);
 
   try {
     // 1. Try directory access first if there's a subPath
-    if (subPath && fs.existsSync(fullPath)) {
+    if (fileParts.length > 0 && fs.existsSync(fullPath)) {
       const stats = fs.statSync(fullPath);
       if (stats.isFile()) {
         const content = fs.readFileSync(fullPath);
@@ -57,15 +76,14 @@ export async function GET(
             "Cache-Control": "public, max-age=31536000, immutable",
           },
         });
-      } else if (stats.isDirectory() && !subPath) {
+      } else if (stats.isDirectory() && fileParts.length === 0) { // Changed !subPath to fileParts.length === 0 for clarity
           // Serve an index of the directory if possible
           const files = fs.readdirSync(singleFilePath);
           return NextResponse.json({
-              cid,
               type: "directory",
               files: files.map(f => ({
                   name: f,
-                  url: `${process.env.NEXT_PUBLIC_APP_URL || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000")}/api/ipfs/${cid}/${f}`
+                  url: `${appUrl}/api/ipfs/${orgParts.length > 0 ? orgParts.join('/') + '/' : ''}${cid}/${f}`
               }))
           });
       }

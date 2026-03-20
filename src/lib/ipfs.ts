@@ -39,7 +39,8 @@ export async function uploadToIPFS(
   content: Uint8Array,
   filename: string,
   _mimeType: string = "application/octet-stream",
-  appUrl?: string
+  appUrl?: string,
+  orgPath?: string
 ): Promise<IPFSResult> {
   // Try local IPFS node via HTTP API (Kubo)
   try {
@@ -63,11 +64,13 @@ export async function uploadToIPFS(
       url: `${IPFS_GATEWAY}/ipfs/${hash}`,
     };
   } catch (err) {
-    ensureMockDir();
     const hash = generateMockCID(content);
     const mockHash = hash;
     
-    const filePath = path.join(MOCK_STORAGE_DIR, mockHash);
+    const targetDir = orgPath ? path.join(MOCK_STORAGE_DIR, ...orgPath.split('/')) : MOCK_STORAGE_DIR;
+    if (!fs.existsSync(targetDir)) fs.mkdirSync(targetDir, { recursive: true });
+    
+    const filePath = path.join(targetDir, mockHash);
     fs.writeFileSync(filePath, Buffer.from(content));
     
     // Store metadata (MIME type)
@@ -76,7 +79,7 @@ export async function uploadToIPFS(
     return {
       hash: mockHash,
       size: content.byteLength,
-      url: `${appUrl || APP_URL}/api/ipfs/${mockHash}`,
+      url: `${appUrl || APP_URL}/api/ipfs/${orgPath ? orgPath + '/' : ''}${mockHash}`,
     };
   }
 }
@@ -87,7 +90,8 @@ export async function uploadToIPFS(
 export async function uploadDirectoryToIPFS(
   files: Array<{ path: string; content: string | Uint8Array }>,
   _directoryName: string,
-  appUrl?: string
+  appUrl?: string,
+  orgPath?: string
 ): Promise<IPFSResult> {
   try {
     const form = new FormData();
@@ -120,12 +124,12 @@ export async function uploadDirectoryToIPFS(
       url: `${IPFS_GATEWAY}/ipfs/${hash}`,
     };
   } catch (err) {
-    ensureMockDir();
     // For directory, we just hash the list of files
     const combinedContent = files.map(f => f.path + (typeof f.content === 'string' ? f.content : f.content.length)).join(',');
     const mockHash = generateMockCID(combinedContent);
     
-    const dirPath = path.join(MOCK_STORAGE_DIR, mockHash);
+    const targetDir = orgPath ? path.join(MOCK_STORAGE_DIR, ...orgPath.split('/')) : MOCK_STORAGE_DIR;
+    const dirPath = path.join(targetDir, mockHash);
     if (!fs.existsSync(dirPath)) fs.mkdirSync(dirPath, { recursive: true });
 
     for (const file of files) {
@@ -138,7 +142,7 @@ export async function uploadDirectoryToIPFS(
     return {
       hash: mockHash,
       size: 0,
-      url: `${appUrl || APP_URL}/api/ipfs/${mockHash}`,
+      url: `${appUrl || APP_URL}/api/ipfs/${orgPath ? orgPath + '/' : ''}${mockHash}`,
     };
   }
 }
