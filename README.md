@@ -94,7 +94,7 @@ ExecuAI provides a **coordinated AI executive team** that:
 ### Installation
 
 ```bash
-git clone https://github.com/your-repo/execuai.git
+git clone https://github.com/dovineowuor/execuai.git
 cd execuai
 npm install
 ```
@@ -251,7 +251,9 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ## 👥 Team
 
-[Add your team members here]
+- **Dovine Owuor**: Founder & Lead Software Engineer.
+  - Architected the multi-agent coordination system and Hedera integration.
+  - Leads the vision for autonomous agent economies on decentralized ledgers.
 
 ---
 

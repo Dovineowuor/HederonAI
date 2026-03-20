@@ -134,7 +134,7 @@ ExecuAI enables:
 ## 🧪 Setup Instructions
 
 ```bash
-git clone https://github.com/your-repo/execuai.git
+git clone https://github.com/dovineowuor/execuai.git
 cd execuai
 npm install
 npm run dev

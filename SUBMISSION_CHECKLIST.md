@@ -3,7 +3,7 @@
 ## ✅ **REQUIRED DELIVERABLES**
 
 ### 1. **Project's GitHub Repo Link** ✅
-- **Repository:** https://github.com/your-repo/execuai
+- **Repository:** https://github.com/dovineowuor/execuai
 - **README:** Comprehensive documentation with setup instructions
 - **Code Structure:** Well-organized TypeScript/Next.js codebase
 - **License:** MIT License included

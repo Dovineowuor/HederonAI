@@ -84,7 +84,7 @@ Transforming ExecuAI into the premier Agentic Platform on Hedera.
 
 **ExecuAI – One Person. Unlimited Execution.**
 
-- **GitHub:** https://github.com/your-repo/execuai
+- **GitHub:** https://github.com/dovineowuor/execuai
 - **Live Demo:** https://execuai-demo.vercel.app
 - **Video:** [Insert YouTube Link]
 - **Contact:** team@execuai.dev

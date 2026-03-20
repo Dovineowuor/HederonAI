@@ -71,8 +71,8 @@ export async function POST(req: NextRequest) {
       filename: filename,
       size: ipfsResult.size,
       contentType: contentType,
-      gatewayUrl: `https://ipfs.io/ipfs/${ipfsResult.hash}`,
-      message: `File successfully uploaded to IPFS and pinned for persistence`
+      gatewayUrl: ipfsResult.url,
+      message: `File successfully ${ipfsResult.url.includes('api/ipfs') ? 'emulated locally' : 'uploaded to IPFS'} and pinned for persistence`
     });
 
   } catch (error) {

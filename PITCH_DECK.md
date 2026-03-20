@@ -9,11 +9,11 @@ AI & Agents Track
 
 ---
 
-## Slide 2: Team & Project Introduction
-**Team:** Dovine K. 
-**Project:** ExecuAI  
-**Track:** AI & Agents  
-**Vision:** Transform human bandwidth limitations into unlimited execution potential through coordinated AI agents and blockchain transparency.
+## Slide 2: Team & Founder Introduction
+**Founder:** Dovine Owuor
+**Role:** Lead Software Engineer & Visionary
+**Track:** AI & Agents
+**Mission:** Transforming human bandwidth limitations into unlimited execution potential through coordinated AI swarms on Hedera.
 
 ---
 
@@ -204,9 +204,9 @@ AI & Agents Track
 **ExecuAI – One Person. Unlimited Execution.**
 
 **Links:**
-- GitHub: https://github.com/your-repo/execuai
+- GitHub: https://github.com/dovineowuor/execuai
 - Live Demo: https://execuai-demo.vercel.app
-- Contact: [your-email@example.com]
+- Contact: [owuordove@gmail.com@example.com]
 
 **Questions?**
 

@@ -158,6 +158,13 @@ function getDb(): Database.Database {
       createdAt          TEXT NOT NULL DEFAULT (datetime('now')),
       completedAt        TEXT
     );
+
+    CREATE TABLE IF NOT EXISTS users (
+      id          TEXT PRIMARY KEY, -- Email
+      name        TEXT NOT NULL,
+      password    TEXT NOT NULL,
+      createdAt   TEXT NOT NULL DEFAULT (datetime('now'))
+    );
   `);
 
   // Seed initial data if tables are empty
@@ -306,4 +313,23 @@ export function rateJob(jobId: string, ratingValue: number, txHash?: string): Es
 
   triggerSnapshot();
   return getJob(jobId)!;
+}
+
+// --- User Management ---
+
+export function createUser(email: string, name: string, password: string) {
+  const db = getDb();
+  // Secure hashing with salt for the POC
+  const salt = crypto.randomBytes(16).toString('hex');
+  const hash = crypto.pbkdf2Sync(password, salt, 1000, 64, 'sha512').toString('hex');
+  const storedPassword = `${salt}.${hash}`;
+
+  db.prepare(
+    "INSERT OR REPLACE INTO users (id, name, password) VALUES (?, ?, ?)"
+  ).run(email, name, storedPassword);
+}
+
+export function getUserByEmail(email: string) {
+  const db = getDb();
+  return db.prepare("SELECT * FROM users WHERE id = ?").get(email) as { id: string, name: string, password: string } | undefined;
 }

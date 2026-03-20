@@ -2,6 +2,25 @@
 
 const IPFS_GATEWAY = process.env.IPFS_GATEWAY_URL ?? "https://ipfs.io";
 const IPFS_LOCAL_API = process.env.IPFS_API_URL ?? "http://localhost:5001/api";
+const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
+
+import fs from 'fs';
+import path from 'path';
+import crypto from 'crypto';
+
+const MOCK_STORAGE_DIR = path.join(process.cwd(), ".data", "ipfs_mock");
+
+function ensureMockDir() {
+  if (!fs.existsSync(MOCK_STORAGE_DIR)) {
+    fs.mkdirSync(MOCK_STORAGE_DIR, { recursive: true });
+  }
+}
+
+function generateMockCID(content: Uint8Array | string): string {
+  const hash = crypto.createHash('sha256').update(content).digest('hex');
+  // Simple Base58-ish mock (not a real CID but looks enough for demo)
+  return "QmHost" + hash.slice(0, 40);
+}
 
 export interface IPFSResult {
   hash: string;
@@ -39,16 +58,21 @@ export async function uploadToIPFS(
       size: content.byteLength,
       url: `${IPFS_GATEWAY}/ipfs/${hash}`,
     };
-  } catch {
-    const chars = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
-    let mockHash = "Qm";
-    for (let i = 0; i < 44; i++) {
-        mockHash += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
+  } catch (err) {
+    ensureMockDir();
+    const hash = generateMockCID(content);
+    const mockHash = hash;
+    
+    const filePath = path.join(MOCK_STORAGE_DIR, mockHash);
+    fs.writeFileSync(filePath, Buffer.from(content));
+    
+    // Store metadata (MIME type)
+    fs.writeFileSync(filePath + ".meta", JSON.stringify({ filename, contentType: _mimeType }));
+
     return {
       hash: mockHash,
       size: content.byteLength,
-      url: `${IPFS_GATEWAY}/ipfs/${mockHash}`,
+      url: `${APP_URL}/api/ipfs/${mockHash}`,
     };
   }
 }
@@ -90,16 +114,26 @@ export async function uploadDirectoryToIPFS(
       size: last.Size ?? 0,
       url: `${IPFS_GATEWAY}/ipfs/${hash}`,
     };
-  } catch {
-    const chars = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
-    let mockHash = "Qm";
-    for (let i = 0; i < 44; i++) {
-        mockHash += chars.charAt(Math.floor(Math.random() * chars.length));
+  } catch (err) {
+    ensureMockDir();
+    // For directory, we just hash the list of files
+    const combinedContent = files.map(f => f.path + (typeof f.content === 'string' ? f.content : f.content.length)).join(',');
+    const mockHash = generateMockCID(combinedContent);
+    
+    const dirPath = path.join(MOCK_STORAGE_DIR, mockHash);
+    if (!fs.existsSync(dirPath)) fs.mkdirSync(dirPath, { recursive: true });
+
+    for (const file of files) {
+       const filePath = path.join(dirPath, file.path);
+       const dirName = path.dirname(filePath);
+       if (!fs.existsSync(dirName)) fs.mkdirSync(dirName, { recursive: true });
+       fs.writeFileSync(filePath, typeof file.content === 'string' ? file.content : Buffer.from(file.content));
     }
+
     return {
       hash: mockHash,
       size: 0,
-      url: `${IPFS_GATEWAY}/ipfs/${mockHash}`,
+      url: `${APP_URL}/api/ipfs/${mockHash}`,
     };
   }
 }
