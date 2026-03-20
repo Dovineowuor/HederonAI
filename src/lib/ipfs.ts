@@ -38,7 +38,8 @@ export interface IPFSResult {
 export async function uploadToIPFS(
   content: Uint8Array,
   filename: string,
-  _mimeType: string = "application/octet-stream"
+  _mimeType: string = "application/octet-stream",
+  appUrl?: string
 ): Promise<IPFSResult> {
   // Try local IPFS node via HTTP API (Kubo)
   try {
@@ -75,7 +76,7 @@ export async function uploadToIPFS(
     return {
       hash: mockHash,
       size: content.byteLength,
-      url: `${APP_URL}/api/ipfs/${mockHash}`,
+      url: `${appUrl || APP_URL}/api/ipfs/${mockHash}`,
     };
   }
 }
@@ -85,7 +86,8 @@ export async function uploadToIPFS(
  */
 export async function uploadDirectoryToIPFS(
   files: Array<{ path: string; content: string | Uint8Array }>,
-  _directoryName: string
+  _directoryName: string,
+  appUrl?: string
 ): Promise<IPFSResult> {
   try {
     const form = new FormData();
@@ -136,7 +138,7 @@ export async function uploadDirectoryToIPFS(
     return {
       hash: mockHash,
       size: 0,
-      url: `${APP_URL}/api/ipfs/${mockHash}`,
+      url: `${appUrl || APP_URL}/api/ipfs/${mockHash}`,
     };
   }
 }

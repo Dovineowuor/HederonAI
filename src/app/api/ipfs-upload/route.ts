@@ -52,15 +52,17 @@ export async function POST(req: NextRequest) {
         throw new Error("Unsupported deliverable type");
     }
 
+    const appUrl = req.nextUrl.origin;
+
     // Upload to IPFS for decentralized storage
     let ipfsResult;
     if (deliverable.type === "codebase") {
       // For codebases, upload as directory
       const files = parseCodebaseFiles(deliverable.content, deliverable.name);
-      ipfsResult = await uploadDirectoryToIPFS(files, deliverable.name);
+      ipfsResult = await uploadDirectoryToIPFS(files, deliverable.name, appUrl);
     } else {
       // For single files, upload directly
-      ipfsResult = await uploadToIPFS(fileContent, filename, contentType);
+      ipfsResult = await uploadToIPFS(fileContent, filename, contentType, appUrl);
     }
 
     // Return IPFS information
