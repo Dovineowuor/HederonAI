@@ -451,31 +451,25 @@ export default function PitchDeckViewer() {
           height: 1080,
           logging: false,
           onclone: (clonedDoc) => {
-            // 1. Remove ALL global style and link tags to prevent html2canvas oklch/oklab parsing crash
-            clonedDoc.querySelectorAll('style, link[rel="stylesheet"]').forEach(el => el.remove());
+            // 1. Fix Tailwind v4 oklch in stylesheets instead of removing them natively
+            clonedDoc.querySelectorAll("style").forEach((styleEl) => {
+              try {
+                if (styleEl.innerHTML) {
+                  styleEl.innerHTML = styleEl.innerHTML.replace(/oklch\([^)]+\)/g, "#3b82f6");
+                  styleEl.innerHTML = styleEl.innerHTML.replace(/oklab\([^)]+\)/g, "#3b82f6");
+                }
+              } catch(e) {}
+            });
 
-            // 2. Inject a fresh, oklch-free minimal stylesheet for basic layout
-            const style = clonedDoc.createElement("style");
-            style.innerHTML = `
-              * { box-sizing: border-box; }
-              body, html { background: #000; margin: 0; padding: 0; }
-              .pitch-slide { 
-                position: relative; 
-                overflow: hidden; 
-                background: #18181b !important; 
-                display: flex !important;
-                flex-direction: column !important;
-                width: 1920px !important;
-                height: 1080px !important;
-              }
-              .flex { display: flex; }
-              .flex-col { flex-direction: column; }
-              .items-center { align-items: center; }
-              .justify-center { justify-content: center; }
-              .text-center { text-align: center; }
-              .pitch-slide * { border-color: rgba(255,255,255,0.1); }
-            `;
-            clonedDoc.head.appendChild(style);
+            // 2. Un-scale the slides so html2canvas captures them at native 1920x1080 resolution
+            clonedDoc.querySelectorAll(".pitch-slide").forEach((s: Element) => {
+              const slide = s as HTMLElement;
+              slide.style.transform = "none";
+              slide.style.marginBottom = "0px";
+              slide.style.width = "1920px";
+              slide.style.height = "1080px";
+              slide.style.overflow = "hidden";
+            });
 
             // 3. Fix any lingering oklch inline styles and simplify complex ones
             const elements = clonedDoc.querySelectorAll("*");
@@ -548,31 +542,25 @@ export default function PitchDeckViewer() {
           height: 1080,
           logging: false,
           onclone: (clonedDoc) => {
-            // 1. Remove ALL global style and link tags to prevent html2canvas oklch/oklab parsing crash
-            clonedDoc.querySelectorAll('style, link[rel="stylesheet"]').forEach(el => el.remove());
+            // 1. Fix Tailwind v4 oklch in stylesheets instead of removing them natively
+            clonedDoc.querySelectorAll("style").forEach((styleEl) => {
+              try {
+                if (styleEl.innerHTML) {
+                  styleEl.innerHTML = styleEl.innerHTML.replace(/oklch\([^)]+\)/g, "#3b82f6");
+                  styleEl.innerHTML = styleEl.innerHTML.replace(/oklab\([^)]+\)/g, "#3b82f6");
+                }
+              } catch(e) {}
+            });
 
-            // 2. Inject a fresh, oklch-free minimal stylesheet for basic layout
-            const style = clonedDoc.createElement("style");
-            style.innerHTML = `
-              * { box-sizing: border-box; }
-              body, html { background: #000; margin: 0; padding: 0; }
-              .pitch-slide { 
-                position: relative; 
-                overflow: hidden; 
-                background: #18181b !important; 
-                display: flex !important;
-                flex-direction: column !important;
-                width: 1920px !important;
-                height: 1080px !important;
-              }
-              .flex { display: flex; }
-              .flex-col { flex-direction: column; }
-              .items-center { align-items: center; }
-              .justify-center { justify-content: center; }
-              .text-center { text-align: center; }
-              .pitch-slide * { border-color: rgba(255,255,255,0.1); }
-            `;
-            clonedDoc.head.appendChild(style);
+            // 2. Un-scale the slides so html2canvas captures them at native 1920x1080 resolution
+            clonedDoc.querySelectorAll(".pitch-slide").forEach((s: Element) => {
+              const slide = s as HTMLElement;
+              slide.style.transform = "none";
+              slide.style.marginBottom = "0px";
+              slide.style.width = "1920px";
+              slide.style.height = "1080px";
+              slide.style.overflow = "hidden";
+            });
 
             // 3. Fix any lingering oklch inline styles and simplify complex ones
             const elements = clonedDoc.querySelectorAll("*");
