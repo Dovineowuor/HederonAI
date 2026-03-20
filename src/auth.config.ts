@@ -6,6 +6,7 @@ const auth0Issuer = process.env.AUTH0_ISSUER ||
   (process.env.AUTH0_DOMAIN ? `https://${process.env.AUTH0_DOMAIN}` : undefined);
 
 const authConfig = {
+  secret: process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET || "fallback_secret_for_poc_only_do_not_use_in_prod",
   providers: [
     // Auth0 is Edge-compatible
     ...(process.env.AUTH0_CLIENT_ID && auth0Issuer && process.env.AUTH0_CLIENT_SECRET

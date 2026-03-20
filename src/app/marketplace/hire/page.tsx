@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { ArrowLeft, Send, Loader2, Coins, User } from "lucide-react";
@@ -11,7 +11,7 @@ type EscrowAgent = {
   priceHbar: number;
 };
 
-export default function HireAgentPage() {
+function HireAgentContent() {
   const { data: session } = useSession();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -145,5 +145,17 @@ export default function HireAgentPage() {
         </form>
       </div>
     </div>
+  );
+}
+
+export default function HireAgentPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <Loader2 className="animate-spin text-amber-500 w-8 h-8" />
+      </div>
+    }>
+      <HireAgentContent />
+    </Suspense>
   );
 }
