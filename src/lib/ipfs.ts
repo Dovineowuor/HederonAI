@@ -8,8 +8,8 @@ import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
 
-const isVercel = process.env.VERCEL === '1' || !!process.env.VERCEL_ENV;
-const MOCK_STORAGE_DIR = isVercel 
+const isProd = process.env.NODE_ENV === 'production';
+const MOCK_STORAGE_DIR = isProd 
   ? path.join("/tmp", "ipfs_mock") 
   : path.join(process.cwd(), ".data", "ipfs_mock");
 

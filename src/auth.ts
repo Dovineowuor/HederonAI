@@ -4,6 +4,7 @@ import authConfig from "./auth.config";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   ...authConfig,
+  secret: process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET || "fallback_secret_for_poc_only_do_not_use_in_prod",
   providers: [
     ...authConfig.providers,
     Credentials({
