@@ -621,12 +621,80 @@ export default function PitchDeckViewer() {
   // ----------------------------------------------------
   // RENDER
   // ----------------------------------------------------
+  
+  const [isMaximized, setIsMaximized] = useState(false);
+
+  // The actual slides rendered function to reuse inside and outside modal
+  const renderSlides = () => (
+    <div
+      className={`max-w-7xl mx-auto space-y-12 drop-shadow-2xl ${isMaximized ? "pb-32" : ""}`}
+      ref={deckRef}
+      onClick={() => !isMaximized && setIsMaximized(true)}
+      style={{ cursor: isMaximized ? "default" : "zoom-in" }}
+    >
+      {slides.map((slide, index) => (
+        <div
+          key={slide.id}
+          className="pitch-slide overflow-hidden relative border border-white/10 rounded-2xl mx-auto transition-transform hover:border-white/20"
+          style={{
+            width: "1920px",
+            height: "1080px",
+            transform: "scale(0.65)",
+            transformOrigin: "top center",
+            marginBottom: "-378px", 
+            background: COLORS.zinc900,
+          }}
+        >
+          {/* Background Decorators - Using fixed radial gradients */}
+          <div 
+            className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] rounded-full blur-[150px] pointer-events-none"
+            style={{ background: "rgba(59, 130, 246, 0.1)" }}
+          ></div>
+          <div 
+            className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] rounded-full blur-[150px] pointer-events-none"
+            style={{ background: "rgba(245, 158, 11, 0.1)" }}
+          ></div>
+
+          <div className="relative z-10 w-full h-full flex flex-col p-24">
+
+            {/* Slide Header */}
+            {index > 0 && index < slides.length - 1 && (
+              <div className="mb-16">
+                <h2 className="text-6xl font-bold tracking-tight mb-4 font-sans" style={{ color: "white" }}>
+                  {slide.title}
+                </h2>
+                <h3 className="text-3xl font-medium font-sans" style={{ color: COLORS.zinc400 }}>
+                  {slide.subtitle}
+                </h3>
+                <div className="w-24 h-1.5 mt-8 rounded-full" style={{ background: `linear-gradient(to right, ${COLORS.amber}, ${COLORS.orange})` }}></div>
+              </div>
+            )}
+
+            {/* Slide Content */}
+            <div className="flex-grow">
+              {slide.content}
+            </div>
+
+            {/* Slide Footer */}
+            <div className="mt-auto flex justify-between items-center font-mono text-lg" style={{ color: COLORS.zinc500 }}>
+              <div className="flex items-center gap-4">
+                <span className="font-bold" style={{ color: "rgba(245, 158, 11, 0.5)" }}>EXECUAI</span>
+                <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: COLORS.zinc800 }}></span>
+                <span>CONFIDENTIAL</span>
+              </div>
+              <div>SLIDE {index + 1} / {slides.length}</div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
 
   return (
     <div className="min-h-screen bg-black text-white p-8 pb-32 font-sans selection:bg-amber-500/30">
 
       {/* Header & Controls */}
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center mb-10 gap-6">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center mb-10 gap-6 relative z-10">
         <div>
           <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-zinc-500 font-sans">
             ExecuAI Pitch Deck
@@ -636,27 +704,26 @@ export default function PitchDeckViewer() {
 
         <div className="flex gap-4">
           <button
+            onClick={() => setIsMaximized(true)}
+            className="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/20 bg-white/5 hover:bg-white/10 transition font-medium font-sans"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" /></svg>
+            Fullscreen
+          </button>
+          
+          <button
             onClick={exportToPDF}
             disabled={isExporting}
             className="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/20 bg-white/5 hover:bg-white/10 transition disabled:opacity-50 disabled:cursor-not-allowed font-medium font-sans"
           >
             {isExporting ? <span className="animate-spin text-xl">⚪</span> : "📄"}
-            Download PDF
-          </button>
-
-          <button
-            onClick={exportToPPTX}
-            disabled={isExporting}
-            className="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-orange-500/30 bg-orange-500/10 hover:bg-orange-500/20 text-orange-400 transition disabled:opacity-50 disabled:cursor-not-allowed font-medium font-sans"
-          >
-            {isExporting ? <span className="animate-spin text-xl">⚪</span> : "📊"}
-            Download PPTX
+            Export PDF
           </button>
         </div>
       </div>
 
       {isExporting && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
+        <div className="fixed inset-0 z-[200] flex items-center justify-center bg-black/80 backdrop-blur-sm">
           <div className="text-center p-8 rounded-2xl glass border border-white/10">
             <div className="text-4xl animate-bounce mb-4">🚀</div>
             <h2 className="text-2xl font-bold text-white mb-2 font-sans">Rendering Deck...</h2>
@@ -665,67 +732,28 @@ export default function PitchDeckViewer() {
         </div>
       )}
 
-      {/* Presentation Wrapper */}
-      <div
-        className="max-w-7xl mx-auto space-y-12 drop-shadow-2xl"
-        ref={deckRef}
-      >
-        {slides.map((slide, index) => (
-          <div
-            key={slide.id}
-            className="pitch-slide overflow-hidden relative border border-white/10 rounded-2xl mx-auto"
-            style={{
-              width: "1920px",
-              height: "1080px",
-              transform: "scale(0.65)",
-              transformOrigin: "top center",
-              marginBottom: "-378px", 
-              background: COLORS.zinc900,
-            }}
-          >
-            {/* Background Decorators - Using fixed radial gradients */}
-            <div 
-              className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] rounded-full blur-[150px] pointer-events-none"
-              style={{ background: "rgba(59, 130, 246, 0.1)" }}
-            ></div>
-            <div 
-              className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] rounded-full blur-[150px] pointer-events-none"
-              style={{ background: "rgba(245, 158, 11, 0.1)" }}
-            ></div>
+      {/* Normal View Presentation Wrapper */}
+      {!isMaximized && renderSlides()}
 
-            <div className="relative z-10 w-full h-full flex flex-col p-24">
+      {/* Fullscreen Modal View */}
+      {isMaximized && (
+        <div className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-2xl overflow-y-auto w-screen h-screen">
+           <div className="sticky top-0 z-[110] p-6 flex justify-end bg-gradient-to-b from-black/80 to-transparent pointer-events-none">
+             <button 
+               onClick={() => setIsMaximized(false)}
+               className="pointer-events-auto flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white px-6 py-3 rounded-full border border-white/20 transition-all shadow-2xl backdrop-blur-md"
+             >
+               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+               Minimize
+             </button>
+           </div>
+           
+           <div className="pt-4 pb-32 animate-in fade-in zoom-in-95 duration-300">
+             {renderSlides()}
+           </div>
+        </div>
+      )}
 
-              {/* Slide Header */}
-              {index > 0 && index < slides.length - 1 && (
-                <div className="mb-16">
-                  <h2 className="text-6xl font-bold tracking-tight mb-4 font-sans" style={{ color: "white" }}>
-                    {slide.title}
-                  </h2>
-                  <h3 className="text-3xl font-medium font-sans" style={{ color: COLORS.zinc400 }}>
-                    {slide.subtitle}
-                  </h3>
-                  <div className="w-24 h-1.5 mt-8 rounded-full" style={{ background: `linear-gradient(to right, ${COLORS.amber}, ${COLORS.orange})` }}></div>
-                </div>
-              )}
-
-              {/* Slide Content */}
-              <div className="flex-grow">
-                {slide.content}
-              </div>
-
-              {/* Slide Footer */}
-              <div className="mt-auto flex justify-between items-center font-mono text-lg" style={{ color: COLORS.zinc500 }}>
-                <div className="flex items-center gap-4">
-                  <span className="font-bold" style={{ color: "rgba(245, 158, 11, 0.5)" }}>EXECUAI</span>
-                  <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: COLORS.zinc800 }}></span>
-                  <span>CONFIDENTIAL</span>
-                </div>
-                <div>SLIDE {index + 1} / {slides.length}</div>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
     </div>
   );
 }
