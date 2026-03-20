@@ -374,7 +374,7 @@ export default function PitchDeckViewer() {
               className="p-10 rounded-3xl border font-sans"
               style={{ backgroundColor: "rgba(59, 130, 246, 0.05)", borderColor: "rgba(255, 255, 255, 0.1)" }}
             >
-              <div className="text-5xl font-bold mb-6 tracking-tight font-sans" style={{ color: "white" }}>$XXXB</div>
+              <div className="text-5xl font-bold mb-6 tracking-tight font-sans" style={{ color: "white" }}>$53B</div>
               <div className="text-2xl font-bold mb-4 font-sans" style={{ color: COLORS.blueLight }}>AI Agent Market (2030)</div>
               <p className="text-xl leading-relaxed font-sans" style={{ color: COLORS.zinc400 }}>The shift from "AI Tools" to "AI Employees" is the largest economic transition in history.</p>
             </div>
