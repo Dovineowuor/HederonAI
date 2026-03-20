@@ -40,5 +40,11 @@
     "eslint-config-next": "16.2.0",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "overrides": {
+    "undici": "^6.21.0",
+    "nanoid": "^3.3.8",
+    "elliptic": "^6.6.1",
+    "parse-duration": "^1.1.0"
   }
 }

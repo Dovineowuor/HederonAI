@@ -38,5 +38,6 @@
     "decentralized"
   ],
   "author": "ExecuAI Team",
-  "license": "MIT"
+  "license": "MIT",
+  "overrides": {}
 }
