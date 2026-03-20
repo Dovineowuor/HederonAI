@@ -8,7 +8,10 @@ import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
 
-const MOCK_STORAGE_DIR = path.join(process.cwd(), ".data", "ipfs_mock");
+const isVercel = process.env.VERCEL === '1' || !!process.env.VERCEL_ENV;
+const MOCK_STORAGE_DIR = isVercel 
+  ? path.join("/tmp", "ipfs_mock") 
+  : path.join(process.cwd(), ".data", "ipfs_mock");
 
 function ensureMockDir() {
   if (!fs.existsSync(MOCK_STORAGE_DIR)) {
