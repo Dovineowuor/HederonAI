@@ -65,7 +65,7 @@ export async function GET(
               type: "directory",
               files: files.map(f => ({
                   name: f,
-                  url: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/ipfs/${cid}/${f}`
+                  url: `${process.env.NEXT_PUBLIC_APP_URL || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000")}/api/ipfs/${cid}/${f}`
               }))
           });
       }

@@ -2,7 +2,7 @@
 
 const IPFS_GATEWAY = process.env.IPFS_GATEWAY_URL ?? "https://ipfs.io";
 const IPFS_LOCAL_API = process.env.IPFS_API_URL ?? "http://localhost:5001/api";
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
+const APP_URL = process.env.NEXT_PUBLIC_APP_URL || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
 
 import fs from 'fs';
 import path from 'path';
