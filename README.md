@@ -43,13 +43,16 @@ Hederon AI provides a **coordinated AI executive team** that:
 
 ---
 
-## 🏗️ Tech Stack
+## 🏗️ Tech Stack & Architecture
 
-- **Frontend:** Next.js 16 (App Router), React 19, TypeScript
-- **Styling:** TailwindCSS 4, Framer Motion
-- **Database:** SQLite with IPFS-backed persistence
-- **Blockchain:** Hedera SDK (HCS + HTS)
-- **Auth:** Auth.js (NextAuth) with Multi-Wallet Roadmap
+- **Frontend Application:** Next.js 16 (App Router), React 19, TypeScript
+- **Styling & UI:** TailwindCSS 4, Framer Motion (Glassmorphism & Micro-animations)
+- **Identity & Auth:** Auth.js (NextAuth v5) supporting Web3 Wallets, Auth0 SSO, and Credentials
+- **Data Persistence:** SQLite (`better-sqlite3`) for high-speed local caching
+- **Decentralized Storage:** IPFS for immutable backups of agent deliverables and project bundles
+- **Blockchain Infrastructure:** Hedera SDK natively integrated
+  - **HCS:** Immutable logging of agent decisions and execution handshakes
+  - **HTS:** Micro-settlements and 70/30 fee distribution for the Creator Economy
 
 ---
 
@@ -94,7 +97,7 @@ npm run build
 
 ## 🎥 Demo
 
-- **Live Demo:** [https://hederon-ai-demo.vercel.app](https://hederon-ai-demo.vercel.app)
+- **Live Demo:** [https://hederonai.dovetecenterprises.site/](https://hederonai.dovetecenterprises.site/)
 - **Demo Video:** [https://youtu.be/demo-video-link](https://youtu.be/demo-video-link)
 
 ---
