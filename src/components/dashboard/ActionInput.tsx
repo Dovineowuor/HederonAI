@@ -25,7 +25,7 @@ export default function ActionInput({
   return (
     <div className="space-y-6">
       {/* Mode Switcher */}
-      <div className="flex p-1.5 glass bg-white/[0.03] border-white/[0.08] rounded-2xl w-fit">
+      <div className="flex p-1.5 glass bg-white/[0.03] border-white/[0.08] rounded-2xl w-full sm:w-fit">
         <button
           onClick={() => setMode("goal")}
           className={cn(

@@ -585,7 +585,7 @@ export default function PitchDeckViewer() {
   );
 
   return (
-    <div className="min-h-screen bg-black text-white p-8 pb-32 font-sans selection:bg-amber-500/30">
+    <div className="min-h-screen bg-black text-white p-4 sm:p-8 pb-32 font-sans selection:bg-amber-500/30">
 
       {/* Header & Controls */}
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center mb-10 gap-6 relative z-10">
@@ -626,7 +626,10 @@ export default function PitchDeckViewer() {
         </div>
       )}
 
-      {/* Normal View Presentation Wrapper */}
+      {/* Slide deck: scale-down on desktop, horizontal scroll on mobile */}
+      {!isMaximized && (
+        <p className="text-zinc-600 text-xs text-center mb-4 sm:hidden">👆 Tap deck to fullscreen • scroll to browse</p>
+      )}
       {!isMaximized && renderSlides()}
 
       {/* Fullscreen Modal View */}

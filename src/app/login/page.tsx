@@ -94,7 +94,7 @@ function LoginContent() {
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-600 mb-6 shadow-xl shadow-amber-500/20">
             <Fingerprint className="w-8 h-8 text-black" />
           </div>
-          <h1 className="text-3xl font-bold mb-2 tracking-tight italic">Execu<span className="text-amber-500">AI</span></h1>
+          <h1 className="text-3xl font-bold mb-2 tracking-tight italic">Hederon<span className="text-amber-500"> AI</span></h1>
           <p className="text-zinc-500 text-sm">Autonomous Intelligence. Handshake Guaranteed.</p>
         </div>
 
@@ -160,7 +160,7 @@ function LoginContent() {
                   onClick={() => setIsSignUp(!isSignUp)}
                   className="w-full text-zinc-500 hover:text-zinc-300 text-xs font-medium py-1"
                 >
-                  {isSignUp ? "Already have an account? Sign in" : "New to ExecuAI? Create an account"}
+                  {isSignUp ? "Already have an account? Sign in" : "New to Hederon AI? Create an account"}
                 </button>
               </form>
             ) : (

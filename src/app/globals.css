@@ -111,3 +111,13 @@
     100% { background-position: 200% 0; }
   }
 }
+
+/* Utility: hide scrollbar while keeping scroll functionality */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+

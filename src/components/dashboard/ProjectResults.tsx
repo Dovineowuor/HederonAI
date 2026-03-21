@@ -49,8 +49,8 @@ export default function ProjectResults({
         </div>
       </div>
 
-      {/* Internal Tabs */}
-      <div className="flex gap-1.5 p-1.5 glass bg-white/[0.03] rounded-2xl w-fit">
+      {/* Internal Tabs - scrollable on mobile */}
+      <div className="flex gap-1.5 p-1.5 glass bg-white/[0.03] rounded-2xl overflow-x-auto no-scrollbar">
         {[
           { id: "agents" as const, label: mode === "goal" ? "Agent Swarm" : "Solutions", icon: Layers },
           { id: "deliverables" as const, label: "Deliverables", icon: Download },
@@ -119,7 +119,7 @@ export default function ProjectResults({
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.05 }}
-                  className="glass rounded-3xl p-6 border-white/[0.08] hover:bg-white/[0.04] transition-all flex items-center justify-between group"
+                  className="glass rounded-3xl p-4 sm:p-6 border-white/[0.08] hover:bg-white/[0.04] transition-all flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 group"
                 >
                   <div className="flex items-center gap-5">
                     <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-500/10 to-blue-500/5 flex items-center justify-center border border-white/[0.05] group-hover:scale-110 transition-transform">

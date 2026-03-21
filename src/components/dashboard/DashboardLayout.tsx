@@ -9,8 +9,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       {/* Fixed Sidebar */}
       <Sidebar />
 
-      {/* Main Content Area */}
-      <main className="flex-1 ml-64 min-h-screen relative overflow-x-hidden">
+      {/* Main Content Area — no margin on mobile (sidebar is overlay), md:ml-64 for fixed sidebar */}
+      <main className="flex-1 ml-0 md:ml-64 min-h-screen relative overflow-x-hidden transition-[margin] duration-300">
         {/* Animated Background Orbs (Moved to layout for consistency) */}
         <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
           <div className="absolute -top-40 -left-40 w-[600px] h-[600px] bg-violet-600/10 rounded-full blur-[120px] opacity-40" />
@@ -19,7 +19,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         </div>
 
         {/* Page Content */}
-        <div className="relative z-10 p-8 max-w-6xl mx-auto min-h-screen flex flex-col">
+        <div className="relative z-10 p-4 sm:p-6 lg:p-8 max-w-6xl mx-auto min-h-screen flex flex-col">
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -32,7 +32,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           {/* Minimal Footer */}
           <footer className="mt-20 py-8 border-t border-white/[0.05] text-center">
             <p className="text-zinc-600 text-[10px] uppercase font-bold tracking-widest">
-              Powered by <span className="text-violet-500/80">OpenAI</span> • <span className="text-emerald-500/80">Hedera</span> • <span className="text-blue-500/80">Vercel</span>
+              Powered by <span className="text-violet-500/80">OpenAI</span> • <span className="text-emerald-500/80">Hedera</span> • <span className="text-blue-500/80">Vercel</span> • <span className="text-zinc-500/80">Hederon AI</span>
             </p>
           </footer>
         </div>

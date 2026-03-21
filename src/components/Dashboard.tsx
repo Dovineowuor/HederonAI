@@ -145,7 +145,7 @@ export default function Dashboard() {
             >
               <div className="absolute inset-0 bg-gradient-to-r from-violet-500/5 via-blue-500/5 to-emerald-500/5 animate-pulse" />
               <div className="relative z-10 flex flex-col items-center gap-6">
-                 <div className="flex items-center gap-4">
+                 <div className="flex flex-wrap items-center justify-center gap-3">
                     {["CEO", "Strategy", "Marketing", "Operations"].map((role, i) => (
                        <motion.div
                           key={role}
