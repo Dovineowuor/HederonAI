@@ -21,7 +21,6 @@ import { useSession, signOut } from "next-auth/react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import Image from "next/image";
 
 const NAV_ITEMS = [
   { icon: LayoutDashboard, label: "Dashboard", href: "/" },
@@ -60,8 +59,8 @@ export default function Sidebar() {
       {/* Header: Logo + Collapse Toggle */}
       <div className={cn("flex items-center p-4 gap-3 border-b border-white/[0.05]", collapsed && !isMobile ? "justify-center" : "justify-between")}>
         <Link href="/" className="flex items-center gap-3 group min-w-0">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-violet-500 to-blue-500 flex items-center justify-center shadow-lg shadow-violet-500/20 group-hover:scale-105 transition-transform shrink-0 overflow-hidden">
-            <Image src="/logo.png" alt="Hederon AI" width={36} height={36} className="object-contain" />
+          <div className="w-9 h-9 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform shrink-0 overflow-hidden">
+            <img src="/logo.png" alt="Hederon AI" className="w-full h-full object-contain" />
           </div>
           <AnimatePresence initial={false}>
             {(!collapsed || isMobile) && (
