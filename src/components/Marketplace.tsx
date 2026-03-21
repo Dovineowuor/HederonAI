@@ -14,6 +14,7 @@ type EscrowAgent = {
   priceHbar: number;
   rating: number;
   hires: number;
+  isSystem?: boolean;
 };
 
 export default function Marketplace() {
@@ -78,9 +79,21 @@ export default function Marketplace() {
               </div>
               <div className="text-right">
                 <div className="text-sm font-mono text-zinc-400">{agent.category}</div>
-                <div className="text-amber-400 font-bold mt-1 text-sm flex items-center justify-end gap-1">
-                  <Star className="w-3 h-3 fill-current" /> {agent.rating || "New"}
+                <div className="flex items-center justify-end gap-2 mb-1">
+                  {agent.isSystem && (
+                    <span className="flex items-center gap-1 bg-emerald-500/10 text-emerald-400 text-[10px] font-black uppercase px-2 py-0.5 rounded-full border border-emerald-500/20">
+                      <ShieldCheck className="w-2.5 h-2.5" /> Verified
+                    </span>
+                  )}
+                  <div className="text-amber-400 font-bold text-sm flex items-center gap-1">
+                    <Star className="w-3 h-3 fill-current" /> {agent.rating || "New"}
+                  </div>
                 </div>
+                {!agent.isSystem && (
+                  <div className="text-[10px] text-zinc-500 font-mono truncate max-w-[120px]" title={agent.creator}>
+                    By {agent.creator.length > 15 ? `${agent.creator.slice(0, 10)}...` : agent.creator}
+                  </div>
+                )}
               </div>
             </div>
             <h3 className="text-xl font-bold text-white mb-2">{agent.name}</h3>

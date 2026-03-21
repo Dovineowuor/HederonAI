@@ -87,11 +87,17 @@ contract AgentMarketplace {
         job.isCompleted = true;
         Agent storage agent = agents[job.agentId];
 
-        // Release funds
-        (bool success, ) = agent.creator.call{value: job.escrowAmount}("");
-        require(success, "Payout failed");
+        // 70/30 Fee Split Implementation
+        uint256 creatorShare = (job.escrowAmount * 70) / 100;
+        uint256 platformShare = job.escrowAmount - creatorShare;
 
-        emit JobCompleted(_jobId, job.agentId, job.escrowAmount);
+        // Release funds to creator
+        (bool success, ) = agent.creator.call{value: creatorShare}("");
+        require(success, "Creator payout failed");
+
+        // Platform share is held in contract or could be sent to a treasury address
+        
+        emit JobCompleted(_jobId, job.agentId, creatorShare);
     }
 
     /**

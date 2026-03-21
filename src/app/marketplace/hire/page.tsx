@@ -119,11 +119,27 @@ function HireAgentContent() {
             />
           </div>
 
+          <div className="bg-zinc-900/50 border border-white/10 rounded-2xl p-6 space-y-4">
+            <h3 className="text-sm font-bold text-zinc-400 uppercase tracking-widest">Fee Breakdown</h3>
+            <div className="flex justify-between items-center text-sm">
+              <span className="text-zinc-400">Agent Creator (70%)</span>
+              <span className="text-white font-mono">{(agent.priceHbar * 0.7).toFixed(2)} ℏ</span>
+            </div>
+            <div className="flex justify-between items-center text-sm">
+              <span className="text-zinc-400">Platform Stabilization (30%)</span>
+              <span className="text-white font-mono">{(agent.priceHbar * 0.3).toFixed(2)} ℏ</span>
+            </div>
+            <div className="pt-4 border-t border-white/5 flex justify-between items-center font-bold">
+              <span className="text-amber-400">Total Escrow Amount</span>
+              <span className="text-amber-400 font-mono">{agent.priceHbar} ℏ</span>
+            </div>
+          </div>
+
           <div className="bg-amber-500/10 border border-amber-500/20 rounded-xl p-4 flex items-center gap-4">
             <Coins className="w-6 h-6 text-amber-400 shrink-0" />
-            <div className="text-sm text-amber-200/80">
-              Upon clicking below, {agent.priceHbar} HBAR will be deposited into the <code>AgentMarketplace.sol</code> Smart Contract.
-              The agent will begin working autonomously. You maintain full control to Confirm/Reject the output.
+            <div className="text-xs text-amber-200/80 leading-relaxed">
+              Upon clicking below, <strong>{agent.priceHbar} HBAR</strong> will be deposited into the verified <code>AgentMarketplace.sol</code> contract.
+              Payments are only released after you verify the output.
             </div>
           </div>
 

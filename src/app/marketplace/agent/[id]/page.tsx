@@ -15,6 +15,7 @@ type EscrowAgent = {
   rating: number;
   reviewCount: number;
   hires: number;
+  isSystem?: boolean;
 };
 
 type EscrowJob = {
@@ -84,8 +85,8 @@ export default function AgentProfilePage() {
         <div className="glass rounded-3xl p-8 mb-12 border border-white/10 flex flex-col md:flex-row gap-8 items-start md:items-center relative overflow-hidden">
           <div className="absolute -right-20 -top-20 w-64 h-64 bg-amber-500/10 rounded-full blur-[80px]"></div>
           
-          <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-600 flex items-center justify-center shrink-0 shadow-xl shadow-amber-500/20 border-2 border-amber-300">
-            <span className="text-4xl">🤖</span>
+          <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-600 flex items-center justify-center shrink-0 shadow-xl shadow-amber-500/20 border-2 border-amber-300 group overflow-hidden">
+            <img src="/logo.png" alt="Agent" className="w-16 h-16 object-contain group-hover:scale-110 transition-transform" />
           </div>
           
           <div className="flex-1">
@@ -93,7 +94,15 @@ export default function AgentProfilePage() {
               <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-zinc-400">
                 {agent.name}
               </h1>
-              <ShieldCheck className="w-6 h-6 text-emerald-400" />
+              {agent.isSystem ? (
+                 <span className="flex items-center gap-1.5 bg-emerald-500/10 text-emerald-400 text-xs font-black uppercase px-3 py-1 rounded-full border border-emerald-500/20">
+                    <ShieldCheck className="w-4 h-4" /> Verified System Agent
+                 </span>
+              ) : (
+                <span className="flex items-center gap-1.5 bg-amber-500/10 text-amber-400 text-xs font-black uppercase px-3 py-1 rounded-full border border-amber-500/20">
+                   <Briefcase className="w-4 h-4" /> Creator Agent
+                </span>
+              )}
             </div>
             <div className="text-zinc-400 font-mono text-sm mb-4">Contract ID: {agent.id} • Creator: {agent.creator}</div>
             <p className="text-lg text-zinc-300 max-w-2xl leading-relaxed">
@@ -110,10 +119,17 @@ export default function AgentProfilePage() {
             <div className="text-zinc-300 font-medium mb-4">{agent.hires} Successful Contracts</div>
             <button
               onClick={() => router.push(`/marketplace/hire?agentId=${agent.id}`)}
-              className="w-full bg-emerald-500 hover:bg-emerald-600 text-black font-bold py-3 rounded-xl transition-colors shadow-lg shadow-emerald-500/20"
+              className="w-full bg-emerald-500 hover:bg-emerald-600 text-black font-bold py-4 rounded-xl transition-all shadow-lg shadow-emerald-500/20 active:scale-95 flex flex-col items-center justify-center"
             >
-              Hire for {agent.priceHbar} ℏ
+              <div className="text-lg">Hire for {agent.priceHbar} ℏ</div>
+              <div className="text-[10px] uppercase tracking-widest opacity-60">Instant HTS Settlement</div>
             </button>
+            {!agent.isSystem && (
+              <div className="mt-3 text-[10px] text-zinc-500 text-center leading-tight">
+                70% of fees go directly to creator<br/>
+                30% platform stabilization fee
+              </div>
+            )}
           </div>
         </div>
 
@@ -122,7 +138,9 @@ export default function AgentProfilePage() {
           <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
             <History className="w-6 h-6 text-indigo-400" />
             Verifiable Job History
-            <span className="text-sm font-normal text-zinc-500 ml-2">(Last 12 Completed Handshakes)</span>
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] bg-indigo-500/10 text-indigo-400 px-3 py-1 rounded-full border border-indigo-500/20 ml-3">
+              Last 12 Completed Handshakes
+            </span>
           </h2>
 
           {recentJobs.length === 0 ? (
@@ -137,22 +155,24 @@ export default function AgentProfilePage() {
                     className="p-5 flex justify-between items-center cursor-pointer hover:bg-zinc-800/50 transition"
                     onClick={() => setExpandedJob(expandedJob === job.id ? null : job.id)}
                   >
-                    <div className="flex items-center gap-4">
-                      <div className="w-10 h-10 rounded-full bg-emerald-500/10 flex items-center justify-center">
-                        <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+                    <div className="flex items-center gap-5">
+                      <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-teal-500/5 flex items-center justify-center border border-emerald-500/20 relative group-hover:scale-110 transition-transform">
+                        <CheckCircle2 className="w-6 h-6 text-emerald-400" />
+                        <div className="absolute -top-1 -right-1 w-3 h-3 bg-emerald-500 rounded-full blur-[4px] animate-pulse"></div>
                       </div>
-                      <div>
-                        <div className="flex items-center gap-2 mb-1">
-                          <div className="font-mono text-[10px] text-zinc-500">{job.id} • {new Date(job.completedAt || "").toLocaleDateString()}</div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 mb-1.5 flex-wrap">
+                          <div className="font-mono text-[10px] text-zinc-500 bg-white/5 px-2 py-0.5 rounded border border-white/5">{job.id}</div>
+                          <div className="text-[10px] text-zinc-600 font-bold uppercase tracking-tighter Otros">{new Date(job.completedAt || "").toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}</div>
                           {job.clientId && (
-                            <div className="flex items-center gap-1 bg-indigo-500/10 text-indigo-400 text-[9px] px-1.5 py-0.5 rounded-full border border-indigo-500/20 font-bold uppercase tracking-tighter">
-                              <ShieldCheck className="w-2 h-2" />
-                              Client: {job.clientId.includes('0.0.') ? job.clientId : job.clientId.substring(0, 10) + '...'}
+                            <div className="flex items-center gap-1 bg-indigo-500/10 text-indigo-400 text-[9px] px-2 py-0.5 rounded-full border border-indigo-500/20 font-black uppercase tracking-widest">
+                              <ShieldCheck className="w-2.5 h-2.5" />
+                              Client: {job.clientId.includes('0.0.') ? job.clientId : job.clientId.substring(0, 8) + '...'}
                             </div>
                           )}
                         </div>
-                        <div className="font-medium text-white truncate max-w-sm md:max-w-xl">
-                          {job.clientInstruction}
+                        <div className="font-bold text-white group-hover:text-amber-400 transition-colors truncate max-w-sm md:max-w-xl text-sm italic">
+                          "{job.clientInstruction}"
                         </div>
                       </div>
                     </div>

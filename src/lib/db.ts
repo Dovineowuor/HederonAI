@@ -17,6 +17,8 @@ export type EscrowAgent = {
   rating: number;
   reviewCount: number;
   hires: number;
+  systemPrompt?: string; // New: For user-created agents
+  isSystem?: boolean;    // New: True for built-in agents
 };
 
 export type JobStatus = "escrowed" | "working" | "awaiting_handshake" | "completed" | "refunded";
@@ -113,6 +115,32 @@ const INITIAL_JOBS: EscrowJob[] = [
     createdAt: new Date(Date.now() - 86400000 * 10).toISOString(),
     completedAt: new Date(Date.now() - 86400000 * 9.9).toISOString(),
   },
+  {
+    id: "job-sed4",
+    agentId: "agt-104",
+    clientInstruction: "Create a minimalist brand identity for a Hedera-based DEX.",
+    escrowAmountHbar: 10.0,
+    status: "completed",
+    output: "## Brand Identity: Hederaswap\n\n- **Primary Color**: Deep Emerald (#00F58C)\n- **Typography**: Space Grotesk (Bold for headers)\n- **Logo Concept**: Stylized 'H' integrated with a swap arrow.",
+    rating: 4,
+    cid: "QmWV29YpizjW3WknFiJnKLwHCnL72vedxjQkDDP1mXWo6uco",
+    txHash: "0.0.22341@1731604123.189123000",
+    createdAt: new Date(Date.now() - 86400000 * 3).toISOString(),
+    completedAt: new Date(Date.now() - 86400000 * 2.8).toISOString(),
+  },
+  {
+    id: "job-sed5",
+    agentId: "agt-101",
+    clientInstruction: "Design a referral program for a Web3 gaming platform.",
+    escrowAmountHbar: 15.5,
+    status: "completed",
+    output: "## Web3 Gaming Referral Program\n\n- **Structure**: 2-tier rewards (referrer + referred).\n- **Tokens**: Distribution of platform-native HTS tokens upon achieving Level 5.\n- **Social Proof**: Real-time ticker of successful referrals on dashboard.",
+    rating: 5,
+    cid: "QmPXoypizjW3WknFiJnKLwHCnL72vedxjQkDDP1mXWo6uco",
+    txHash: "0.0.55123@1731604123.189123000",
+    createdAt: new Date(Date.now() - 86400000 * 1).toISOString(),
+    completedAt: new Date(Date.now() - 86400000 * 0.9).toISOString(),
+  },
 ];
 
 // --- SQLite setup ---
@@ -142,6 +170,8 @@ function getDb(): Database.Database {
       description TEXT NOT NULL,
       category    TEXT NOT NULL,
       priceHbar   REAL NOT NULL DEFAULT 0,
+      systemPrompt TEXT,
+      isSystem    INTEGER DEFAULT 0, -- 1 for True, 0 for False
       createdAt   TEXT NOT NULL DEFAULT (datetime('now'))
     );
 
@@ -168,11 +198,20 @@ function getDb(): Database.Database {
     );
   `);
 
+  // Migration: Add columns to agents if they don't exist
+  const columns = db.prepare("PRAGMA table_info(agents)").all() as { name: string }[];
+  if (!columns.some(c => c.name === "systemPrompt")) {
+    db.exec("ALTER TABLE agents ADD COLUMN systemPrompt TEXT;");
+  }
+  if (!columns.some(c => c.name === "isSystem")) {
+    db.exec("ALTER TABLE agents ADD COLUMN isSystem INTEGER DEFAULT 0;");
+  }
+
   // Seed initial data if tables are empty
   const agentCount = (db.prepare("SELECT COUNT(*) as c FROM agents").get() as { c: number }).c;
   if (agentCount === 0) {
     const insertAgent = db.prepare(
-      "INSERT OR IGNORE INTO agents (id, name, creator, description, category, priceHbar) VALUES (?, ?, ?, ?, ?, ?)"
+      "INSERT OR IGNORE INTO agents (id, name, creator, description, category, priceHbar, isSystem) VALUES (?, ?, ?, ?, ?, ?, 1)"
     );
     const insertJob = db.prepare(
       `INSERT OR IGNORE INTO jobs (id, agentId, clientInstruction, escrowAmountHbar, status, output, cid, rating, txHash, clientId, createdAt, completedAt)
@@ -233,15 +272,60 @@ export function getAgents(): EscrowAgent[] {
   const db = getDb();
   const raw = db.prepare("SELECT * FROM agents").all() as Omit<EscrowAgent, "rating" | "reviewCount" | "hires">[];
   return raw
-    .map((a) => enrichAgent(a, db))
+    .map((a) => ({ ...enrichAgent(a, db), isSystem: !!a.isSystem }))
     .sort((a, b) => b.rating - a.rating || b.hires - a.hires);
+}
+
+export function createAgent(
+  name: string,
+  creator: string,
+  description: string,
+  category: AgentCategory,
+  priceHbar: number,
+  systemPrompt: string
+): EscrowAgent {
+  const db = getDb();
+  const id = "agt-" + crypto.randomUUID().slice(0, 8);
+  
+  db.prepare(
+    "INSERT INTO agents (id, name, creator, description, category, priceHbar, systemPrompt, isSystem) VALUES (?, ?, ?, ?, ?, ?, ?, 0)"
+  ).run(id, name, creator, description, category, priceHbar, systemPrompt);
+
+  triggerSnapshot();
+  return getAgent(id)!;
 }
 
 export function getAgent(id: string): EscrowAgent | undefined {
   const db = getDb();
   const raw = db.prepare("SELECT * FROM agents WHERE id = ?").get(id) as Omit<EscrowAgent, "rating" | "reviewCount" | "hires"> | undefined;
   if (!raw) return undefined;
-  return enrichAgent(raw, db);
+  return { ...enrichAgent(raw, db), isSystem: !!raw.isSystem };
+}
+
+export function getAgentsByCreator(creator: string): EscrowAgent[] {
+  const db = getDb();
+  const raw = db.prepare("SELECT * FROM agents WHERE creator = ?").all(creator) as Omit<EscrowAgent, "rating" | "reviewCount" | "hires">[];
+  return raw.map((a) => ({ ...enrichAgent(a, db), isSystem: !!a.isSystem }));
+}
+
+export function getCreatorEarnings(creator: string): { totalHBAR: number, activeAgents: number } {
+  const db = getDb();
+  const agents = db.prepare("SELECT id FROM agents WHERE creator = ?").all(creator) as { id: string }[];
+  const agentIds = agents.map(a => a.id);
+  
+  if (agentIds.length === 0) return { totalHBAR: 0, activeAgents: 0 };
+
+  const placeholders = agentIds.map(() => "?").join(",");
+  const completedJobs = db.prepare(
+    `SELECT escrowAmountHbar FROM jobs WHERE agentId IN (${placeholders}) AND status = 'completed'`
+  ).all(...agentIds) as { escrowAmountHbar: number }[];
+
+  const totalHBAR = completedJobs.reduce((acc, j) => acc + (j.escrowAmountHbar * 0.7), 0);
+  
+  return { 
+    totalHBAR: Number(totalHBAR.toFixed(2)), 
+    activeAgents: agentIds.length 
+  };
 }
 
 export function getJobs(): EscrowJob[] {

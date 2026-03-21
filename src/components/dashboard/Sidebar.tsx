@@ -15,7 +15,8 @@ import {
   ChevronRight,
   ChevronLeft,
   Menu,
-  X
+  X,
+  Sparkles
 } from "lucide-react";
 import { useSession, signOut } from "next-auth/react";
 import { cn } from "@/lib/utils";
@@ -25,6 +26,7 @@ import { usePathname } from "next/navigation";
 const NAV_ITEMS = [
   { icon: LayoutDashboard, label: "Dashboard", href: "/" },
   { icon: ShoppingCart, label: "Marketplace", href: "/marketplace" },
+  { icon: Sparkles, label: "Creator Studio", href: "/creator/dashboard" },
   { icon: ClipboardList, label: "My Contracts", href: "/marketplace/my-jobs" },
   { icon: Presentation, label: "Pitch Deck", href: "/pitchdeck" },
 ];
