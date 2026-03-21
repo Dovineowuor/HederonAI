@@ -8,7 +8,11 @@ import { Wallet, Shield, Globe, Lock, ArrowRight, Loader2, Mail, UserPlus, Finge
 function LoginContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams?.get("callbackUrl") || "/marketplace";
+  const rawCallbackUrl = searchParams?.get("callbackUrl") || "/marketplace";
+  // Ensure callbackUrl is always relative to prevent localhost redirection issues in prod
+  const callbackUrl = rawCallbackUrl.startsWith("http") 
+    ? new URL(rawCallbackUrl).pathname 
+    : rawCallbackUrl;
   
   const [loading, setLoading] = useState<string | null>(null);
   const [authMethod, setAuthMethod] = useState<"credentials" | "wallet">("credentials");
