@@ -11,6 +11,33 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   ...authConfig,
   trustHost: true,
   secret: process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET || "fallback_secret_for_poc_only_do_not_use_in_prod",
+  callbacks: {
+    ...authConfig.callbacks,
+    async signIn({ user, account }) {
+      if (account?.provider === "auth0" && user?.email) {
+        const { getUserByEmail, createUser } = await import("./lib/db");
+        let dbUser = getUserByEmail(user.email);
+        
+        if (!dbUser) {
+          const { provisionNewAccount } = await import("./lib/hedera");
+          const wallet = await provisionNewAccount(5);
+          createUser(
+            user.email,
+            user.name || "Social User",
+            "OAUTH_LOGIN_" + Date.now(),
+            wallet?.accountId,
+            wallet?.privateKey
+          );
+          dbUser = getUserByEmail(user.email);
+        }
+        
+        if (dbUser?.hederaAccountId) {
+          (user as any).hederaAccountId = dbUser.hederaAccountId;
+        }
+      }
+      return true;
+    },
+  },
   providers: [
     ...authConfig.providers,
     Credentials({
