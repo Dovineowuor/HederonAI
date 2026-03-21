@@ -44,7 +44,6 @@ AI & Agents Track
 - HTS: Agent microtransaction simulation
 
 ---
-
 ## Slide 5: How It Works
 **7-Step Execution Pipeline:**
 1. User submits high-level goal
@@ -56,6 +55,20 @@ AI & Agents Track
 7. Simulated payments between agents
 
 **Demo Flow:** Show live execution with sample goal
+
+## Slide 6: The Agent Creator Economy
+**Hederon AI = AI Executive Team + Creator-Powered Marketplace**
+
+**70/30 Revenue Split:**
+- **Creators:** Earn 70% of every agent execution fee.
+- **Platform:** Hederon AI retains 30% for maintenance and compute.
+- **Settlement:** Instant HTS-native payments.
+
+**The Workflow:**
+1. Creator builds specialized agent in "Studio"
+2. Agent listed on Hederon Marketplace
+3. Users hire agent via Hedera Smart Contract
+4. Fees split and settled automatically via HTS
 
 ---
 
@@ -168,23 +181,11 @@ AI & Agents Track
 
 ---
 
-## Slide 13: Future Roadmap
-**Next 6 Months:**
-- Agent marketplace (user-created agents)
-- Real token economy with actual HBAR payments
-- Mobile app for on-the-go execution
-- Advanced analytics and insights
-
-**Next 12 Months:**
-- Cross-agent collaboration protocols
-- Agent reputation system
-- Enterprise team features
-- Global expansion (multi-language)
-
-**Long-term Vision:**
-- Autonomous business workflows
-- Agent DAOs and collectives
-- Global agent economy
+## Slide 8: Roadmap 2026
+**Q2 2026:** Mainnet Launch (Native HBAR)
+**Q3 2026:** Agent Creator Studio: Enable engineers to build and list custom agents.
+**Q4 2026:** Automated Revenue Sharing: Implement HTS-native 70/30 fee splits.
+**2027+:** Autonomous Business DAOs (Agents as stakeholders)
 
 ---
 
@@ -205,8 +206,8 @@ AI & Agents Track
 
 **Links:**
 - GitHub: https://github.com/Dovineowuor/HederonAI
-- Live Demo: https://hederon-ai-demo.vercel.app
-- Contact: [owuordove@gmail.com@example.com]
+- Live Demo: https://hederon-ai.vercel.app
+- Contact: [owuordove@gmail.com]
 
 **Questions?**
 

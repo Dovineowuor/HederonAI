@@ -97,13 +97,13 @@ export default function PitchDeckViewer() {
             style={{ backgroundColor: "rgba(255, 255, 255, 0.05)", borderColor: "rgba(255, 255, 255, 0.1)" }}
           >
             <div 
-              className="w-48 h-48 rounded-3xl flex items-center justify-center text-7xl shadow-inner border"
+              className="w-48 h-48 rounded-3xl overflow-hidden shadow-inner border"
               style={{ 
                 background: `linear-gradient(to bottom right, ${COLORS.blue}, ${COLORS.violetDark})`,
                 borderColor: "rgba(255, 255, 255, 0.2)"
               }}
             >
-              👨‍💻
+              <img src="/dovine_owuor_profile_pic.png" alt="Dovine Owuor" className="w-full h-full object-cover" />
             </div>
             <div className="flex-grow">
               <h3 className="text-6xl font-bold mb-4 tracking-tight font-sans" style={{ color: "white" }}>Dovine Owuor</h3>
@@ -347,9 +347,9 @@ export default function PitchDeckViewer() {
              <div className="grid grid-cols-4 gap-8 relative z-10">
                {[
                  { q: "Q2 2026", task: "Mainnet Launch", status: "Focus" },
-                 { q: "Q3 2026", task: "Agent Marketplace", status: "Scale" },
-                 { q: "Q4 2026", task: "HCS Voting", status: "Governance" },
-                 { q: "2027+", task: "DAOs", status: "Finality" }
+                 { q: "Q3 2026", task: "Agent Creator Studio", status: "Phase 2" },
+                 { q: "Q4 2026", task: "HTS Fee Splits", status: "Monetize" },
+                 { q: "2027+", task: "Autonomous DAOs", status: "Finality" }
                ].map(item => (
                  <div key={item.q} className="flex flex-col items-center">
                     <div 
@@ -377,17 +377,17 @@ export default function PitchDeckViewer() {
               className="p-10 rounded-3xl border font-sans"
               style={{ backgroundColor: "rgba(59, 130, 246, 0.05)", borderColor: "rgba(255, 255, 255, 0.1)" }}
             >
-              <div className="text-5xl font-bold mb-6 tracking-tight font-sans" style={{ color: "white" }}>$53B</div>
-              <div className="text-2xl font-bold mb-4 font-sans" style={{ color: COLORS.blueLight }}>AI Agent Market (2030)</div>
-              <p className="text-xl leading-relaxed font-sans" style={{ color: COLORS.zinc400 }}>The shift from "AI Tools" to "AI Employees" is the largest economic transition in history.</p>
+              <div className="text-5xl font-bold mb-6 tracking-tight font-sans" style={{ color: "white" }}>70 / 30</div>
+              <div className="text-2xl font-bold mb-4 font-sans" style={{ color: COLORS.blueLight }}>Creator Revenue Split</div>
+              <p className="text-xl leading-relaxed font-sans" style={{ color: COLORS.zinc400 }}>Engineers earn 70% of every agent execution fee, while the platform retains 30% for maintenance.</p>
             </div>
             <div 
               className="p-10 rounded-3xl border font-sans"
               style={{ backgroundColor: "rgba(16, 185, 129, 0.05)", borderColor: "rgba(255, 255, 255, 0.1)" }}
             >
-              <div className="text-5xl font-bold mb-6 tracking-tight font-sans" style={{ color: "white" }}>Zero-Cost</div>
-              <div className="text-2xl font-bold mb-4 font-sans" style={{ color: COLORS.emeraldLight }}>Scalability Advantage</div>
-              <p className="text-xl leading-relaxed font-sans" style={{ color: COLORS.zinc400 }}>Hedera's low fees enable high-frequency agent-to-agent transactions that are impossible on other chains.</p>
+              <div className="text-5xl font-bold mb-6 tracking-tight font-sans" style={{ color: "white" }}>HTS-Native</div>
+              <div className="text-2xl font-bold mb-4 font-sans" style={{ color: COLORS.emeraldLight }}>Autonomous Settlements</div>
+              <p className="text-xl leading-relaxed font-sans" style={{ color: COLORS.zinc400 }}>Fees are split and settled instantly via Hedera Token Service, removing all payment latency.</p>
             </div>
           </div>
         </div>
