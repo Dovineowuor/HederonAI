@@ -8,7 +8,10 @@ interface DashboardHeroProps {
 
 export default function DashboardHero({ mode }: DashboardHeroProps) {
   return (
-    <div className="text-left mb-10 pt-4">
+    <div className="text-left mb-10 pt-4 relative">
+      <div className="absolute -top-6 -left-12 w-32 h-32 opacity-[0.03] pointer-events-none select-none">
+        <img src="/logo_ilustrated.png" className="w-full h-full object-contain grayscale" alt="" />
+      </div>
       <motion.div
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}

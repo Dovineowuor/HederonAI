@@ -91,8 +91,8 @@ function LoginContent() {
 
       <div className="relative w-full max-w-md">
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-600 mb-6 shadow-xl shadow-amber-500/20">
-            <Fingerprint className="w-8 h-8 text-black" />
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white/5 mb-6 shadow-xl shadow-amber-500/10 border border-white/10 overflow-hidden group">
+            <img src="/logo_ilustrated.png" alt="Hederon AI" className="w-12 h-12 object-contain group-hover:scale-110 transition-transform" />
           </div>
           <h1 className="text-3xl font-bold mb-2 tracking-tight italic">Hederon<span className="text-amber-500"> AI</span></h1>
           <p className="text-zinc-500 text-sm">Autonomous Intelligence. Handshake Guaranteed.</p>

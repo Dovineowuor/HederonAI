@@ -145,7 +145,10 @@ export default function Dashboard() {
             >
               <div className="absolute inset-0 bg-gradient-to-r from-violet-500/5 via-blue-500/5 to-emerald-500/5 animate-pulse" />
               <div className="relative z-10 flex flex-col items-center gap-6">
-                 <div className="flex flex-wrap items-center justify-center gap-3">
+                  <div className="flex flex-wrap items-center justify-center gap-3 relative">
+                    <div className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none">
+                      <img src="/logo_monochrome.png" className="w-16 h-16 object-contain" alt="" />
+                    </div>
                     {["CEO", "Strategy", "Marketing", "Operations"].map((role, i) => (
                        <motion.div
                           key={role}
