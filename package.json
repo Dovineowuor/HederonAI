@@ -11,7 +11,6 @@
   "dependencies": {
     "@hashgraph/sdk": "^2.81.0",
     "@types/better-sqlite3": "^7.6.13",
-    "@types/jszip": "^3.4.1",
     "better-sqlite3": "^12.8.0",
     "clsx": "^2.1.1",
     "ethers": "^6.16.0",
