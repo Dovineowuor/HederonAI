@@ -210,7 +210,7 @@ export default function Sidebar() {
             </div>
             {(!collapsed || isMobile) && (
               <button
-                onClick={() => signOut()}
+                onClick={() => signOut({ callbackUrl: `${window.location.origin}/` })}
                 className="p-1.5 rounded-lg text-zinc-500 hover:text-rose-400 hover:bg-rose-500/10 transition-all relative shrink-0"
                 title="Sign Out"
               >

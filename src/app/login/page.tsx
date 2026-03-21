@@ -27,7 +27,8 @@ function LoginContent() {
 
   const handleAuth0Login = async () => {
     setLoading("auth0");
-    await signIn("auth0", { callbackUrl });
+    const safeCallback = `${window.location.origin}${callbackUrl}`;
+    await signIn("auth0", { callbackUrl: safeCallback });
   };
 
   const handleEmailLogin = async (e: React.FormEvent) => {
@@ -76,10 +77,11 @@ function LoginContent() {
       const sessionPayload = `${mockAccountId}:${Date.now()}:auth_request`;
       const mockSignature = typeof window !== "undefined" ? btoa(sessionPayload) : "dynamic_hash";
 
+      const safeCallback = `${window.location.origin}${callbackUrl}`;
       await signIn("hedera-wallet", {
         accountId: mockAccountId,
         signature: mockSignature,
-        callbackUrl,
+        callbackUrl: safeCallback,
       });
       setLoading(null);
     }, 1500);
