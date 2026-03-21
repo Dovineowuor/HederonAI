@@ -1,6 +1,11 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import authConfig from "./auth.config";
+// Bypassing any locally-tested hardcoded localhost URLs set in Vercel's env dashboard
+if (process.env.VERCEL || process.env.VERCEL_URL) {
+  delete process.env.AUTH_URL;
+  delete process.env.NEXTAUTH_URL;
+}
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   ...authConfig,
