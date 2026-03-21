@@ -1,5 +1,5 @@
 {
-  "name": "execuai-marketplace",
+  "name": "hederon-ai-marketplace",
   "version": "1.0.0",
   "description": "Decentralized AI Agent Marketplace Smart Contracts",
   "main": "index.js",
@@ -49,10 +49,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/execuai/marketplace-contracts"
+    "url": "https://github.com/hederon-ai/marketplace-contracts"
   },
   "bugs": {
-    "url": "https://github.com/execuai/marketplace-contracts/issues"
+    "url": "https://github.com/hederon-ai/marketplace-contracts/issues"
   },
-  "homepage": "https://execuai.ai"
+  "homepage": "https://hederon.ai"
 }

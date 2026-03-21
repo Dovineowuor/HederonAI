@@ -1,4 +1,4 @@
-// Industry Standard Operating Procedures (SOPs) for ExecuAI
+// Industry Standard Operating Procedures (SOPs) for Hederon AI
 
 export const INDUSTRY_SOPS = {
   saas: {

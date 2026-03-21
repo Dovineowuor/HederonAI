@@ -118,7 +118,7 @@ const INITIAL_JOBS: EscrowJob[] = [
 // --- SQLite setup ---
 const isProd = process.env.NODE_ENV === 'production';
 const DB_DIR = isProd ? "/tmp" : path.join(process.cwd(), ".data");
-const DB_PATH = path.join(DB_DIR, "execuai.db");
+const DB_PATH = path.join(DB_DIR, "hederon-ai.db");
 
 let _db: Database.Database | null = null;
 

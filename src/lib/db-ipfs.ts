@@ -1,7 +1,7 @@
 /**
  * db-ipfs.ts
  * 
- * Provides a decentralized backup layer for the ExecuAI database.
+ * Provides a decentralized backup layer for the Hederon AI database.
  * 
  * - snapshotToIPFS(): serialises the current SQLite state to JSON,
  *   uploads it to Hedera File Service (HFS), and logs the fileId to HCS.
@@ -17,7 +17,7 @@ import path from "path";
 import fs from "fs";
 import Database from "better-sqlite3";
 
-const DB_PATH = path.join(process.cwd(), ".data", "execuai.db");
+const DB_PATH = path.join(process.cwd(), ".data", "hederon-ai.db");
 const SNAPSHOT_INDEX = path.join(process.cwd(), ".data", "snapshots.json");
 
 // Track the latest HFS fileId locally so we can reference it on restore
@@ -71,7 +71,7 @@ export async function snapshotToIPFS(): Promise<SnapshotRecord | null> {
     const data = Buffer.from(json, "utf-8");
 
     // Upload to Hedera File Service
-    const hfsLog = await uploadToHFS(data, `execuai-db-snapshot-${Date.now()}`);
+    const hfsLog = await uploadToHFS(data, `hederon-ai-db-snapshot-${Date.now()}`);
 
     if (!hfsLog.fileId) {
       console.warn("[db-ipfs] HFS upload did not return a fileId.");

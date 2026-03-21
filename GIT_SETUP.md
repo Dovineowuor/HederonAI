@@ -1,4 +1,4 @@
-# 🚀 ExecuAI - Git Repository Setup Instructions
+# 🚀 Hederon AI - Git Repository Setup Instructions
 
 ## 📋 **Repository Status**
 
@@ -18,21 +18,21 @@ sudo snap install gh
 gh auth login
 
 # Create repository and push
-gh repo create execuai --public --description "ExecuAI - Your AI Executive Team. Run a company of one powered by intelligent agents and Hedera blockchain." --source=. --push
+gh repo create hederon-ai --public --description "Hederon AI - Your AI Executive Team. Run a company of one powered by intelligent agents and Hedera blockchain." --source=. --push
 ```
 
 ### **Option 2: Manual GitHub Setup**
 1. **Create Repository on GitHub**:
    - Go to https://github.com/new
-   - Repository name: `execuai`
-   - Description: `ExecuAI - Your AI Executive Team. Run a company of one powered by intelligent agents and Hedera blockchain.`
+   - Repository name: `hederon-ai`
+   - Description: `Hederon AI - Your AI Executive Team. Run a company of one powered by intelligent agents and Hedera blockchain.`
    - Make it **Public**
    - **DO NOT** initialize with README (we already have one)
 
 2. **Add Remote and Push**:
 ```bash
 # Add the remote repository
-git remote add origin https://github.com/YOUR_USERNAME/execuai.git
+git remote add origin https://github.com/YOUR_USERNAME/hederon-ai.git
 
 # Push to GitHub
 git push -u origin main
@@ -56,7 +56,7 @@ git push -u origin main
 
 ### **📁 Project Structure**
 ```
-execuai/
+hederon-ai/
 ├── contracts/                 # Smart contracts
 │   ├── src/                  # Solidity contracts
 │   ├── test/                 # Test suites

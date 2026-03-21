@@ -1,9 +1,9 @@
-# 🚀 ExecuAI Hackathon Submission Checklist
+# 🚀 Hederon AI Hackathon Submission Checklist
 
 ## ✅ **REQUIRED DELIVERABLES**
 
 ### 1. **Project's GitHub Repo Link** ✅
-- **Repository:** https://github.com/dovineowuor/execuai
+- **Repository:** https://github.com/Dovineowuor/HederonAI
 - **README:** Comprehensive documentation with setup instructions
 - **Code Structure:** Well-organized TypeScript/Next.js codebase
 - **License:** MIT License included
@@ -197,4 +197,4 @@ vercel --prod
 
 **🎯 READY TO SUBMIT!**
 
-All deliverables are prepared and the project is positioned for strong performance in the AI & Agents track. The combination of technical excellence, innovative concept, and professional execution makes ExecuAI a top contender for the prize pool.
+All deliverables are prepared and the project is positioned for strong performance in the AI & Agents track. The combination of technical excellence, innovative concept, and professional execution makes Hederon AI a top contender for the prize pool.

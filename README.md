@@ -1,4 +1,4 @@
-# 🚀 ExecuAI – Your AI Executive Team
+# 🚀 Hederon AI – Your AI Executive Team
 
 > Run a company of one — powered by intelligent agents and Hedera.
 
@@ -6,7 +6,7 @@
 
 ## 🧠 Overview
 
-ExecuAI is an AI-powered executive assistant platform that enables individuals to operate like full-scale companies. Users input a goal, and a team of specialized AI agents — CEO, Strategy, Marketing, and Operations — collaborate to break it down, generate insights, and execute tasks. Built on Hedera, ExecuAI introduces transparent logging and agent-based microtransactions, laying the foundation for autonomous digital work.
+Hederon AI is an AI-powered executive assistant platform that enables individuals to operate like full-scale companies. Users input a goal, and a team of specialized AI agents — CEO, Strategy, Marketing, and Operations — collaborate to break it down, generate insights, and execute tasks. Built on Hedera, Hederon AI introduces transparent logging and agent-based microtransactions, laying the foundation for autonomous digital work.
 
 ---
 
@@ -24,7 +24,7 @@ This creates a bottleneck where ideas don't scale due to limited human bandwidth
 
 ## 💡 Solution
 
-ExecuAI provides a **coordinated AI executive team** that:
+Hederon AI provides a **coordinated AI executive team** that:
 - Transforms goals into structured execution plans
 - Delegates tasks across specialized agents
 - Automates research, planning, and workflows
@@ -94,8 +94,8 @@ ExecuAI provides a **coordinated AI executive team** that:
 ### Installation
 
 ```bash
-git clone https://github.com/dovineowuor/execuai.git
-cd execuai
+git clone https://github.com/Dovineowuor/HederonAI.git
+cd hederon-ai
 npm install
 ```
 
@@ -162,14 +162,14 @@ Open [http://localhost:3000](http://localhost:3000) to view the application.
 
 ## 📱 Demo
 
-- **Live Demo:** [https://execuai-demo.vercel.app](https://execuai-demo.vercel.app)
+- **Live Demo:** [https://hederon-ai-demo.vercel.app](https://hederon-ai-demo.vercel.app)
 - **Demo Video:** [https://youtu.be/demo-video-link](https://youtu.be/demo-video-link)
 
 ---
 
 ## 🌍 Impact
 
-ExecuAI enables:
+Hederon AI enables:
 - Solo founders to operate like full teams
 - Global access to AI-powered productivity
 - A shift from "AI as a tool" → "AI as an economic participant"
@@ -203,7 +203,7 @@ ExecuAI enables:
 
 ## 🤖 Decentralized Agent Marketplace
 
-ExecuAI is evolving into the **world's first decentralized AI agent marketplace** where:
+Hederon AI is evolving into the **world's first decentralized AI agent marketplace** where:
 
 ### 🏪 Marketplace Features
 - **Agent Registration**: Onboard AI agents with capabilities
@@ -259,7 +259,7 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ## 🏁 Conclusion
 
-ExecuAI is not just a tool — it's the foundation for a future where individuals can build, run, and scale entire companies using AI agents. With our decentralized marketplace, we're creating the infrastructure for **autonomous agent economies** where AI entities can think, transact, and collaborate independently.
+Hederon AI is not just a tool — it's the foundation for a future where individuals can build, run, and scale entire companies using AI agents. With our decentralized marketplace, we're creating the infrastructure for **autonomous agent economies** where AI entities can think, transact, and collaborate independently.
 
 ---
 
@@ -267,6 +267,6 @@ ExecuAI is not just a tool — it's the foundation for a future where individual
 
 - **Hackathon Submission:** Hedera Hello Future Apex 2026
 - **Track:** AI & Agents
-- **GitHub:** https://github.com/dovineowuor/ExecuAI
-- **Smart Contracts:** https://github.com/dovineowuor/ExecuAI/tree/main/contracts
+- **GitHub:** https://github.com/Dovineowuor/HederonAI
+- **Smart Contracts:** https://github.com/Dovineowuor/HederonAI/tree/main/contracts
 - **Contact:** [owuordove@gmail.com](mailto:owuordove@gmail.com)

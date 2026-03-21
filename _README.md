@@ -1,4 +1,4 @@
-# 🚀 ExecuAI – Your AI Executive Team
+# 🚀 Hederon AI – Your AI Executive Team
 
 > Run a company of one — powered by intelligent agents and Hedera.
 
@@ -6,11 +6,11 @@
 
 ## 🧠 Overview
 
-ExecuAI is an AI-powered executive assistant platform that enables individuals to operate like full-scale companies.
+Hederon AI is an AI-powered executive assistant platform that enables individuals to operate like full-scale companies.
 
 Users input a goal, and a team of specialized AI agents — CEO, Strategy, Marketing, and Operations — collaborate to break it down, generate insights, and execute tasks.
 
-Built on Hedera, ExecuAI introduces transparent logging and agent-based microtransactions, laying the foundation for autonomous digital work.
+Built on Hedera, Hederon AI introduces transparent logging and agent-based microtransactions, laying the foundation for autonomous digital work.
 
 ---
 
@@ -30,7 +30,7 @@ This creates a bottleneck where ideas don’t scale due to limited human bandwid
 
 ## 💡 Solution
 
-ExecuAI provides a **coordinated AI executive team** that:
+Hederon AI provides a **coordinated AI executive team** that:
 
 - Transforms goals into structured execution plans  
 - Delegates tasks across specialized agents  
@@ -113,7 +113,7 @@ ExecuAI provides a **coordinated AI executive team** that:
 
 ## 🌍 Impact
 
-ExecuAI enables:
+Hederon AI enables:
 
 - Solo founders to operate like full teams  
 - Global access to AI-powered productivity  
@@ -134,8 +134,8 @@ ExecuAI enables:
 ## 🧪 Setup Instructions
 
 ```bash
-git clone https://github.com/dovineowuor/execuai.git
-cd execuai
+git clone https://github.com/Dovineowuor/HederonAI.git
+cd hederon-ai
 npm install
 npm run dev
 ```
@@ -154,6 +154,6 @@ HEDERA_PRIVATE_KEY
 
 ## 🏁 Conclusion
 
-ExecuAI is not just a tool — it’s the foundation for a future where:
+Hederon AI is not just a tool — it’s the foundation for a future where:
 
 Individuals can build, run, and scale entire companies using AI agents.

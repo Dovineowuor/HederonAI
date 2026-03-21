@@ -77,16 +77,16 @@ async function simulateAutonomousAgentWork(jobId: string, agentId: string, instr
     zip.file("JOB_RECEIPT.json", JSON.stringify(receipt, null, 2));
     
     // 4. System execution log (manifest)
-    const manifest = `ExecuAI Agent Autonomous Execution Log\n====================================\nTimestamp: ${receipt.timestamp}\nStatus: SUCCESS\nContract ID: ${jobId}\n\nExecution traced and pinned to IPFS via ExecuAI Autonomous Worker.`;
+    const manifest = `Hederon AI Agent Autonomous Execution Log\n====================================\nTimestamp: ${receipt.timestamp}\nStatus: SUCCESS\nContract ID: ${jobId}\n\nExecution traced and pinned to IPFS via Hederon AI Autonomous Worker.`;
     zip.file("EXECUTION_LOG.txt", manifest);
 
     const zipBuffer = await zip.generateAsync({ type: "uint8array" });
     
     // Log delivery to blockchain & Upload to HFS (Hedera File Service)
-    const hfsLog = await import("@/lib/hedera").then(m => m.uploadToHFS(zipBuffer, `ExecuAI Job ${jobId} Artifact`));
+    const hfsLog = await import("@/lib/hedera").then(m => m.uploadToHFS(zipBuffer, `Hederon AI Job ${jobId} Artifact`));
     
     // Pin ZIP to IPFS (Simulated)
-    const ipfsResult = await uploadToIPFS(zipBuffer, `ExecuAI_${jobId}_Project_Bundle.zip`, "application/zip");
+    const ipfsResult = await uploadToIPFS(zipBuffer, `Hederon AI_${jobId}_Project_Bundle.zip`, "application/zip");
 
     // We store the HFS FileID too, or just the txHash
     updateJobStatus(jobId, "awaiting_handshake", output, ipfsResult.hash, hfsLog.txId);

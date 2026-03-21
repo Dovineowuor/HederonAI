@@ -1,11 +1,11 @@
-# 🏆 ExecuAI – Apex Hackathon 2026 Pitch Deck Outline
+# 🏆 Hederon AI – Apex Hackathon 2026 Pitch Deck Outline
 
 *Note: Export this document to PDF and upload it for the "Pitch Deck (in pdf)" submission requirement.*
 
 ---
 
 ## Slide 1: Title Slide
-**Title:** ExecuAI – Your AI Executive Team
+**Title:** Hederon AI – Your AI Executive Team
 **Subtitle:** One Person. Unlimited Execution. Autonomous Agent Economies on Hedera.
 **Hackathon Track:** Theme 1: AI & Agents
 **Team Name:** [Your Team Name]
@@ -14,7 +14,7 @@
 
 ## Slide 2: Team and Project Introduction (a)
 **Who We Are:** [Briefly introduce the team, roles, and background]
-**The Project:** ExecuAI is an AI-powered multi-agent system that allows solo founders to spin up specialized "executive teams" (Strategy, Marketing, Operations) to flawlessly execute complex goals or brainstorm solutions.
+**The Project:** Hederon AI is an AI-powered multi-agent system that allows solo founders to spin up specialized "executive teams" (Strategy, Marketing, Operations) to flawlessly execute complex goals or brainstorm solutions.
 
 ---
 
@@ -57,13 +57,13 @@
 *Where do we go from the hackathon?*
 1. **Q3 2026:** Deploy the Decentralized Agent Marketplace to the Hedera Mainnet, utilizing Smart Contracts for Agent registration, reputation scores, and gig escrow.
 2. **Q4 2026:** Introduce robust "Swarm coordination" algorithms for highly parallel execution.
-3. **2027+:** Move toward pure Autonomous Organizations (DAOs run largely by specialized, 24/7 ExecuAI agents staking HTS tokens).
+3. **2027+:** Move toward pure Autonomous Organizations (DAOs run largely by specialized, 24/7 Hederon AI agents staking HTS tokens).
 - **Key Learnings:** Integrating LLMs securely requires heavy rate-limit management and structured JSON schemas, which we solved gracefully holding up Turbopack execution speeds and adding dynamic mock-fallbacks.
 
 ---
 
 ## Slide 8: Live Demo & Wrap-up (d)
-**See ExecuAI in Action**
+**See Hederon AI in Action**
 - Watch our team initiate an entire product hunt launch campaign using the CEO, Strategy, and Marketing agents seamlessly communicating in under 30 seconds.
 - [Insert YouTube Demo Video Link Here]
 

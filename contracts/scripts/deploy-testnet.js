@@ -1,7 +1,7 @@
 const { ethers } = require("hardhat");
 
 async function main() {
-  console.log("Deploying ExecuAI Marketplace Contracts to Hedera Testnet...");
+  console.log("Deploying Hederon AI Marketplace Contracts to Hedera Testnet...");
   
   const [deployer] = await ethers.getSigners();
   console.log("Deploying contracts with account:", deployer.address);

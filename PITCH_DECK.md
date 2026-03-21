@@ -1,7 +1,7 @@
-# ExecuAI Pitch Deck Content
+# Hederon AI Pitch Deck Content
 
 ## Slide 1: Title Slide
-**ExecuAI – Your AI Executive Team**
+**Hederon AI – Your AI Executive Team**
 *Run a company of one — powered by intelligent agents and Hedera*
 
 Hedera Hello Future Apex Hackathon 2026  
@@ -31,7 +31,7 @@ AI & Agents Track
 ---
 
 ## Slide 4: Our Solution
-**ExecuAI = AI Executive Team + Blockchain Transparency**
+**Hederon AI = AI Executive Team + Blockchain Transparency**
 
 **Multi-Agent Architecture:**
 - 👑 CEO Agent: Goal decomposition & coordination
@@ -91,7 +91,7 @@ AI & Agents Track
 ---
 
 ## Slide 8: Demo & Technical Strengths
-**Live Demo Link:** [https://execuai-demo.vercel.app](https://execuai-demo.vercel.app)
+**Live Demo Link:** [https://hederon-ai-demo.vercel.app](https://hederon-ai-demo.vercel.app)
 
 **Technical Highlights:**
 - ✅ Fully functional MVP
@@ -127,7 +127,7 @@ AI & Agents Track
 ---
 
 ## Slide 10: Competitive Advantage
-**Why ExecuAI Wins:**
+**Why Hederon AI Wins:**
 1. **Complete System**: Not just one agent, but coordinated team
 2. **Blockchain Native**: Hedera integration is core, not add-on
 3. **Production Ready**: Professional UI, error handling, scaling
@@ -201,11 +201,11 @@ AI & Agents Track
 ---
 
 ## Slide 15: Thank You
-**ExecuAI – One Person. Unlimited Execution.**
+**Hederon AI – One Person. Unlimited Execution.**
 
 **Links:**
-- GitHub: https://github.com/dovineowuor/execuai
-- Live Demo: https://execuai-demo.vercel.app
+- GitHub: https://github.com/Dovineowuor/HederonAI
+- Live Demo: https://hederon-ai-demo.vercel.app
 - Contact: [owuordove@gmail.com@example.com]
 
 **Questions?**
@@ -216,7 +216,7 @@ AI & Agents Track
 
 **[0:00-0:30] Introduction**
 - Show problem: "Building a business alone is overwhelming"
-- Introduce ExecuAI as solution
+- Introduce Hederon AI as solution
 - Quick overview of 4 AI agents
 
 **[0:30-1:30] Live Demo**

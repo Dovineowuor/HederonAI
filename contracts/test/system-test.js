@@ -1,5 +1,5 @@
 // Simple test without external dependencies
-console.log("🚀 Testing ExecuAI Smart Contracts System...");
+console.log("🚀 Testing Hederon AI Smart Contracts System...");
 
 // Test 1: Basic JavaScript functionality
 console.log("✅ Test 1: JavaScript Runtime - PASSED");

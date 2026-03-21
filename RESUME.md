@@ -5,7 +5,7 @@
 ---
 
 ## 🚀 Professional Summary
-Innovative Software Engineer and Founder with a passion for building autonomous systems at the intersection of AI and Blockchain. Expert in architecting decentralized applications (dApps) that leverage multi-agent intelligence to solve real-world problems. Lead developer and visionary behind **ExecuAI**, a pioneering AI executive team platform.
+Innovative Software Engineer and Founder with a passion for building autonomous systems at the intersection of AI and Blockchain. Expert in architecting decentralized applications (dApps) that leverage multi-agent intelligence to solve real-world problems. Lead developer and visionary behind **Hederon AI**, a pioneering AI executive team platform.
 
 ## 🛠️ Core Skills
 - **Frontend**: Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS 4, Framer Motion.
@@ -13,7 +13,7 @@ Innovative Software Engineer and Founder with a passion for building autonomous 
 - **AI/Agents**: Multi-agent orchestration, LLM integration (OpenAI, GPT-4o), Agentic Swarms.
 - **DevOps/Tools**: Git, Vercel, SQLite, decentralized storage solutions.
 
-## 🏗️ Featured Project: ExecuAI
+## 🏗️ Featured Project: Hederon AI
 **Founder & Lead Engineer | Hedera Hello Future Apex Hackathon 2026**
 *An AI-powered executive assistant platform enabling individuals to operate like full-scale companies.*
 
@@ -25,7 +25,7 @@ Innovative Software Engineer and Founder with a passion for building autonomous 
 ## 💼 Experience
 **Founder & Lead Software Engineer | Dovetec Projects**
 *Present*
-- Overseeing the development of advanced AI and education technology projects (ExecuAI, Skoola).
+- Overseeing the development of advanced AI and education technology projects (Hederon AI, Skoola).
 - Implementing robust, scalable architectures for decentralized business automation.
 
 **Lead Developer | Skoola**

@@ -8,7 +8,7 @@
 - Natural language chat interface
 - Integration with Apex Hackathon DApp
 
-## Integration Strategy for ExecuAI
+## Integration Strategy for Hederon AI
 
 ### Phase 1: Agent Registration
 1. **Register 4 Core Agents in HOL Registry:**
@@ -29,9 +29,9 @@
    import { HOLAgent, SkillRegistry } from '@hol/standards-sdk';
    
    const ceoAgent = new HOLAgent({
-     name: 'ExecuAI-CEO',
+     name: 'Hederon AI-CEO',
      capabilities: ['task-decomposition', 'coordination'],
-     endpoint: 'https://execuai.com/api/ceo'
+     endpoint: 'https://hederon-ai.com/api/ceo'
    });
    ```
 
@@ -73,8 +73,8 @@ export async function registerAgents() {
   
   const agents: AgentDefinition[] = [
     {
-      id: 'execuai-ceo',
-      name: 'ExecuAI CEO Agent',
+      id: 'hederon-ai-ceo',
+      name: 'Hederon AI CEO Agent',
       description: 'Decomposes goals into actionable tasks',
       capabilities: ['planning', 'coordination'],
       protocols: ['HCS-10', 'A2A']
@@ -92,7 +92,7 @@ export async function registerAgents() {
 - ✅ All 4 agents registered in HOL Registry
 - ✅ HCS-10 discovery protocol working
 - ✅ Natural language chat interface functional
-- ✅ Integration with main ExecuAI DApp
+- ✅ Integration with main Hederon AI DApp
 - ✅ Agent-to-agent communication enabled
 
 ## Additional Benefits
@@ -106,4 +106,4 @@ export async function registerAgents() {
 - **Day 3-4:** Communication protocols implementation
 - **Day 5:** Testing and bounty submission
 
-This integration positions ExecuAI as a leader in the HOL ecosystem while creating additional value through the agent economy.
+This integration positions Hederon AI as a leader in the HOL ecosystem while creating additional value through the agent economy.

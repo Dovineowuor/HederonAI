@@ -98,7 +98,7 @@ export default function HandshakeJobPage() {
 
   const downloadSimulatedArtifact = () => {
     if (!job) return;
-    const report = `# ExecuAI Job Deliverable: ${job.id}
+    const report = `# Hederon AI Job Deliverable: ${job.id}
 ---
 **Client Instruction**: ${job.clientInstruction}
 **Agent ID**: ${job.agentId}
@@ -109,14 +109,14 @@ export default function HandshakeJobPage() {
 ${job.output || "No output provided."}
 
 ---
-*This is a verifiable simulated artifact for the ExecuAI Marketplace POC (Phase 10).*
+*This is a verifiable simulated artifact for the Hederon AI Marketplace POC (Phase 10).*
 `;
 
     const blob = new Blob([report], { type: "text/markdown" });
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `ExecuAI_${job.id}_Report.md`;
+    a.download = `Hederon AI_${job.id}_Report.md`;
     a.click();
     window.URL.revokeObjectURL(url);
   };

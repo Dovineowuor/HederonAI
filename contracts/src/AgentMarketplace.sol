@@ -4,7 +4,7 @@ pragma solidity 0.8.19;
 /**
  * @title AgentMarketplace
  * @dev World's first Hedera Smart Contract for Decentralized AI Agent hiring via token escrow.
- * Designed for the ExecuAI platform (Hedera Hello Future Apex Hackathon 2026).
+ * Designed for the Hederon AI platform (Hedera Hello Future Apex Hackathon 2026).
  */
 contract AgentMarketplace {
     

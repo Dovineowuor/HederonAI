@@ -15,7 +15,7 @@ import type {
 
 // ---- Agent system prompts ----
 export const AGENT_PROMPTS: Record<string, string> = {
-  CEO: `You are the CEO Agent of ExecuAI. Receive a high-level business goal and break it into exactly 3 actionable tasks — one each for the Strategy Analyst, Marketing Manager, and Operations Manager.
+  CEO: `You are the CEO Agent of Hederon AI. Receive a high-level business goal and break it into exactly 3 actionable tasks — one each for the Strategy Analyst, Marketing Manager, and Operations Manager.
 
 Respond ONLY with valid JSON:
 {
@@ -28,7 +28,7 @@ Respond ONLY with valid JSON:
 
 Keep titles concise (under 8 words). Be specific and actionable.`,
 
-  Strategy: `You are the Strategy Analyst Agent of ExecuAI. Analyze markets, identify opportunities, and provide a strategic brief.
+  Strategy: `You are the Strategy Analyst Agent of Hederon AI. Analyze markets, identify opportunities, and provide a strategic brief.
 
 Respond with these sections:
 ## Market Overview
@@ -37,7 +37,7 @@ Respond with these sections:
 
 Keep it concise but insightful (150-200 words). Use bullet points.`,
 
-  Marketing: `You are the Marketing Manager Agent of ExecuAI. Create a growth strategy and content plan.
+  Marketing: `You are the Marketing Manager Agent of Hederon AI. Create a growth strategy and content plan.
 
 Respond with these sections:
 ## Target Audience
@@ -47,7 +47,7 @@ Respond with these sections:
 
 Keep it actionable and punchy (150-200 words). Use bullet points.`,
 
-  Operations: `You are the Operations Manager Agent of ExecuAI. Design workflows and optimize execution.
+  Operations: `You are the Operations Manager Agent of Hederon AI. Design workflows and optimize execution.
 
 Respond with these sections:
 ## Workflow Design
@@ -65,7 +65,7 @@ Keep it practical and measurable (150-200 words). Use bullet points.`,
 
 Keep it data-driven and actionable (200-250 words).`,
 
-  Analyst: `You are a Business Analyst Agent of ExecuAI. Analyze research data and provide strategic insights.
+  Analyst: `You are a Business Analyst Agent of Hederon AI. Analyze research data and provide strategic insights.
 
 ## SWOT Analysis
 ## Root Cause Analysis
@@ -74,7 +74,7 @@ Keep it data-driven and actionable (200-250 words).`,
 
 Be analytical and provide clear prioritization (200-250 words).`,
 
-  Designer: `You are a Solution Designer Agent of ExecuAI. Create detailed implementation plans.
+  Designer: `You are a Solution Designer Agent of Hederon AI. Create detailed implementation plans.
 
 ## Solution Architecture
 ## Implementation Roadmap
@@ -83,7 +83,7 @@ Be analytical and provide clear prioritization (200-250 words).`,
 
 Be practical and execution-focused (200-250 words).`,
 
-  Creator: `You are a Creator Agent of ExecuAI. Generate tangible deliverables based on the analysis and solution design.
+  Creator: `You are a Creator Agent of Hederon AI. Generate tangible deliverables based on the analysis and solution design.
   
 For Every Project, you must plan for:
 1. **Strategic Execution Plan** (Focus on high-level goals and roadmap)
@@ -149,8 +149,8 @@ export async function POST(req: NextRequest) {
   // Log submission
   const submissionLog = await logToHCS(
     mode === "goal"
-      ? `[ExecuAI] Goal submitted: "${goal?.slice(0, 100)}"`
-      : `[ExecuAI] Challenge submitted: "${challenge?.slice(0, 100)}"`
+      ? `[Hederon AI] Goal submitted: "${goal?.slice(0, 100)}"`
+      : `[Hederon AI] Challenge submitted: "${challenge?.slice(0, 100)}"`
   );
   logs.push(submissionLog);
 

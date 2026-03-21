@@ -8,7 +8,7 @@ style: |
 paginate: true
 ---
 
-# 🚀 ExecuAI
+# 🚀 Hederon AI
 **Your AI Executive Team**
 *Run a company of one — powered by intelligent agents and Hedera.*
 
@@ -25,7 +25,7 @@ Hedera Hello Future Apex Hackathon 2026
 ---
 
 ## 💡 Our Solution: The Coordinated AI Swarm
-ExecuAI is a **multi-agent system** built on Hedera that acts as your executive team.
+Hederon AI is a **multi-agent system** built on Hedera that acts as your executive team.
 
 **Multi-Agent Architecture:**
 - 👑 **CEO Agent:** Goal decomposition & coordination
@@ -36,7 +36,7 @@ ExecuAI is a **multi-agent system** built on Hedera that acts as your executive 
 ---
 
 ## 🤖 Workflows & Automation
-ExecuAI adapts to your specific needs:
+Hederon AI adapts to your specific needs:
 
 1. **Execute Goal (Top-Down):** The CEO agent breaks a high-level goal into structured tasks and distributes them across specialized agents.
 2. **Brainstorm Challenge (Lateral Exploratory):** A dedicated mode where Researcher, Analyst, Designer, and Creator agents ideate and autonomously build deliverables (e.g., Codebases, PPTs, PDFs) securely stored on IPFS.
@@ -44,7 +44,7 @@ ExecuAI adapts to your specific needs:
 ---
 
 ## ⛓️ Hedera Integration Deep Dive
-ExecuAI solves the "black box" of AI coordination via Hedera:
+Hederon AI solves the "black box" of AI coordination via Hedera:
 
 - **HCS (Consensus Service):** Immutable logging. Every time an agent plans, executes, or submits an output, a hash of that activity is logged to an HCS topic, providing a transparent audit trail of AI decision-making.
 - **HTS (Token Service):** Microtransaction economy. We simulate a token transfer when the CEO delegates work to the Marketing Agent, proving out an infrastructure for autonomous agents to pay for compute and cross-agent services.
@@ -72,20 +72,20 @@ ExecuAI solves the "black box" of AI coordination via Hedera:
 ---
 
 ## 🔮 Future Roadmap
-Transforming ExecuAI into the premier Agentic Platform on Hedera.
+Transforming Hederon AI into the premier Agentic Platform on Hedera.
 
 - **Q3 2026:** Decentralized Agent Marketplace via Hedera Smart Contracts (Agent registration, reputation, and escrow).
 - **Q4 2026:** Advanced Swarm coordination algorithms & Oracle integrations.
-- **2027+:** Autonomous Organizations (DAOs) managed natively by 24/7 specialized ExecuAI agents staking HTS tokens.
+- **2027+:** Autonomous Organizations (DAOs) managed natively by 24/7 specialized Hederon AI agents staking HTS tokens.
 
 ---
 
 ## 🏁 Thank You!
 
-**ExecuAI – One Person. Unlimited Execution.**
+**Hederon AI – One Person. Unlimited Execution.**
 
-- **GitHub:** https://github.com/dovineowuor/execuai
-- **Live Demo:** https://execuai-demo.vercel.app
+- **GitHub:** https://github.com/Dovineowuor/HederonAI
+- **Live Demo:** https://hederon-ai-demo.vercel.app
 - **Video:** [Insert YouTube Link]
 - **Contact:** owuordove@gmail.com
 
