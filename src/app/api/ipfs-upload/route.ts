@@ -114,7 +114,7 @@ async function generatePresentation(deliverable: any): Promise<Uint8Array> {
     background: { color: "0F172A" },
     objects: [
       { rect: { x: 0, y: 0, w: "100%", h: 0.1, fill: { color: "00EEFF" } } },
-      { text: { text: "EXECUAI", options: { x: 8.5, y: 5.2, w: 1, fontSize: 10, color: "475569", align: "right" } } }
+      { text: { text: "HEDERON AI", options: { x: 8.5, y: 5.2, w: 1.5, fontSize: 10, color: "475569", align: "right" } } }
     ]
   });
 

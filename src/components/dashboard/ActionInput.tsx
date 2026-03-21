@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Lightbulb, RotateCcw, ChevronRight } from "lucide-react";
+import { Zap, Lightbulb, RotateCcw, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface ActionInputProps {
@@ -35,7 +35,7 @@ export default function ActionInput({
               : "text-zinc-500 hover:text-zinc-300"
           )}
         >
-          <img src="/logo_monochrome.png" className={cn("w-4 h-4 object-contain", mode === "goal" ? "brightness-200" : "opacity-50")} alt="" />
+          <Zap className={cn("w-4 h-4", mode === "goal" ? "fill-white/20" : "")} />
           Execute Goal
         </button>
         <button
@@ -116,7 +116,7 @@ export default function ActionInput({
                   {isLoading ? (
                     <span className="w-5 h-5 border-2 border-zinc-500 border-t-zinc-900 rounded-full animate-spin" />
                   ) : (
-                    <img src="/logo.png" className={cn("w-5 h-5 object-contain", mode === "goal" ? "" : "brightness-200")} alt="" />
+                    <Zap className={cn("w-5 h-5", mode === "goal" ? "fill-black" : "fill-white/20")} />
                   )}
                </button>
             </div>
