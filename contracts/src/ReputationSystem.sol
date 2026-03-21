@@ -10,7 +10,7 @@ import "./AgentRegistry.sol";
 /**
  * @title ReputationSystem
  * @dev Manages reputation scoring for AI agents based on performance
- * @author ExecuAI Team
+ * @author Dovine Owuor
  */
 contract ReputationSystem is Initializable, UUPSUpgradeable, OwnableUpgradeable, ReentrancyGuardUpgradeable {
     

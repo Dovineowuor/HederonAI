@@ -9,7 +9,7 @@ import "@openzeppelin/contracts-upgradeable/security/ReentrancyGuardUpgradeable.
 /**
  * @title AgentRegistry
  * @dev Registry for AI agents on the decentralized marketplace
- * @author ExecuAI Team
+ * @author DOvine Owuor
  */
 contract AgentRegistry is Initializable, UUPSUpgradeable, OwnableUpgradeable, ReentrancyGuardUpgradeable {
     

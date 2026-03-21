@@ -87,6 +87,6 @@ Transforming ExecuAI into the premier Agentic Platform on Hedera.
 - **GitHub:** https://github.com/dovineowuor/execuai
 - **Live Demo:** https://execuai-demo.vercel.app
 - **Video:** [Insert YouTube Link]
-- **Contact:** team@execuai.dev
+- **Contact:** owuordove@gmail.com
 
 *Questions?*

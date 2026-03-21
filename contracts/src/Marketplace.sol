@@ -12,7 +12,7 @@ import "./ReputationSystem.sol";
 /**
  * @title Marketplace
  * @dev Decentralized marketplace for AI agent services
- * @author ExecuAI Team
+ * @author Dovine Owuor
  */
 contract Marketplace is Initializable, UUPSUpgradeable, OwnableUpgradeable, ReentrancyGuardUpgradeable {
     

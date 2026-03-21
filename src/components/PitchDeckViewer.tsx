@@ -32,10 +32,13 @@ export default function PitchDeckViewer() {
   const slides = [
     {
       id: "slide-1",
-      title: "ExecuAI\nYour AI Executive Team",
+      title: "Hederon AI\nYour AI Executive Team",
       subtitle: "One Person. Unlimited Execution. Powered by Hedera.",
       content: (
         <div className="flex flex-col h-full items-center justify-center text-center space-y-8">
+          <div className="flex justify-center mb-4">
+            <img src="/logo_ilustrated.png" alt="Hederon AI" className="h-40 object-contain drop-shadow-2xl" />
+          </div>
           <div 
             className="text-8xl font-extrabold mb-4 drop-shadow-2xl font-sans"
             style={{ 
@@ -46,7 +49,7 @@ export default function PitchDeckViewer() {
               color: "transparent"
             }}
           >
-            ExecuAI
+            Hederon AI
           </div>
           <div 
             className="text-3xl max-w-3xl font-medium leading-relaxed py-4 px-8 rounded-2xl border font-sans"
@@ -316,7 +319,7 @@ export default function PitchDeckViewer() {
             <div className="flex flex-col justify-center space-y-6">
               <h4 className="text-4xl font-bold font-sans" style={{ color: COLORS.blueLight }}>Decentralized Vaults</h4>
               <p className="text-2xl leading-relaxed font-sans" style={{ color: COLORS.zinc300 }}>
-                By combining **SQLite persistence** with **IPFS backup**, ExecuAI ensures that agent-generated intelligence is never lost and always verifiable.
+                By combining **SQLite persistence** with **IPFS backup**, Hederon AI ensures that agent-generated intelligence is never lost and always verifiable.
               </p>
             </div>
             <div 
@@ -435,7 +438,7 @@ export default function PitchDeckViewer() {
     setIsExporting(true);
 
     try {
-      const html2canvas = (await import("html2canvas")).default;
+      const { toPng } = await import("html-to-image");
       const { jsPDF } = await import("jspdf");
 
       const pdf = new jsPDF("landscape", "px", [1920, 1080]);
@@ -443,74 +446,24 @@ export default function PitchDeckViewer() {
 
       for (let i = 0; i < slideNodes.length; i++) {
         const slide = slideNodes[i] as HTMLElement;
-        const canvas = await html2canvas(slide, {
-          scale: 2,           
-          useCORS: true,      
-          backgroundColor: "#000000",
+        const dataUrl = await toPng(slide, {
           width: 1920,
           height: 1080,
-          logging: false,
-          onclone: (clonedDoc) => {
-            // 1. Fix Tailwind v4 oklch in stylesheets instead of removing them natively
-            clonedDoc.querySelectorAll("style").forEach((styleEl) => {
-              try {
-                if (styleEl.innerHTML) {
-                  styleEl.innerHTML = styleEl.innerHTML.replace(/oklch\([^)]+\)/g, "#3b82f6");
-                  styleEl.innerHTML = styleEl.innerHTML.replace(/oklab\([^)]+\)/g, "#3b82f6");
-                }
-              } catch(e) {}
-            });
-
-            // 2. Un-scale the slides so html2canvas captures them at native 1920x1080 resolution
-            clonedDoc.querySelectorAll(".pitch-slide").forEach((s: Element) => {
-              const slide = s as HTMLElement;
-              slide.style.transform = "none";
-              slide.style.marginBottom = "0px";
-              slide.style.width = "1920px";
-              slide.style.height = "1080px";
-              slide.style.overflow = "hidden";
-            });
-
-            // 3. Fix any lingering oklch inline styles and simplify complex ones
-            const elements = clonedDoc.querySelectorAll("*");
-            elements.forEach((el: any) => {
-              if (el.style) {
-                // Strip blur filters (crashes html2canvas)
-                if (el.style.filter && el.style.filter.includes("blur")) {
-                  el.style.filter = "none";
-                }
-                // Convert background-clip text to standard text (unsupported in canvas)
-                if (el.style.backgroundClip === "text" || el.style.webkitBackgroundClip === "text") {
-                  el.style.backgroundClip = "border-box";
-                  el.style.webkitBackgroundClip = "border-box";
-                  el.style.webkitTextFillColor = "currentcolor";
-                  el.style.color = "#60a5fa"; 
-                  el.style.backgroundImage = "none";
-                }
-                // Simplify or remove other gradients that might have non-finite stops
-                if (el.style.backgroundImage && el.style.backgroundImage.includes("gradient")) {
-                   // For background decorations, just use a low-opacity solid color
-                   el.style.backgroundImage = "none";
-                   el.style.backgroundColor = "rgba(59, 130, 246, 0.1)";
-                }
-                // Strip oklch/oklab
-                if (el.style.cssText.match(/okl(ch|ab)/)) {
-                  el.style.cssText = el.style.cssText.replace(/okl(ch|ab)\([^)]+\)/g, "#000000");
-                }
-              }
-            });
+          style: {
+            transform: "none",
+            transformOrigin: "top left",
+            margin: "0",
           },
+          pixelRatio: 1,
         });
-
-        const imgData = canvas.toDataURL("image/jpeg", 0.95);
 
         if (i > 0) {
           pdf.addPage([1920, 1080], "landscape");
         }
-        pdf.addImage(imgData, "JPEG", 0, 0, 1920, 1080);
+        pdf.addImage(dataUrl, "PNG", 0, 0, 1920, 1080);
       }
 
-      pdf.save("ExecuAI_Pitch_Deck.pdf");
+      pdf.save("Hederon_AI_Pitch_Deck.pdf");
     } catch (error) {
       console.error("PDF Export failed", error);
       alert("Failed to export PDF.");
@@ -525,7 +478,7 @@ export default function PitchDeckViewer() {
 
     try {
       const pptxgen = (await import("pptxgenjs")).default;
-      const html2canvas = (await import("html2canvas")).default;
+      const { toPng } = await import("html-to-image");
 
       const pres = new pptxgen();
       pres.layout = "LAYOUT_16x9";
@@ -534,70 +487,22 @@ export default function PitchDeckViewer() {
 
       for (let i = 0; i < slideNodes.length; i++) {
         const slide = slideNodes[i] as HTMLElement;
-        const canvas = await html2canvas(slide, {
-          scale: 2,
-          useCORS: true,
-          backgroundColor: "#000000",
+        const dataUrl = await toPng(slide, {
           width: 1920,
           height: 1080,
-          logging: false,
-          onclone: (clonedDoc) => {
-            // 1. Fix Tailwind v4 oklch in stylesheets instead of removing them natively
-            clonedDoc.querySelectorAll("style").forEach((styleEl) => {
-              try {
-                if (styleEl.innerHTML) {
-                  styleEl.innerHTML = styleEl.innerHTML.replace(/oklch\([^)]+\)/g, "#3b82f6");
-                  styleEl.innerHTML = styleEl.innerHTML.replace(/oklab\([^)]+\)/g, "#3b82f6");
-                }
-              } catch(e) {}
-            });
-
-            // 2. Un-scale the slides so html2canvas captures them at native 1920x1080 resolution
-            clonedDoc.querySelectorAll(".pitch-slide").forEach((s: Element) => {
-              const slide = s as HTMLElement;
-              slide.style.transform = "none";
-              slide.style.marginBottom = "0px";
-              slide.style.width = "1920px";
-              slide.style.height = "1080px";
-              slide.style.overflow = "hidden";
-            });
-
-            // 3. Fix any lingering oklch inline styles and simplify complex ones
-            const elements = clonedDoc.querySelectorAll("*");
-            elements.forEach((el: any) => {
-              if (el.style) {
-                // Strip blur filters (crashes html2canvas)
-                if (el.style.filter && el.style.filter.includes("blur")) {
-                  el.style.filter = "none";
-                }
-                // Convert background-clip text to standard text (unsupported in canvas)
-                if (el.style.backgroundClip === "text" || el.style.webkitBackgroundClip === "text") {
-                  el.style.backgroundClip = "border-box";
-                  el.style.webkitBackgroundClip = "border-box";
-                  el.style.webkitTextFillColor = "currentcolor";
-                  el.style.color = "#60a5fa"; 
-                  el.style.backgroundImage = "none";
-                }
-                // Simplify or remove other gradients that might have non-finite stops
-                if (el.style.backgroundImage && el.style.backgroundImage.includes("gradient")) {
-                   el.style.backgroundImage = "none";
-                   el.style.backgroundColor = "rgba(59, 130, 246, 0.1)";
-                }
-                // Strip oklch/oklab
-                if (el.style.cssText.match(/okl(ch|ab)/)) {
-                  el.style.cssText = el.style.cssText.replace(/okl(ch|ab)\([^)]+\)/g, "#000000");
-                }
-              }
-            });
+          style: {
+            transform: "none",
+            transformOrigin: "top left",
+            margin: "0",
           },
+          pixelRatio: 1,
         });
 
-        const base64 = canvas.toDataURL("image/png");
         const pptxSlide = pres.addSlide();
-        pptxSlide.background = { data: base64 };
+        pptxSlide.background = { data: dataUrl };
       }
 
-      await pres.writeFile({ fileName: "ExecuAI_Pitch_Deck.pptx" });
+      await pres.writeFile({ fileName: "Hederon_AI_Pitch_Deck.pptx" });
     } catch (error) {
       console.error("PPTX Export failed", error);
       alert("Failed to export PPTX.");
@@ -666,7 +571,8 @@ export default function PitchDeckViewer() {
             {/* Slide Footer */}
             <div className="mt-auto flex justify-between items-center font-mono text-lg" style={{ color: COLORS.zinc500 }}>
               <div className="flex items-center gap-4">
-                <span className="font-bold" style={{ color: "rgba(245, 158, 11, 0.5)" }}>EXECUAI</span>
+                <img src="/logo_monochrome.png" alt="Hederon AI" className="h-6 opacity-60" />
+                <span className="font-bold" style={{ color: "rgba(245, 158, 11, 0.5)" }}>HEDERON AI</span>
                 <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: COLORS.zinc800 }}></span>
                 <span>CONFIDENTIAL</span>
               </div>
@@ -685,7 +591,7 @@ export default function PitchDeckViewer() {
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center mb-10 gap-6 relative z-10">
         <div>
           <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-zinc-500 font-sans">
-            ExecuAI Pitch Deck
+            Hederon AI Pitch Deck
           </h1>
           <p className="text-zinc-400 mt-1 font-sans">High-fidelity 16:9 presentation (Export Optimized)</p>
         </div>
