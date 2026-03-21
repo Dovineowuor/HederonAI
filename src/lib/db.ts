@@ -191,20 +191,31 @@ function getDb(): Database.Database {
     );
 
     CREATE TABLE IF NOT EXISTS users (
-      id          TEXT PRIMARY KEY, -- Email
-      name        TEXT NOT NULL,
-      password    TEXT NOT NULL,
-      createdAt   TEXT NOT NULL DEFAULT (datetime('now'))
+      id               TEXT PRIMARY KEY, -- Email
+      name             TEXT NOT NULL,
+      password         TEXT NOT NULL,
+      hederaAccountId  TEXT,             -- Auto-generated wallet ID
+      hederaPrivateKey TEXT,             -- Auto-generated private key
+      createdAt        TEXT NOT NULL DEFAULT (datetime('now'))
     );
   `);
 
   // Migration: Add columns to agents if they don't exist
-  const columns = db.prepare("PRAGMA table_info(agents)").all() as { name: string }[];
-  if (!columns.some(c => c.name === "systemPrompt")) {
+  const agentColumns = db.prepare("PRAGMA table_info(agents)").all() as { name: string }[];
+  if (!agentColumns.some(c => c.name === "systemPrompt")) {
     db.exec("ALTER TABLE agents ADD COLUMN systemPrompt TEXT;");
   }
-  if (!columns.some(c => c.name === "isSystem")) {
+  if (!agentColumns.some(c => c.name === "isSystem")) {
     db.exec("ALTER TABLE agents ADD COLUMN isSystem INTEGER DEFAULT 0;");
+  }
+
+  // Migration: Add columns to users if they don't exist
+  const userColumns = db.prepare("PRAGMA table_info(users)").all() as { name: string }[];
+  if (!userColumns.some(c => c.name === "hederaAccountId")) {
+    db.exec("ALTER TABLE users ADD COLUMN hederaAccountId TEXT;");
+  }
+  if (!userColumns.some(c => c.name === "hederaPrivateKey")) {
+    db.exec("ALTER TABLE users ADD COLUMN hederaPrivateKey TEXT;");
   }
 
   // Seed initial data if tables are empty
@@ -402,7 +413,7 @@ export function rateJob(jobId: string, ratingValue: number, txHash?: string): Es
 
 // --- User Management ---
 
-export function createUser(email: string, name: string, password: string) {
+export function createUser(email: string, name: string, password: string, hederaAccountId?: string, hederaPrivateKey?: string) {
   const db = getDb();
   // Secure hashing with salt for the POC
   const salt = crypto.randomBytes(16).toString('hex');
@@ -410,11 +421,17 @@ export function createUser(email: string, name: string, password: string) {
   const storedPassword = `${salt}.${hash}`;
 
   db.prepare(
-    "INSERT OR REPLACE INTO users (id, name, password) VALUES (?, ?, ?)"
-  ).run(email, name, storedPassword);
+    "INSERT OR REPLACE INTO users (id, name, password, hederaAccountId, hederaPrivateKey) VALUES (?, ?, ?, ?, ?)"
+  ).run(email, name, storedPassword, hederaAccountId ?? null, hederaPrivateKey ?? null);
 }
 
 export function getUserByEmail(email: string) {
   const db = getDb();
-  return db.prepare("SELECT * FROM users WHERE id = ?").get(email) as { id: string, name: string, password: string } | undefined;
+  return db.prepare("SELECT * FROM users WHERE id = ?").get(email) as { 
+    id: string, 
+    name: string, 
+    password: string, 
+    hederaAccountId?: string, 
+    hederaPrivateKey?: string 
+  } | undefined;
 }

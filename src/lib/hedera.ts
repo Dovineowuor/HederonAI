@@ -8,6 +8,7 @@ import {
   TopicMessageSubmitTransaction,
   TransferTransaction,
   Hbar,
+  AccountCreateTransaction,
 } from "@hashgraph/sdk";
 import { ethers } from "ethers";
 
@@ -364,5 +365,37 @@ export async function simulateAgentPayment(
       timestamp,
       txId: `error-hts-${Date.now().toString(16)}`,
     };
+  }
+}
+
+/**
+ * Provisions a completely new Hedera account with a dedicated ED25519 Key Pair and funds it directly from the Operator.
+ */
+export async function provisionNewAccount(initialBalanceHbar = 5): Promise<{ accountId: string, privateKey: string } | null> {
+  const client = getClient();
+  if (!client) {
+    console.error("Failed to get Hedera client for account provisioning");
+    return null;
+  }
+
+  try {
+    const newKey = PrivateKey.generateED25519();
+    const transaction = new AccountCreateTransaction()
+      .setKey(newKey.publicKey)
+      .setInitialBalance(new Hbar(initialBalanceHbar));
+      
+    const txResponse = await transaction.execute(client);
+    const receipt = await txResponse.getReceipt(client);
+    
+    if (receipt.accountId) {
+      return {
+        accountId: receipt.accountId.toString(),
+        privateKey: newKey.toString(),
+      };
+    }
+    return null;
+  } catch (err) {
+    console.error("Failed to provision Hedera account:", err);
+    return null;
   }
 }

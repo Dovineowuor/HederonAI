@@ -23,12 +23,19 @@ const authConfig = {
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
+        if ((user as any).hederaAccountId) {
+          token.hederaAccountId = (user as any).hederaAccountId;
+        }
       }
       return token;
     },
     async session({ session, token }) {
       if (session.user) {
         (session.user as any).id = token.id as string;
+        if (token.hederaAccountId) {
+          (session.user as any).name = `Wallet: ${token.hederaAccountId}`;
+          (session.user as any).hederaAccountId = token.hederaAccountId;
+        }
       }
       return session;
     },
