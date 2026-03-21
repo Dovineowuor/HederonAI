@@ -107,7 +107,8 @@ Hederon AI provides a **coordinated AI executive team** that:
 
 ## 🎥 Demo
 
-👉 (Insert your demo video link here)
+👉 [Live Demo](https://hederonai.dovetecenterprises.site/)
+👉 [Demo Video](https://www.youtube.com/watch?v={hackathon_demo_video_id})
 
 ---
 

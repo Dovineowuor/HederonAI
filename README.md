@@ -1,87 +1,55 @@
-# 🚀 Hederon AI – Your AI Executive Team
+# 🚀 Hederon AI – The Enterprise-Grade Agent Engine
 
-> Run a company of one — powered by intelligent agents and Hedera.
+> One Person. Unlimited Execution. Powered by Hedera.
 
 ---
 
 ## 🧠 Overview
 
-Hederon AI is an AI-powered executive assistant platform that enables individuals to operate like full-scale companies. Users input a goal, and a team of specialized AI agents — CEO, Strategy, Marketing, and Operations — collaborate to break it down, generate insights, and execute tasks. Built on Hedera, Hederon AI introduces transparent logging and agent-based microtransactions, laying the foundation for autonomous digital work.
+Hederon AI is an autonomous, multi-agent executive ecosystem that enables individuals and organizations to hyperscale their bandwidth. 
+
+Users input a strategic goal, and a coordinated swarm of specialized AI agents collaborate to decompose, research, and execute tasks. Built natively on Hedera, Hederon AI introduces the **Agent Creator Economy** — a verifiable marketplace for algorithmic labor.
 
 ---
 
-## 🎯 Problem
-
-Modern entrepreneurship is overwhelming. To build anything meaningful, individuals must juggle:
-- Strategy
-- Marketing  
-- Operations
-- Execution
-
-This creates a bottleneck where ideas don't scale due to limited human bandwidth.
-
----
-
-## 💡 Solution
+## 💡 Solution: The Algorithmic Swarm
 
 Hederon AI provides a **coordinated AI executive team** that:
-- Transforms goals into structured execution plans
-- Delegates tasks across specialized agents
-- Automates research, planning, and workflows
-- Tracks all activity transparently using Hedera
+- **CEO Agent (The Orchestrator)**: Transforms high-level strategic mandates into structured execution plans.
+- **Specialist Agents (The Doers)**: Specialized precisions in Marketing, Strategy, Legal, Operations, and Finance.
+- **Creator Protocol**: Allows industry experts to build and list proprietary agents.
 
 ---
 
-## 🤖 AI Agents
-
-### 👑 CEO Agent
-- Breaks down goals into actionable steps
-- Coordinates execution
-
-### 📊 Strategy Analyst
-- Market research
-- Opportunity analysis
-
-### 📣 Marketing Manager
-- Growth strategies
-- Content generation
-
-### ⚙️ Operations Manager
-- Workflow design
-- Task optimization
-
----
-
-## ⛓️ Hedera Integration
+## ⛓️ Hedera Native Infrastructure
 
 ### 🔹 Hedera Consensus Service (HCS)
-- Logs: Task creation, Agent actions, Outputs
-- Provides immutable and transparent records
+- **Verifiable Job History**: Every agent action is logged immutably, creating a "Last 12 Completed Handshakes" trust layer for the marketplace.
+- **Audit Trails**: Full transparency for corporate and consultancy stakeholders.
 
 ### 🔹 Hedera Token Service (HTS)
-- Simulates microtransactions
-- Enables agent-based reward system
+- **Real Settlement**: Instant, final settlement between users and creators.
+- **70/30 Fee Distribution**: Automated revenue splitting (70% to Creator, 30% to Platform).
 
 ---
 
-## 🖥️ Features
+## 🖥️ Core Features
 
-- Goal-to-execution pipeline
-- Multi-agent collaboration
-- Interactive dashboard
-- Real-time agent outputs
-- Blockchain-backed activity logs
+- **Goal-to-Execution Pipeline**: Decomposition of complex missions into actionable sub-tasks.
+- **Agent Marketplace**: Discover and recruit specialized agents built by the community.
+- **Creator Studio**: Professional environment for deploying and managing custom AI agents.
+- **Verifiable Reputation**: Cryptographically proven performance logs for every agent.
+- **Interactive Multi-Deck**: Enterprise-grade pitch deck integrated directly into the dashboard.
 
 ---
 
 ## 🏗️ Tech Stack
 
-- **Frontend:** Next.js 16, React 19, TypeScript
-- **Backend:** Node.js, Next.js API Routes
-- **AI:** OpenAI API (GPT-4o-mini) + Kilo Gateway fallback models
-- **Blockchain:** Hedera (HCS + HTS) + Smart Contracts
-- **Storage:** IPFS for decentralized file storage
+- **Frontend:** Next.js 16 (App Router), React 19, TypeScript
 - **Styling:** TailwindCSS 4, Framer Motion
+- **Database:** SQLite with IPFS-backed persistence
+- **Blockchain:** Hedera SDK (HCS + HTS)
+- **Auth:** Auth.js (NextAuth) with Multi-Wallet Roadmap
 
 ---
 
@@ -106,29 +74,10 @@ Create a `.env.local` file:
 ```env
 # AI Services
 OPENAI_API_KEY=your_openai_api_key_here
-KILO_API_KEY=your_kilo_api_key_here
 
 # Hedera Testnet Credentials
 HEDERA_ACCOUNT_ID=0.0.xxxxxx
 HEDERA_PRIVATE_KEY=your_hedera_private_key_here
-
-# IPFS Configuration
-IPFS_GATEWAY_URL=https://ipfs.io
-IPFS_API_URL=http://localhost:5001/api
-
-# Application Settings
-NODE_ENV=development
-PORT=3000
-NEXT_PUBLIC_APP_URL=http://localhost:3000
-
-# Feature Flags
-ENABLE_MOCK_MODE=false
-ENABLE_IPFS_STORAGE=true
-ENABLE_KILO_FALLBACK=true
-
-# Model Selection
-DEFAULT_AI_MODEL=gpt-4o-mini
-FALLBACK_AI_MODEL=minimax-8b
 ```
 
 ### Running the Application
@@ -139,107 +88,31 @@ npm run dev
 
 # Build for production
 npm run build
-
-# Start production server
-npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to view the application.
-
 ---
 
-## 🔄 How It Works
-
-1. User inputs a goal
-2. CEO Agent creates execution plan
-3. Tasks distributed to agents
-4. Agents generate outputs
-5. Results displayed in dashboard
-6. Actions logged on Hedera
-7. Payments simulated between agents
-
----
-
-## 📱 Demo
+## 🎥 Demo
 
 - **Live Demo:** [https://hederon-ai-demo.vercel.app](https://hederon-ai-demo.vercel.app)
 - **Demo Video:** [https://youtu.be/demo-video-link](https://youtu.be/demo-video-link)
 
 ---
 
-## 🌍 Impact
-
-Hederon AI enables:
-- Solo founders to operate like full teams
-- Global access to AI-powered productivity
-- A shift from "AI as a tool" → "AI as an economic participant"
-
----
-
 ## 🚀 Future Roadmap
 
-### Phase 1: Foundation (COMPLETED ✅)
-- Multi-agent system with industry SOPs
-- Hedera blockchain integration
-- IPFS decentralized storage
-- Fallback AI models (Kilo Gateway)
-- Tangible deliverables generation
+### Phase 1 & 2: Implementation & Marketplace (COMPLETED ✅)
+- Multi-agent coordination system with industry SOPs.
+- Agent Creator Studio & Marketplace.
+- Verifiable Job History on HCS.
+- 70/30 HTS-native fee splitting logic.
+- Enterprise-grade interactive pitch deck.
 
-### Phase 2: Intelligence (IN PROGRESS 🚧)
-- Decentralized agent marketplace
-- Smart contract deployment on Hedera
-- Agent reputation system
-- Economic engine with microtransactions
-- Multi-agent coordination layer
-
-### Phase 3: Autonomy (PLANNED 📋)
-- Self-improving agent learning loops
-- Swarm intelligence systems
-- Autonomous agent economies
-- Governance and staking systems
-- Cross-agent communication protocols
-
----
-
-## 🤖 Decentralized Agent Marketplace
-
-Hederon AI is evolving into the **world's first decentralized AI agent marketplace** where:
-
-### 🏪 Marketplace Features
-- **Agent Registration**: Onboard AI agents with capabilities
-- **Reputation System**: Weighted 0-1000 reputation scoring
-- **Service Exchange**: Complete marketplace with escrow
-- **Smart Contracts**: Secure agent-client agreements
-
-### 💰 Economic Engine
-- **Microtransactions**: Hedera-based agent payments
-- **Dynamic Pricing**: Market-driven agent rates
-- **Token Staking**: Governance and reputation
-- **Batch Processing**: Efficient transaction handling
-
-### 🤝 Agent Coordination
-- **Multi-Agent Orchestration**: Swarm coordination protocols
-- **Communication Channels**: Secure agent-to-agent messaging
-- **Dispute Resolution**: Automated conflict resolution
-- **Learning Systems**: Self-improving agent capabilities
-
----
-
-## 🧪 Testing
-
-```bash
-# Run tests
-npm test
-
-# Run linting
-npm run lint
-
-# Type checking
-npm run type-check
-
-# Test smart contracts
-cd contracts && npm run test
-```
+### Phase 3: Autonomy & Scale (IN PROGRESS 🚧)
+- **Institutional Auth**: SSO and Multi-Wallet (Hashpack, Blade) production integration.
+- **Agent-Managed DAOs**: Fully autonomous companies governed by agent signers.
+- **Helia Migration**: Moving to the latest IPFS standard for improved persistence.
+- **Cross-Agent Collaboration v2**: Advanced autonomous peer-to-peer agent resource sharing.
 
 ---
 
@@ -259,14 +132,15 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ## 🏁 Conclusion
 
-Hederon AI is not just a tool — it's the foundation for a future where individuals can build, run, and scale entire companies using AI agents. With our decentralized marketplace, we're creating the infrastructure for **autonomous agent economies** where AI entities can think, transact, and collaborate independently.
+Hederon AI is not just a tool — it’s the foundation for a future where a "Company of One" has the execution force of a global corporation. 
+
+**Welcome to the Sovereign Revolution.**
 
 ---
 
 ## 🔗 Links
 
-- **Hackathon Submission:** Hedera Hello Future Apex 2026
-- **Track:** AI & Agents
+- **Live Demo:** https://hederonai.dovetecenterprises.site/
+- **Demo Video:** [https://youtu.be/demo-video-link](https://youtu.be/demo-video-link)
 - **GitHub:** https://github.com/Dovineowuor/HederonAI
-- **Smart Contracts:** https://github.com/Dovineowuor/HederonAI/tree/main/contracts
 - **Contact:** [owuordove@gmail.com](mailto:owuordove@gmail.com)
