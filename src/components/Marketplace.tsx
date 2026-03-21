@@ -73,8 +73,8 @@ export default function Marketplace() {
             className="glass rounded-3xl p-6 border border-white/10 flex flex-col hover:border-amber-500/30 transition-colors"
           >
             <div className="flex justify-between items-start mb-4">
-              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-600 flex items-center justify-center shrink-0 shadow-lg shadow-amber-500/10">
-                <Cpu className="w-8 h-8 text-black" />
+              <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center shrink-0 border border-white/10 overflow-hidden group">
+                <img src="/logo.png" alt="Agent" className="w-10 h-10 object-contain group-hover:scale-110 transition-transform" />
               </div>
               <div className="text-right">
                 <div className="text-sm font-mono text-zinc-400">{agent.category}</div>
