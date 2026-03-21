@@ -165,7 +165,7 @@ vercel --prod
 ### **Must-Have for Submission:**
 - [ ] GitHub repo public and accessible
 - [ ] README with clear setup instructions
-- [ ] Live demo URL working
+- [ ] Live demo URL working(https://hederonai.dovetecenterprises.site/)
 - [ ] Demo video uploaded to YouTube
 - [ ] Pitch deck converted to PDF
 - [ ] All links tested and working
