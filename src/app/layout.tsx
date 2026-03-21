@@ -10,14 +10,18 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "ExecuAI – Your AI Executive Team",
+  title: "Hederon AI – Your AI Executive Team",
   description:
-    "Run a company of one — powered by intelligent agents and Hedera. ExecuAI gives you a CEO, Strategy, Marketing, and Operations agent to execute any goal.",
-  keywords: ["AI agents", "executive team", "Hedera", "productivity", "automation"],
+    "Run a company of one — powered by intelligent agents and Hedera. Hederon AI gives you a CEO, Strategy, Marketing, and Operations agent to execute any goal.",
+  keywords: ["AI agents", "executive team", "Hedera", "productivity", "automation", "Hederon AI"],
   openGraph: {
-    title: "ExecuAI – Your AI Executive Team",
+    title: "Hederon AI – Your AI Executive Team",
     description: "Multi-agent AI system powered by Hedera blockchain",
     type: "website",
+  },
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/logo.png",
   },
 };
 
