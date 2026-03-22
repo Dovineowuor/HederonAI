@@ -190,12 +190,15 @@ export function getDb(): Database.Database {
       completedAt        TEXT
     );
 
+    CREATE UNIQUE INDEX IF NOT EXISTS idx_jobs_txhash ON jobs(txHash) WHERE txHash IS NOT NULL;
+
     CREATE TABLE IF NOT EXISTS users (
       id               TEXT PRIMARY KEY, -- Email
       name             TEXT NOT NULL,
       password         TEXT NOT NULL,
       hederaAccountId  TEXT,             -- Auto-generated wallet ID
       hederaPrivateKey TEXT,             -- Auto-generated private key
+      role             TEXT NOT NULL DEFAULT 'user',
       createdAt        TEXT NOT NULL DEFAULT (datetime('now'))
     );
 
@@ -204,7 +207,27 @@ export function getDb(): Database.Database {
       value      TEXT NOT NULL,
       updatedAt  TEXT NOT NULL DEFAULT (datetime('now'))
     );
+
+    CREATE TABLE IF NOT EXISTS admin_verifications (
+      token     TEXT PRIMARY KEY,
+      email     TEXT NOT NULL,
+      expiresAt DATETIME NOT NULL,
+      used      INTEGER DEFAULT 0
+    );
+
+    CREATE TABLE IF NOT EXISTS user_context (
+      userId     TEXT PRIMARY KEY, -- Linked to user email/id
+      context    TEXT NOT NULL,      -- JSON string of answers
+      updatedAt  TEXT NOT NULL DEFAULT (datetime('now'))
+    );
+
+    CREATE TABLE IF NOT EXISTS article_metrics (
+      slug       TEXT PRIMARY KEY,
+      views      INTEGER NOT NULL DEFAULT 0,
+      updatedAt  TEXT NOT NULL DEFAULT (datetime('now'))
+    );
   `);
+
 
   // Migration: Add columns to agents if they don't exist
   const agentColumns = db.prepare("PRAGMA table_info(agents)").all() as { name: string }[];
@@ -222,6 +245,12 @@ export function getDb(): Database.Database {
   }
   if (!userColumns.some(c => c.name === "hederaPrivateKey")) {
     db.exec("ALTER TABLE users ADD COLUMN hederaPrivateKey TEXT;");
+  }
+  if (!userColumns.some(c => c.name === "role")) {
+    db.exec("ALTER TABLE users ADD COLUMN role TEXT NOT NULL DEFAULT 'user';");
+  }
+  if (!userColumns.some(c => c.name === "suspended")) {
+    db.exec("ALTER TABLE users ADD COLUMN suspended INTEGER NOT NULL DEFAULT 0;");
   }
 
   // Seed initial data if tables are empty
@@ -252,6 +281,45 @@ export function getDb(): Database.Database {
 
   _db = db;
   return db;
+}
+
+export function saveAdminVerification(email: string, token: string, expiresAt: string) {
+  const db = getDb();
+  db.prepare("INSERT INTO admin_verifications (token, email, expiresAt) VALUES (?, ?, ?)").run(token, email, expiresAt);
+}
+
+export function verifyAdminToken(token: string) {
+  const db = getDb();
+  const row = db.prepare("SELECT email FROM admin_verifications WHERE token = ? AND used = 0 AND datetime(expiresAt) > datetime('now')").get(token) as { email: string } | undefined;
+  if (!row) return null;
+
+  // Mark token as used
+  db.prepare("UPDATE admin_verifications SET used = 1 WHERE token = ?").run(token);
+  return row.email;
+}
+
+export function getUserContext(userId: string): Record<string, any> | null {
+  const db = getDb();
+  const res = db.prepare("SELECT context FROM user_context WHERE userId = ?").get(userId) as { context: string } | undefined;
+  if (!res) return null;
+  try {
+    return JSON.parse(res.context);
+  } catch {
+    return null;
+  }
+}
+
+export function saveUserContext(userId: string, context: Record<string, any>) {
+  const db = getDb();
+  db.prepare("INSERT OR REPLACE INTO user_context (userId, context, updatedAt) VALUES (?, ?, datetime('now'))").run(
+    userId,
+    JSON.stringify(context)
+  );
+}
+
+export function clearUserContext(userId: string) {
+  const db = getDb();
+  db.prepare("DELETE FROM user_context WHERE userId = ?").run(userId);
 }
 
 // --- Trigger async snapshot after writes ---
@@ -431,13 +499,80 @@ export function createUser(email: string, name: string, password: string, hedera
   ).run(email, name, storedPassword, hederaAccountId ?? null, hederaPrivateKey ?? null);
 }
 
+export function getUsersCount(): number {
+  const db = getDb();
+  try {
+    const result = db.prepare("SELECT COUNT(*) as c FROM users").get() as { c: number };
+    return result?.c || 0;
+  } catch (e) {
+    return 0; // fallback if users table has issues
+  }
+}
+
+export interface AdminUser {
+  id: string;
+  name: string;
+  role: string;
+  suspended: number;
+  hederaAccountId?: string;
+}
+
+export function getAllUsers(): AdminUser[] {
+  const db = getDb();
+  try {
+    return db.prepare("SELECT id, name, role, suspended, hederaAccountId FROM users ORDER BY rowid DESC").all() as AdminUser[];
+  } catch (e) {
+    return [];
+  }
+}
+
+export function suspendUser(email: string, suspend: boolean): void {
+  const db = getDb();
+  db.prepare("UPDATE users SET suspended = ? WHERE id = ?").run(suspend ? 1 : 0, email);
+}
+
 export function getUserByEmail(email: string) {
   const db = getDb();
-  return db.prepare("SELECT * FROM users WHERE id = ?").get(email) as { 
+  const user = db.prepare("SELECT * FROM users WHERE id = ?").get(email) as { 
     id: string, 
     name: string, 
     password: string, 
+    role: string,
     hederaAccountId?: string, 
     hederaPrivateKey?: string 
   } | undefined;
+
+  // Auto-promote the platform owner to admin
+  if (user && user.id === process.env.ADMIN_EMAIL && user.role !== 'admin') {
+    db.prepare("UPDATE users SET role = 'admin' WHERE id = ?").run(email);
+    user.role = 'admin';
+  }
+
+  return user;
+}
+
+// ─── Article Metrics ────────────────────────────────────────────────────────
+export function incrementArticleView(slug: string): number {
+  const db = getDb();
+  db.prepare(`
+    INSERT INTO article_metrics (slug, views)
+    VALUES (?, 1)
+    ON CONFLICT(slug) DO UPDATE SET views = views + 1, updatedAt = datetime('now')
+  `).run(slug);
+  
+  const result = db.prepare("SELECT views FROM article_metrics WHERE slug = ?").get(slug) as { views: number };
+  return result?.views || 1;
+}
+
+export function getArticleStats() {
+  const db = getDb();
+  try {
+    const list = db.prepare("SELECT slug, views FROM article_metrics ORDER BY views DESC").all() as { slug: string, views: number }[];
+    const totalViews = list.reduce((acc, a) => acc + a.views, 0);
+    const topArticle = list.length > 0 ? list[0] : null;
+    const worstArticle = list.length > 0 ? list[list.length - 1] : null;
+    return { list, totalViews, topArticle, worstArticle };
+  } catch (e) {
+    return { list: [], totalViews: 0, topArticle: null, worstArticle: null };
+  }
 }
