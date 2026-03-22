@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Sidebar from "./Sidebar";
+import Footer from "../Footer";
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -29,12 +30,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             {children}
           </motion.div>
 
-          {/* Minimal Footer */}
-          <footer className="mt-20 py-8 border-t border-white/[0.05] text-center">
-            <p className="text-zinc-600 text-[10px] uppercase font-bold tracking-widest">
-              Powered by <span className="text-violet-500/80">OpenAI</span> • <span className="text-emerald-500/80">Hedera</span> • <span className="text-blue-500/80">Vercel</span> • <span className="text-zinc-500/80">Hederon AI</span>
-            </p>
-          </footer>
+          {/* Global Footer */}
+          <div className="mt-auto">
+            <Footer />
+          </div>
         </div>
       </main>
     </div>

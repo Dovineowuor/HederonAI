@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Terms of Service – Hederon AI",
@@ -220,13 +221,7 @@ export default function TermsPage() {
           </p>
         </section>
 
-        {/* Footer Nav */}
-        <div className="flex flex-wrap gap-4 pt-8 border-t border-white/5 text-xs text-zinc-600">
-          <a href="/privacy" className="hover:text-white transition-colors">Privacy Policy →</a>
-          <a href="https://github.com/Dovineowuor/HederonAI" className="hover:text-white transition-colors">Open Source →</a>
-          <a href="mailto:owuordove@gmail.com" className="hover:text-white transition-colors">Contact Us →</a>
-          <a href="/" className="hover:text-white transition-colors">← Back to App</a>
-        </div>
+        <Footer />
       </div>
     </div>
   );

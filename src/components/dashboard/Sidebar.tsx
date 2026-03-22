@@ -16,7 +16,11 @@ import {
   ChevronLeft,
   Menu,
   X,
-  Sparkles
+  Sparkles,
+  Shield,
+  FileText,
+  Activity,
+  ShieldAlert
 } from "lucide-react";
 import { useSession, signOut } from "next-auth/react";
 import { cn } from "@/lib/utils";
@@ -29,6 +33,10 @@ const NAV_ITEMS = [
   { icon: Sparkles, label: "Creator Studio", href: "/creator/dashboard" },
   { icon: ClipboardList, label: "My Contracts", href: "/marketplace/my-jobs" },
   { icon: Presentation, label: "Pitch Deck", href: "/pitchdeck" },
+  { icon: Shield, label: "Admin Portal", href: "/admin", adminOnly: true },
+  { icon: FileText, label: "CMS", href: "/admin/content", adminOnly: true },
+  { icon: Activity, label: "Telemetry", href: "/admin/telemetry", adminOnly: true },
+  { icon: ShieldAlert, label: "Moderation", href: "/admin/moderation", adminOnly: true },
 ];
 
 export default function Sidebar() {
@@ -106,6 +114,8 @@ export default function Sidebar() {
       <nav className="flex-1 px-2 py-4 space-y-1 overflow-y-auto">
         {NAV_ITEMS.filter(item => {
           if (item.label === "My Contracts" && !session) return false;
+          if (item.label === "Creator Studio" && !session) return false;
+          if ((item as any).adminOnly && (session?.user as any)?.role !== "admin") return false;
           return true;
         }).map((item) => {
           const isActive = pathname === item.href;
