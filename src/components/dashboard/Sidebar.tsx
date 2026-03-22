@@ -104,7 +104,10 @@ export default function Sidebar() {
 
       {/* Navigation */}
       <nav className="flex-1 px-2 py-4 space-y-1 overflow-y-auto">
-        {NAV_ITEMS.map((item) => {
+        {NAV_ITEMS.filter(item => {
+          if (item.label === "My Contracts" && !session) return false;
+          return true;
+        }).map((item) => {
           const isActive = pathname === item.href;
           return (
             <Link
@@ -147,18 +150,19 @@ export default function Sidebar() {
         })}
       </nav>
 
-      {/* Bottom Section */}
       <div className="p-2 mt-auto border-t border-white/[0.08] space-y-1">
         {[
-          { icon: Settings, label: "Settings" },
-          { icon: HelpCircle, label: "Help & Support" },
-        ].map(({ icon: Icon, label }) => (
-          <button
+          { icon: Settings, label: "Settings", href: "/settings", protected: true },
+          { icon: HelpCircle, label: "Help & Support", href: "/support" },
+        ].filter(item => !item.protected || session).map(({ icon: Icon, label, href }) => (
+          <Link
             key={label}
+            href={href}
             title={collapsed && !isMobile ? label : undefined}
             className={cn(
               "w-full flex items-center gap-3 px-2.5 py-2 text-zinc-500 hover:text-white hover:bg-white/5 rounded-xl text-sm transition-all",
-              collapsed && !isMobile ? "justify-center" : ""
+              collapsed && !isMobile ? "justify-center" : "",
+              pathname === href ? "bg-violet-500/10 text-violet-400 border border-violet-500/20 shadow-inner" : ""
             )}
           >
             <Icon className="w-4 h-4 shrink-0" />
@@ -175,7 +179,7 @@ export default function Sidebar() {
                 </motion.span>
               )}
             </AnimatePresence>
-          </button>
+          </Link>
         ))}
 
         {/* User / Auth section */}
