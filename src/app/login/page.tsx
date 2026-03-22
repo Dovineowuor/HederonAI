@@ -1,11 +1,12 @@
 "use client";
 
 import { signIn } from "next-auth/react";
-import { useState, Suspense } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useState, Suspense, useEffect } from "react";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import {
   Wallet, Shield, Lock, ArrowRight, Loader2, Mail, ChevronDown, ChevronUp
 } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 
 // Inline SVG icons for brand accuracy
 const GoogleIcon = () => (
@@ -47,6 +48,7 @@ const HederaIcon = () => (
 function LoginContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const pathname = usePathname();
   const rawCallbackUrl = searchParams?.get("callbackUrl") || "/marketplace";
   const callbackUrl = rawCallbackUrl.startsWith("http")
     ? new URL(rawCallbackUrl).pathname
@@ -58,9 +60,12 @@ function LoginContent() {
   const [showWalletForm, setShowWalletForm] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [settings, setSettings] = useState<Record<string, any> | null>(null);
   const [accountIdInput, setAccountIdInput] = useState(
     process.env.NEXT_PUBLIC_HEDERA_ACCOUNT_ID || "0.0.8064776"
   );
+
+  const error = searchParams?.get("error");
 
   const handleOAuthLogin = async (provider: string) => {
     setLoading(provider);
@@ -113,6 +118,29 @@ function LoginContent() {
     }, 1500);
   };
 
+  useEffect(() => {
+    fetch("/api/settings")
+      .then(res => res.json())
+      .then(data => setSettings(data))
+      .catch(err => {
+        console.error("Failed to fetch settings", err);
+        // Fallback to all enabled if API fails
+        setSettings({
+          auth_hedera_wallet: true,
+          auth_email_password: true,
+          auth_sso_auth0: true,
+        });
+      });
+  }, []);
+
+  if (!settings) {
+    return (
+      <div className="min-h-screen bg-black text-white flex items-center justify-center">
+        <Loader2 className="w-8 h-8 animate-spin text-amber-500" />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-black text-white flex flex-col justify-center items-center p-4 relative overflow-hidden">
       {/* Background glows */}
@@ -133,6 +161,36 @@ function LoginContent() {
           <p className="text-zinc-500 text-xs">Autonomous Intelligence. Handshake Guaranteed.</p>
         </div>
 
+        {/* Unauthorized Alert Popover */}
+        <AnimatePresence>
+          {error === "unauthorized" && (
+            <motion.div
+              initial={{ opacity: 0, y: -20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="mb-6 p-4 rounded-2xl bg-rose-500/10 border border-rose-500/20 backdrop-blur-md flex items-center gap-3 shadow-2xl shadow-rose-500/5 group"
+            >
+              <div className="w-10 h-10 rounded-xl bg-rose-500/20 flex items-center justify-center shrink-0">
+                <Shield className="w-5 h-5 text-rose-400" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <h3 className="text-sm font-bold text-rose-100">Access Restricted</h3>
+                <p className="text-xs text-rose-300/80 leading-snug">Please sign in to access that protected page or integration.</p>
+              </div>
+              <button 
+                onClick={() => {
+                  const params = new URLSearchParams(searchParams.toString());
+                  params.delete("error");
+                  router.replace(`${pathname}?${params.toString()}`);
+                }}
+                className="p-1 px-2 text-[10px] font-bold uppercase tracking-widest text-rose-400 hover:text-rose-200 transition-colors"
+              >
+                Dismiss
+              </button>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         {/* Main Card */}
         <div
           className="rounded-3xl border border-white/10 p-6 space-y-3"
@@ -140,45 +198,49 @@ function LoginContent() {
         >
           <p className="text-[10px] uppercase tracking-widest font-bold text-zinc-600 text-center mb-4">Sign in with</p>
 
-          {/* Google */}
-          <button
-            onClick={() => handleOAuthLogin("google")}
-            disabled={!!loading}
-            className="w-full flex items-center gap-3 bg-white text-black font-semibold py-3 px-4 rounded-xl hover:bg-zinc-100 transition-all disabled:opacity-50 active:scale-[0.98]"
-          >
-            {loading === "google" ? <Loader2 className="w-4 h-4 animate-spin" /> : <GoogleIcon />}
-            <span className="flex-1 text-sm">Continue with Google</span>
-          </button>
-
-          {/* GitHub */}
-          <button
-            onClick={() => handleOAuthLogin("github")}
-            disabled={!!loading}
-            className="w-full flex items-center gap-3 bg-zinc-900 text-white font-semibold py-3 px-4 rounded-xl border border-white/10 hover:bg-zinc-800 transition-all disabled:opacity-50 active:scale-[0.98]"
-          >
-            {loading === "github" ? <Loader2 className="w-4 h-4 animate-spin" /> : <GitHubIcon />}
-            <span className="flex-1 text-sm">Continue with GitHub</span>
-          </button>
-
-          {/* Microsoft */}
-          <button
-            onClick={() => handleOAuthLogin("azure-ad")}
-            disabled={!!loading}
-            className="w-full flex items-center gap-3 bg-zinc-900 text-white font-semibold py-3 px-4 rounded-xl border border-white/10 hover:bg-zinc-800 transition-all disabled:opacity-50 active:scale-[0.98]"
-          >
-            {loading === "azure-ad" ? <Loader2 className="w-4 h-4 animate-spin" /> : <MicrosoftIcon />}
-            <span className="flex-1 text-sm">Continue with Microsoft</span>
-          </button>
-
           {/* Auth0 SSO */}
-          <button
-            onClick={() => handleOAuthLogin("auth0")}
-            disabled={!!loading}
-            className="w-full flex items-center gap-3 bg-zinc-900 text-white font-semibold py-3 px-4 rounded-xl border border-white/10 hover:bg-zinc-800 transition-all disabled:opacity-50 active:scale-[0.98]"
-          >
-            {loading === "auth0" ? <Loader2 className="w-4 h-4 animate-spin" /> : <Auth0Icon />}
-            <span className="flex-1 text-sm">Continue with SSO / Auth0</span>
-          </button>
+          {settings.auth_sso_auth0 && (
+            <>
+              {/* Google */}
+              <button
+                onClick={() => handleOAuthLogin("google")}
+                disabled={!!loading}
+                className="w-full flex items-center gap-3 bg-white text-black font-semibold py-3 px-4 rounded-xl hover:bg-zinc-100 transition-all disabled:opacity-50 active:scale-[0.98]"
+              >
+                {loading === "google" ? <Loader2 className="w-4 h-4 animate-spin" /> : <GoogleIcon />}
+                <span className="flex-1 text-sm">Continue with Google</span>
+              </button>
+
+              {/* GitHub */}
+              <button
+                onClick={() => handleOAuthLogin("github")}
+                disabled={!!loading}
+                className="w-full flex items-center gap-3 bg-zinc-900 text-white font-semibold py-3 px-4 rounded-xl border border-white/10 hover:bg-zinc-800 transition-all disabled:opacity-50 active:scale-[0.98]"
+              >
+                {loading === "github" ? <Loader2 className="w-4 h-4 animate-spin" /> : <GitHubIcon />}
+                <span className="flex-1 text-sm">Continue with GitHub</span>
+              </button>
+
+              {/* Microsoft */}
+              <button
+                onClick={() => handleOAuthLogin("azure-ad")}
+                disabled={!!loading}
+                className="w-full flex items-center gap-3 bg-zinc-900 text-white font-semibold py-3 px-4 rounded-xl border border-white/10 hover:bg-zinc-800 transition-all disabled:opacity-50 active:scale-[0.98]"
+              >
+                {loading === "azure-ad" ? <Loader2 className="w-4 h-4 animate-spin" /> : <MicrosoftIcon />}
+                <span className="flex-1 text-sm">Continue with Microsoft</span>
+              </button>
+
+              <button
+                onClick={() => handleOAuthLogin("auth0")}
+                disabled={!!loading}
+                className="w-full flex items-center gap-3 bg-zinc-900 text-white font-semibold py-3 px-4 rounded-xl border border-white/10 hover:bg-zinc-800 transition-all disabled:opacity-50 active:scale-[0.98]"
+              >
+                {loading === "auth0" ? <Loader2 className="w-4 h-4 animate-spin" /> : <Auth0Icon />}
+                <span className="flex-1 text-sm">Continue with SSO / Auth0</span>
+              </button>
+            </>
+          )}
 
           <div className="flex items-center gap-3 py-1">
             <div className="h-px flex-1 bg-white/8" />
@@ -187,83 +249,91 @@ function LoginContent() {
           </div>
 
           {/* Hedera Wallet */}
-          <button
-            onClick={() => setShowWalletForm(!showWalletForm)}
-            disabled={!!loading}
-            className="w-full flex items-center gap-3 bg-amber-500/10 text-amber-300 font-semibold py-3 px-4 rounded-xl border border-amber-500/20 hover:bg-amber-500/20 transition-all disabled:opacity-50 active:scale-[0.98]"
-          >
-            {loading === "wallet" ? <Loader2 className="w-4 h-4 animate-spin" /> : <HederaIcon />}
-            <span className="flex-1 text-sm text-left">Connect Hedera Wallet</span>
-            {showWalletForm ? <ChevronUp className="w-4 h-4 opacity-50" /> : <ChevronDown className="w-4 h-4 opacity-50" />}
-          </button>
-
-          {showWalletForm && (
-            <div className="space-y-3 animate-in fade-in slide-in-from-top-2 duration-200">
-              <input
-                type="text"
-                value={accountIdInput}
-                onChange={(e) => setAccountIdInput(e.target.value)}
-                placeholder="0.0.xxxxx"
-                className="w-full bg-black/60 border border-amber-500/20 rounded-xl px-4 py-3 text-amber-200 placeholder-zinc-700 focus:outline-none focus:border-amber-500/50 font-mono text-center text-sm"
-                disabled={!!loading}
-              />
+          {settings.auth_hedera_wallet && (
+            <>
               <button
-                onClick={handleWalletLogin}
-                disabled={!!loading || !accountIdInput.trim()}
-                className="w-full flex items-center justify-center gap-2 bg-amber-500 text-black font-bold py-3 rounded-xl hover:bg-amber-400 transition-all disabled:opacity-50 active:scale-[0.98] text-sm"
+                onClick={() => setShowWalletForm(!showWalletForm)}
+                disabled={!!loading}
+                className="w-full flex items-center gap-3 bg-amber-500/10 text-amber-300 font-semibold py-3 px-4 rounded-xl border border-amber-500/20 hover:bg-amber-500/20 transition-all disabled:opacity-50 active:scale-[0.98]"
               >
-                {loading === "wallet" ? <Loader2 className="w-4 h-4 animate-spin" /> : <Wallet className="w-4 h-4" />}
-                Sign in with Wallet
+                {loading === "wallet" ? <Loader2 className="w-4 h-4 animate-spin" /> : <HederaIcon />}
+                <span className="flex-1 text-sm text-left">Connect Hedera Wallet</span>
+                {showWalletForm ? <ChevronUp className="w-4 h-4 opacity-50" /> : <ChevronDown className="w-4 h-4 opacity-50" />}
               </button>
-            </div>
+
+              {showWalletForm && (
+                <div className="space-y-3 animate-in fade-in slide-in-from-top-2 duration-200">
+                  <input
+                    type="text"
+                    value={accountIdInput}
+                    onChange={(e) => setAccountIdInput(e.target.value)}
+                    placeholder="0.0.xxxxx"
+                    className="w-full bg-black/60 border border-amber-500/20 rounded-xl px-4 py-3 text-amber-200 placeholder-zinc-700 focus:outline-none focus:border-amber-500/50 font-mono text-center text-sm"
+                    disabled={!!loading}
+                  />
+                  <button
+                    onClick={handleWalletLogin}
+                    disabled={!!loading || !accountIdInput.trim()}
+                    className="w-full flex items-center justify-center gap-2 bg-amber-500 text-black font-bold py-3 rounded-xl hover:bg-amber-400 transition-all disabled:opacity-50 active:scale-[0.98] text-sm"
+                  >
+                    {loading === "wallet" ? <Loader2 className="w-4 h-4 animate-spin" /> : <Wallet className="w-4 h-4" />}
+                    Sign in with Wallet
+                  </button>
+                </div>
+              )}
+            </>
           )}
 
           {/* Email / Password */}
-          <button
-            onClick={() => setShowEmailForm(!showEmailForm)}
-            disabled={!!loading}
-            className="w-full flex items-center gap-3 bg-zinc-900/60 text-zinc-400 font-semibold py-3 px-4 rounded-xl border border-white/5 hover:bg-zinc-800 hover:text-white transition-all disabled:opacity-50 active:scale-[0.98]"
-          >
-            <Mail className="w-4 h-4" />
-            <span className="flex-1 text-sm text-left">Continue with Email</span>
-            {showEmailForm ? <ChevronUp className="w-4 h-4 opacity-50" /> : <ChevronDown className="w-4 h-4 opacity-50" />}
-          </button>
-
-          {showEmailForm && (
-            <form onSubmit={handleEmailLogin} className="space-y-3 animate-in fade-in slide-in-from-top-2 duration-200">
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="name@company.com"
-                className="w-full bg-black/60 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:border-indigo-500/50 text-sm"
-              />
-              <input
-                type="password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
-                className="w-full bg-black/60 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:border-indigo-500/50 text-sm"
-              />
+          {settings.auth_email_password && (
+            <>
               <button
-                type="submit"
+                onClick={() => setShowEmailForm(!showEmailForm)}
                 disabled={!!loading}
-                className="w-full flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 rounded-xl transition-all disabled:opacity-50 active:scale-[0.98] text-sm"
+                className="w-full flex items-center gap-3 bg-zinc-900/60 text-zinc-400 font-semibold py-3 px-4 rounded-xl border border-white/5 hover:bg-zinc-800 hover:text-white transition-all disabled:opacity-50 active:scale-[0.98]"
               >
-                {loading === "credentials" ? <Loader2 className="w-4 h-4 animate-spin" /> : <Lock className="w-4 h-4" />}
-                {isSignUp ? "Create Account & Get Wallet" : "Sign In"}
-                {loading !== "credentials" && <ArrowRight className="w-3.5 h-3.5 ml-auto" />}
+                <Mail className="w-4 h-4" />
+                <span className="flex-1 text-sm text-left">Continue with Email</span>
+                {showEmailForm ? <ChevronUp className="w-4 h-4 opacity-50" /> : <ChevronDown className="w-4 h-4 opacity-50" />}
               </button>
-              <button
-                type="button"
-                onClick={() => setIsSignUp(!isSignUp)}
-                className="w-full text-zinc-600 hover:text-zinc-400 text-xs py-1 transition-colors"
-              >
-                {isSignUp ? "Already have an account? Sign in" : "New here? Create an account & get your Hedera wallet"}
-              </button>
-            </form>
+
+              {showEmailForm && (
+                <form onSubmit={handleEmailLogin} className="space-y-3 animate-in fade-in slide-in-from-top-2 duration-200">
+                  <input
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="name@company.com"
+                    className="w-full bg-black/60 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:border-indigo-500/50 text-sm"
+                  />
+                  <input
+                    type="password"
+                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="••••••••"
+                    className="w-full bg-black/60 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:border-indigo-500/50 text-sm"
+                  />
+                  <button
+                    type="submit"
+                    disabled={!!loading}
+                    className="w-full flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 rounded-xl transition-all disabled:opacity-50 active:scale-[0.98] text-sm"
+                  >
+                    {loading === "credentials" ? <Loader2 className="w-4 h-4 animate-spin" /> : <Lock className="w-4 h-4" />}
+                    {isSignUp ? "Create Account & Get Wallet" : "Sign In"}
+                    {loading !== "credentials" && <ArrowRight className="w-3.5 h-3.5 ml-auto" />}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setIsSignUp(!isSignUp)}
+                    className="w-full text-zinc-600 hover:text-zinc-400 text-xs py-1 transition-colors"
+                  >
+                    {isSignUp ? "Already have an account? Sign in" : "New here? Create an account & get your Hedera wallet"}
+                  </button>
+                </form>
+              )}
+            </>
           )}
         </div>
 
