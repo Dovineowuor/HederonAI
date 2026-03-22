@@ -14,7 +14,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   callbacks: {
     ...authConfig.callbacks,
     async signIn({ user, account }) {
-      if (account?.provider === "auth0" && user?.email) {
+      // Intercept any OAuth Social Login (Google, GitHub, Auth0, Microsoft) to provision Hedera Wallets
+      if (account?.type === "oauth" && user?.email) {
         const { getUserByEmail, createUser } = await import("./lib/db");
         let dbUser = getUserByEmail(user.email);
         
