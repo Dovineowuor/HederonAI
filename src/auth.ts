@@ -29,13 +29,17 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     ...authConfig.callbacks,
     async jwt({ token, user }) {
       if (user) {
+        token.sub = user.id; // Enforce DB ID (email) as the token subject
         token.role = (user as any).role;
+        token.hederaAccountId = (user as any).hederaAccountId;
       }
       return token;
     },
     async session({ session, token }) {
       if (session.user) {
+        session.user.id = token.sub as string;
         (session.user as any).role = token.role;
+        (session.user as any).hederaAccountId = token.hederaAccountId;
       }
       return session;
     },
@@ -58,7 +62,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           dbUser = getUserByEmail(user.email);
         }
         
-        if (dbUser?.hederaAccountId) {
+        if (dbUser) {
+          // KEY FIX: Merge identities by overriding the OAuth ID with our Database ID (Email)
+          user.id = dbUser.id; 
+          (user as any).role = dbUser.role; // Carry over admin roles
           (user as any).hederaAccountId = dbUser.hederaAccountId;
         }
       }
