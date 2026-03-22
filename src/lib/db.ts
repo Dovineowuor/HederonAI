@@ -150,7 +150,7 @@ const DB_PATH = path.join(DB_DIR, "hederon-ai.db");
 
 let _db: Database.Database | null = null;
 
-function getDb(): Database.Database {
+export function getDb(): Database.Database {
   if (_db) return _db;
 
   if (!fs.existsSync(DB_DIR)) {
@@ -197,6 +197,12 @@ function getDb(): Database.Database {
       hederaAccountId  TEXT,             -- Auto-generated wallet ID
       hederaPrivateKey TEXT,             -- Auto-generated private key
       createdAt        TEXT NOT NULL DEFAULT (datetime('now'))
+    );
+
+    CREATE TABLE IF NOT EXISTS settings (
+      key        TEXT PRIMARY KEY,
+      value      TEXT NOT NULL,
+      updatedAt  TEXT NOT NULL DEFAULT (datetime('now'))
     );
   `);
 
