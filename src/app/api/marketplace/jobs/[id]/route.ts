@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getJob, updateJobStatus } from "@/lib/db";
+import { getJob, updateJobStatus, getUserByEmail, getAgent } from "@/lib/db";
 import { logToHCS } from "@/lib/hedera";
 import { auth } from "@/auth";
+import { sendHandshakeConfirmedEmail, sendEscrowReleaseEmail } from "@/lib/mail";
 
 export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
@@ -61,6 +62,24 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
         })
       );
       updateJobStatus(id, "completed", undefined, undefined, logResponse.txId);
+
+      // Send emails
+      const clientEmail = userId;
+      const agentObj = getAgent(job.agentId);
+      if (agentObj) {
+        const clientUser = getUserByEmail(clientEmail);
+        const ownerUser = getUserByEmail(agentObj.creator);
+        
+        const clientName = clientUser?.name || clientEmail.split("@")[0];
+        sendHandshakeConfirmedEmail(clientEmail, clientName, id, agentObj.name).catch(console.error);
+
+        if (ownerUser) {
+          const ownerEmail = ownerUser.id;
+          const ownerName = ownerUser.name;
+          sendEscrowReleaseEmail(ownerEmail, ownerName, id, agentObj.name, agentEarnings).catch(console.error);
+        }
+      }
+
       return NextResponse.json({ success: true, message: "Funds released to Agent Creator." });
     } else if (action === "reject") {
       // User rejected -> Refund minus 5% gas penalty

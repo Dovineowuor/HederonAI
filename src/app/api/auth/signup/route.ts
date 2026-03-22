@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createUser, getUserByEmail } from "@/lib/db";
 import { provisionNewAccount } from "@/lib/hedera";
+import { sendWelcomeEmail } from "@/lib/mail";
 
 export async function POST(req: NextRequest) {
   try {
@@ -12,7 +13,8 @@ export async function POST(req: NextRequest) {
 
     const existingUser = getUserByEmail(email);
     if (existingUser) {
-      return NextResponse.json({ error: "User already exists" }, { status: 400 });
+      // User already exists — email is the unique identifier, just let them sign in
+      return NextResponse.json({ message: "Account exists, please sign in.", already_exists: true });
     }
 
     // Provision a real Hedera testnet account for the new user (initial funding of 5 HBAR)
@@ -27,6 +29,9 @@ export async function POST(req: NextRequest) {
     }
 
     createUser(email, name, password, accountId, privateKey);
+
+    // Send branded welcome email (fire and forget)
+    sendWelcomeEmail(email, name, accountId ?? undefined).catch(console.error);
 
     return NextResponse.json({ 
       message: "User created successfully",

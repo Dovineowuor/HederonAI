@@ -1,14 +1,24 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createJob, updateJobStatus, getAgent } from "@/lib/db";
+import { createJob, updateJobStatus, getAgent, getUserByEmail } from "@/lib/db";
 import { callKiloModel } from "@/lib/kilo-router";
 import { AGENT_PROMPTS } from "@/app/api/agents/route";
 import { logToHCS } from "@/lib/hedera";
 import { uploadToIPFS } from "@/lib/ipfs";
 import { auth } from "@/auth";
 import JSZip from "jszip";
+import { sendEscrowCreatedEmail, sendJobCompletedEmail } from "@/lib/mail";
+
+import { z } from "zod";
+
+const JobSchema = z.object({
+  agentId: z.string().min(4),
+  instruction: z.string().min(10).max(1000),
+  priceHbar: z.number().positive(),
+  txHash: z.string().optional(),
+});
 
 // Helper simulation function, since the real agent logic is complex
-async function simulateAutonomousAgentWork(jobId: string, agentId: string, instruction: string) {
+async function simulateAutonomousAgentWork(jobId: string, agentId: string, instruction: string, clientEmail?: string) {
   try {
     updateJobStatus(jobId, "working");
 
@@ -91,6 +101,28 @@ async function simulateAutonomousAgentWork(jobId: string, agentId: string, instr
     // We store the HFS FileID too, or just the txHash
     updateJobStatus(jobId, "awaiting_handshake", output, ipfsResult.hash, hfsLog.txId);
 
+    // Send completion emails to client and agent owner
+    const completionAgent = getAgent(agentId);
+    if (clientEmail && completionAgent) {
+      const ownerUser = getUserByEmail(completionAgent.creator) || null;
+      const ownerEmail = ownerUser?.id || completionAgent.creator;
+      const ownerName = ownerUser?.name || completionAgent.creator.split("@")[0];
+      const clientUser = getUserByEmail(clientEmail) || null;
+      const clientName = clientUser?.name || clientEmail.split("@")[0];
+      const ownerEarnings = (completionAgent.priceHbar * 0.70);
+
+      sendJobCompletedEmail({
+        clientEmail,
+        clientName,
+        ownerEmail,
+        ownerName,
+        jobId,
+        agentName: completionAgent.name,
+        amountHbar: completionAgent.priceHbar,
+        ownerEarnings,
+      }).catch(console.error);
+    }
+
   } catch (error) {
     console.error("Agent execution failed:", error);
     updateJobStatus(jobId, "refunded", "Error: Agent crashed during autonomous execution.");
@@ -100,16 +132,27 @@ async function simulateAutonomousAgentWork(jobId: string, agentId: string, instr
 export async function POST(req: NextRequest) {
   try {
     const session = await auth();
-    // In a real app, middleware handles protection, but we can double check
     if (!session?.user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const body = await req.json();
-    const { agentId, instruction, priceHbar } = body;
+    const json = await req.json();
+    const result = JobSchema.safeParse(json);
+    
+    if (!result.success) {
+      return NextResponse.json({ error: "Invalid request data", details: result.error.format() }, { status: 400 });
+    }
 
-    if (!agentId || !instruction) {
-      return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+    const { agentId, instruction, priceHbar, txHash } = result.data;
+
+    // SECURITY: Verify price against database
+    const agent = getAgent(agentId);
+    if (!agent) {
+       return NextResponse.json({ error: "Agent not found" }, { status: 404 });
+    }
+    
+    if (Math.abs(agent.priceHbar - priceHbar) > 0.0001) {
+       return NextResponse.json({ error: "Price mismatch. Canonical price has changed." }, { status: 400 });
     }
 
     // Platform fee: 2.5% (matches on-chain config)
@@ -117,7 +160,16 @@ export async function POST(req: NextRequest) {
     const agentEarnings = priceHbar - platformFee;
 
     // Create the job record first so we have an ID for the on-chain log
-    const job = createJob(agentId, instruction, priceHbar, undefined, (session.user as any).id || session.user.email || undefined);
+    // This will error if txHash is a duplicate due to the UNIQUE constraint we added to DB
+    let job;
+    try {
+      job = createJob(agentId, instruction, priceHbar, txHash, (session.user as any).id || session.user.email || undefined);
+    } catch (dbError: any) {
+      if (dbError.message?.includes("UNIQUE constraint failed")) {
+         return NextResponse.json({ error: "Duplicate transaction detected. Potential replay attack." }, { status: 409 });
+      }
+      throw dbError;
+    }
 
     // Log escrow creation to HCS (on-chain event) with full fee breakdown
     const logResponse = await logToHCS(
@@ -132,6 +184,7 @@ export async function POST(req: NextRequest) {
         timestamp: new Date().toISOString(),
         network: process.env.HEDERA_NETWORK || "testnet",
         marketplaceContract: process.env.MARKETPLACE_ADDRESS || "",
+        clientTxHash: txHash || "N/A"
       })
     );
 
@@ -141,7 +194,15 @@ export async function POST(req: NextRequest) {
     }
 
     // KICK OFF AUTONOMOUS EXECUTION IN THE BACKGROUND
-    simulateAutonomousAgentWork(job.id, agentId, instruction);
+    simulateAutonomousAgentWork(job.id, agentId, instruction, (session.user as any).id || session.user.email || undefined);
+
+    // Send escrow-created email to client (fire and forget)
+    const clientEmail: string = (session.user as any).id || session.user.email || "";
+    if (clientEmail) {
+      const clientUser = getUserByEmail(clientEmail);
+      const name = clientUser?.name || clientEmail.split("@")[0];
+      sendEscrowCreatedEmail(clientEmail, name, job.id, agent.name, priceHbar).catch(console.error);
+    }
 
     return NextResponse.json({ success: true, job });
   } catch (error) {
