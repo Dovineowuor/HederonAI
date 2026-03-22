@@ -14,19 +14,46 @@ export default function CreatorDashboard() {
 
   useEffect(() => {
     fetch("/api/creator/analytics")
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) {
+           if (res.status === 401) {
+             router.push("/login?error=unauthorized");
+             return null;
+           }
+           throw new Error("Failed to fetch analytics");
+        }
+        return res.json();
+      })
       .then(d => {
-        setData(d);
-        setLoading(true); // Wait for animations
+        if (d) {
+          setData(d);
+          setLoading(true); // Wait for animations
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        setData({ error: err.message });
       })
       .finally(() => setLoading(false));
-  }, []);
+  }, [router]);
 
-  if (loading || !data) {
+  if (loading || !data || data.error) {
     return (
       <DashboardLayout>
-        <div className="flex items-center justify-center min-h-[50vh]">
-          <div className="w-8 h-8 rounded-full border-2 border-amber-500 border-t-transparent animate-spin" />
+        <div className="flex flex-col items-center justify-center min-h-[50vh] gap-4">
+          {loading || !data ? (
+            <div className="w-8 h-8 rounded-full border-2 border-amber-500 border-t-transparent animate-spin" />
+          ) : (
+            <div className="text-center space-y-4">
+              <p className="text-red-400 font-medium">Error: {data.error}</p>
+              <button 
+                onClick={() => window.location.reload()}
+                className="text-amber-500 hover:text-amber-400 text-sm font-bold underline"
+              >
+                Try Again
+              </button>
+            </div>
+          )}
         </div>
       </DashboardLayout>
     );

@@ -84,7 +84,8 @@ function LoginContent() {
           body: JSON.stringify({ email, name: email.split("@")[0], password }),
         });
         const signupData = await signupRes.json();
-        if (!signupRes.ok) throw new Error(signupData.error || "Signup failed");
+        // If user already exists, just proceed to sign in (email is the unique identifier)
+        if (!signupRes.ok && !signupData.already_exists) throw new Error(signupData.error || "Signup failed");
       }
 
       const result = await signIn("credentials", {

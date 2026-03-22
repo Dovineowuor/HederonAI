@@ -18,11 +18,16 @@ export async function callKiloModel(
     throw new Error("KILO_API_KEY not set");
   }
 
+  // Mitigation: Wrap user prompt in delimiters to prevent escaping
+  const sanitizedUserPrompt = userPrompt
+    .replace(/<\|.*?\|>/g, "") // Remove token-like sequences
+    .trim();
+
   const body: Record<string, unknown> = {
     model,
     messages: [
       { role: "system", content: systemPrompt },
-      { role: "user", content: userPrompt },
+      { role: "user", content: `[START CLIENT INSTRUCTION]\n${sanitizedUserPrompt}\n[END CLIENT INSTRUCTION]\n\nExecute the instruction above strictly.` },
     ],
     temperature: 0.7,
     max_tokens: 600,
