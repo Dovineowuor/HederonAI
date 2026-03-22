@@ -34,8 +34,9 @@ const MicrosoftIcon = () => (
 );
 
 const Auth0Icon = () => (
-  <svg viewBox="0 0 24 24" className="w-4 h-4" xmlns="http://www.w3.org/2000/svg">
-    <path fill="#EB5424" d="M21 12 15.7 2.5l-3.7 6.4 3.9 6.8-3.9 6.8h7.5L21 12zM8.3 12l3.9-6.8L8.5 2.5H1L3 6.7l-2 5.3 2 5.3L1 21.5h7.5L12.2 12z"/>
+  <svg viewBox="0 0 16 16" className="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg">
+    {/* License: Logo. Made by HashiCorp: https://github.com/hashicorp/design-system */}
+    <path d="M12.549 1h-4.55l1.407 4.38h4.548l-3.68 2.61 1.406 4.405c2.37-1.725 3.143-4.336 2.274-7.016L12.55 1zM2.045 5.38h4.55L8 1H3.45L2.045 5.38c-.868 2.68-.094 5.29 2.275 7.015L5.725 7.99l-3.68-2.612zm2.275 7.015L8 15l3.68-2.605L8 9.745l-3.68 2.65z"/>
   </svg>
 );
 
