@@ -27,9 +27,19 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   secret: process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET || "fallback_secret_for_poc_only_do_not_use_in_prod",
   callbacks: {
     ...authConfig.callbacks,
-    async jwt({ token, user }) {
-      if (user) {
-        token.sub = user.id; // Enforce DB ID (email) as the token subject
+    async jwt({ token, user, account }) {
+      if (account?.type === "oauth" && user?.email) {
+        // Guarantee DB sync on OAuth initial signin
+        const { getUserByEmail } = await import("./lib/db");
+        const dbUser = getUserByEmail(user.email);
+        if (dbUser) {
+          token.sub = dbUser.id;
+          token.role = dbUser.role;
+          token.hederaAccountId = dbUser.hederaAccountId;
+        }
+      } else if (user) {
+        // Credentials / standard mapping
+        token.sub = user.id;
         token.role = (user as any).role;
         token.hederaAccountId = (user as any).hederaAccountId;
       }
