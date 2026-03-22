@@ -42,11 +42,9 @@ const authConfig = {
           AzureAD({
             clientId: process.env.AZURE_AD_CLIENT_ID,
             clientSecret: process.env.AZURE_AD_CLIENT_SECRET,
-            // Use 'common' to allow any Microsoft account (personal + work/school)
-            // Or use 'organizations' for work/school only, or your specific tenant ID for single-tenant
-            issuer: process.env.AZURE_AD_TENANT_ID
-              ? `https://login.microsoftonline.com/${process.env.AZURE_AD_TENANT_ID}/v2.0`
-              : "https://login.microsoftonline.com/common/v2.0",
+            // Must use 'common' for "Entra ID tenants + personal Microsoft accounts"
+            // Using a specific tenant ID here would reject accounts from other tenants
+            issuer: "https://login.microsoftonline.com/common/v2.0",
           }),
         ]
       : []),
