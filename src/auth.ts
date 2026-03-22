@@ -1,6 +1,20 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import authConfig from "./auth.config";
+
+if (typeof process !== "undefined" && (process.env.HTTPS_PROXY || process.env.HTTP_PROXY)) {
+  try {
+    const { ProxyAgent, setGlobalDispatcher } = require("undici");
+    const proxyUrl = process.env.HTTPS_PROXY || process.env.HTTP_PROXY;
+    if (proxyUrl) {
+      setGlobalDispatcher(new ProxyAgent(proxyUrl));
+      console.log(`[auth] Set global fetch proxy to ${proxyUrl}`);
+    }
+  } catch (err) {
+    console.warn("[auth] Failed to set global fetch proxy", err);
+  }
+}
+
 // Bypassing any locally-tested hardcoded localhost URLs set in Vercel's env dashboard
 if (process.env.VERCEL || process.env.VERCEL_URL) {
   delete process.env.AUTH_URL;
