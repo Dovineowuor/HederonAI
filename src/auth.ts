@@ -13,6 +13,18 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   secret: process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET || "fallback_secret_for_poc_only_do_not_use_in_prod",
   callbacks: {
     ...authConfig.callbacks,
+    async jwt({ token, user }) {
+      if (user) {
+        token.role = (user as any).role;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (session.user) {
+        (session.user as any).role = token.role;
+      }
+      return session;
+    },
     async signIn({ user, account }) {
       // Intercept any OAuth Social Login (Google, GitHub, Auth0, Microsoft) to provision Hedera Wallets
       if (account?.type === "oauth" && user?.email) {
@@ -88,6 +100,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
               id: user.id,
               name: user.name,
               email: user.id,
+              role: (user as any).role,
               hederaAccountId: user.hederaAccountId,
             };
           }
@@ -96,6 +109,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             id: user.id,
             name: user.name,
             email: user.id,
+            role: (user as any).role,
             hederaAccountId: user.hederaAccountId,
           };
         }
