@@ -10,7 +10,7 @@ export async function proxy(request: NextRequest) {
   const session = await auth();
 
   // Protect sensitive routes
-  const protectedRoutes = ["/marketplace/hire", "/marketplace/jobs"];
+  const protectedRoutes = ["/marketplace/hire", "/marketplace/jobs", "/settings", "/marketplace/my-jobs"];
   const isProtected = protectedRoutes.some((route) =>
     request.nextUrl.pathname.startsWith(route)
   );
@@ -18,6 +18,7 @@ export async function proxy(request: NextRequest) {
   if (isProtected && !session) {
     const loginUrl = new URL("/login", request.url);
     loginUrl.searchParams.set("callbackUrl", request.nextUrl.pathname);
+    loginUrl.searchParams.set("error", "unauthorized");
     return NextResponse.redirect(loginUrl);
   }
 
@@ -25,5 +26,10 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/marketplace/hire/:path*", "/marketplace/jobs/:path*"],
+  matcher: [
+    "/marketplace/hire/:path*", 
+    "/marketplace/jobs/:path*",
+    "/settings/:path*",
+    "/marketplace/my-jobs/:path*"
+  ],
 };
