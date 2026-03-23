@@ -591,7 +591,7 @@ export default function PitchDeckViewer() {
               <div className="flex flex-col justify-center items-center">
                 <div className="bg-white p-6 rounded-3xl shadow-[0_0_80px_rgba(59,130,246,0.2)] mb-8">
                   <img 
-                    src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://hederonai.dovetecenterprises.site" 
+                    src="/hederon-qr.png" 
                     alt="Hederon AI Website QR Code" 
                     className="w-full h-auto aspect-square rounded-xl"
                   />
@@ -626,127 +626,6 @@ export default function PitchDeckViewer() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isMaximized, slides.length]);
 
-  /**
-   * Replaces oklch/lab color functions in the cloned document's stylesheets
-   * because html2canvas does not support modern CSS color spaces (Tailwind v4 uses oklch).
-   */
-  const stripUnsupportedColors = (clonedDoc: Document) => {
-    const fallbackMap: Record<string, string> = {
-      oklch: "#3b82f6",
-      "lab(": "#3b82f6",
-    };
-    try {
-      Array.from(clonedDoc.styleSheets).forEach((sheet) => {
-        try {
-          Array.from(sheet.cssRules ?? []).forEach((rule) => {
-            if (rule instanceof CSSStyleRule) {
-              const style = rule.style;
-              for (let i = 0; i < style.length; i++) {
-                const prop = style[i];
-                const val = style.getPropertyValue(prop);
-                if (val.includes("oklch") || val.includes(" lab(") || val.includes(",lab(")) {
-                  // Replace with a transparent fallback to avoid parser crash
-                  style.setProperty(prop, "transparent");
-                }
-              }
-            }
-          });
-        } catch {
-          // Cross-origin or inaccessible sheet — skip silently
-        }
-      });
-    } catch {
-      // Fallthrough
-    }
-    // Also inline-strip any element style attributes
-    clonedDoc.querySelectorAll<HTMLElement>("[style]").forEach((el) => {
-      if (el.style.cssText.includes("oklch") || el.style.cssText.includes("lab(")) {
-        el.style.cssText = el.style.cssText
-          .replace(/oklch\([^)]*\)/g, "transparent")
-          .replace(/lab\([^)]*\)/g, "transparent");
-      }
-    });
-  };
-
-  const exportNode = async (node: HTMLElement) => {
-    const html2canvas = (await import("html2canvas")).default;
-    const canvas = await html2canvas(node, {
-      scale: 2,
-      useCORS: true,
-      backgroundColor: "#09090b",
-      width: 1920,
-      height: 1080,
-      logging: false,
-      onclone: (clonedDoc, clonedNode) => {
-        // Strip oklch/lab before html2canvas tries to parse them
-        stripUnsupportedColors(clonedDoc);
-        clonedNode.style.transform = "none";
-        clonedNode.style.marginBottom = "0";
-      },
-    });
-    return canvas.toDataURL("image/png");
-  };
-
-  const exportToPDF = async () => {
-    if (!deckRef.current) return;
-    setIsExporting(true);
-
-    try {
-      const { jsPDF } = await import("jspdf");
-      const pdf = new jsPDF({
-        orientation: "landscape",
-        unit: "px",
-        format: [1920, 1080],
-        compress: true,
-      });
-
-      const slideNodes = Array.from(deckRef.current.querySelectorAll(".pitch-slide"));
-
-      for (let i = 0; i < slideNodes.length; i += 1) {
-        const dataUrl = await exportNode(slideNodes[i] as HTMLElement);
-        if (i > 0) pdf.addPage([1920, 1080], "landscape");
-        pdf.addImage(dataUrl, "PNG", 0, 0, 1920, 1080, undefined, "FAST");
-      }
-
-      pdf.save("Hederon_AI_Pitch_Deck.pdf");
-    } catch (error) {
-      console.error("PDF export failed", error);
-      alert("Failed to export PDF.");
-    } finally {
-      setIsExporting(false);
-    }
-  };
-
-  const exportToPPTX = async () => {
-    if (!deckRef.current) return;
-    setIsExporting(true);
-
-    try {
-      const pptxgen = (await import("pptxgenjs")).default;
-      const pres = new pptxgen();
-      pres.layout = "LAYOUT_WIDE";
-      pres.author = "Dovine K";
-      pres.company = "Hederon AI";
-      pres.subject = "Hederon AI Pitch Deck";
-      pres.title = "Hederon AI Pitch Deck";
-
-      const slideNodes = Array.from(deckRef.current.querySelectorAll(".pitch-slide"));
-
-      for (const node of slideNodes) {
-        const dataUrl = await exportNode(node as HTMLElement);
-        const slide = pres.addSlide();
-        slide.background = { color: "18181b" };
-        slide.addImage({ data: dataUrl, x: 0, y: 0, w: 13.333, h: 7.5 });
-      }
-
-      await pres.writeFile({ fileName: "Hederon_AI_Pitch_Deck.pptx" });
-    } catch (error) {
-      console.error("PPTX export failed", error);
-      alert("Failed to export PPTX.");
-    } finally {
-      setIsExporting(false);
-    }
-  };
 
   const renderSlides = () => (
     <div
@@ -797,32 +676,17 @@ export default function PitchDeckViewer() {
           >
             Fullscreen
           </button>
-          <button
-            onClick={exportToPDF}
-            disabled={isExporting}
-            className="rounded-xl border border-white/20 bg-white/5 px-5 py-2.5 font-medium transition hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-50"
+          <a
+            href="/Hederon AI Pitch Deck.pdf"
+            download="Hederon_AI_Pitch_Deck.pdf"
+            className="rounded-xl border border-white/20 bg-white/5 px-5 py-2.5 font-medium transition hover:bg-white/10 flex items-center gap-2"
           >
-            Export PDF
-          </button>
-          <button
-            onClick={exportToPPTX}
-            disabled={isExporting}
-            className="rounded-xl border border-white/20 bg-white/5 px-5 py-2.5 font-medium transition hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            Export PPTX
-          </button>
+            Download PDF
+          </a>
         </div>
       </div>
 
-      {isExporting && (
-        <div className="fixed inset-0 z-[200] flex items-center justify-center bg-black/80 backdrop-blur-sm">
-          <div className="rounded-2xl border border-white/10 p-8 text-center">
-            <div className="mb-4 text-4xl">🚀</div>
-            <h2 className="mb-2 text-2xl font-bold text-white">Rendering deck…</h2>
-            <p className="text-zinc-400">Generating clean slide captures for PDF and PPTX output.</p>
-          </div>
-        </div>
-      )}
+
 
       {!isMaximized && renderSlides()}
 
