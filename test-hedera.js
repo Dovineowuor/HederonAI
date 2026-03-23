@@ -1,4 +1,4 @@
-require('dotenv').config();
+
 const { HederaLog, logToHCS } = require('./src/lib/hedera');
 
 async function test() {

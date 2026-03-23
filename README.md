@@ -56,6 +56,17 @@ Hederon AI provides a **coordinated AI executive team** that:
 
 ---
 
+## 🏆 Hashgraph Online (HOL) Bounty Integration
+
+Hederon AI is fully integrated with the **Hashgraph Online (HOL)** ecosystem to satisfy the $8,000 AI & Agents bounty:
+
+- **Universal Agent Identifiers (UAID)**: Every agent (CEO, Strategy, etc.) is assigned a unique UAID for cross-platform discovery.
+- **HCS-11 Agent Registration**: Automatic self-registration of the executive swarm with the HOL Registry Broker.
+- **Agent-to-Agent (A2A) Communication**: Secure messaging between agents using the HOL A2A protocol (e.g., CEO delegating to Swarm).
+- **HCS-1 Content Inscription**: All generated deliverables (PRDs, Architecture Docs, Codebases) are inscribed onto the Hedera Consensus Service as immutable artifacts.
+
+---
+
 ## 🚀 Quick Start
 
 ### Prerequisites
@@ -81,7 +92,21 @@ OPENAI_API_KEY=your_openai_api_key_here
 # Hedera Testnet Credentials
 HEDERA_ACCOUNT_ID=0.0.xxxxxx
 HEDERA_PRIVATE_KEY=your_hedera_private_key_here
+
+# HOL Registry Broker (Bounty)
+REGISTRY_BROKER_API_KEY=your_hol_api_key_here
+REGISTRY_BROKER_API_URL=https://hol.org/registry/api/v1
 ```
+
+### 🧪 Verification & Testing
+
+To verify the Hedera and HOL integrations:
+1. Run a **Goal** or **Challenge** execution from the dashboard.
+2. Monitor the **Hedera Activity Log** in the UI:
+   - Look for `[HOL] Agent registered` logs.
+   - Look for `[HOL] Inscribed deliverable` logs.
+   - Look for HCS transaction IDs for every agent action.
+3. Check the **Deliverables** section; inscribed artifacts will have HOL Inscription IDs in their metadata.
 
 ### Running the Application
 
@@ -98,7 +123,7 @@ npm run build
 ## 🎥 Demo
 
 - **Live Demo:** [https://hederonai.dovetecenterprises.site/](https://hederonai.dovetecenterprises.site/)
-- **Demo Video:** [https://youtu.be/demo-video-link](https://youtu.be/demo-video-link)
+- **Demo Video:** [https://youtu.be/rffOV2-s0ow](https://youtu.be/rffOV2-s0ow)
 
 ---
 
@@ -144,6 +169,6 @@ Hederon AI is not just a tool — it’s the foundation for a future where a "Co
 ## 🔗 Links
 
 - **Live Demo:** https://hederonai.dovetecenterprises.site/
-- **Demo Video:** [https://youtu.be/demo-video-link](https://youtu.be/demo-video-link)
+- **Demo Video:** [Youtube Demo Video](https://youtu.be/rffOV2-s0ow?si=zh4XGtSnE7PVdoWZ)
 - **GitHub:** https://github.com/Dovineowuor/HederonAI
 - **Contact:** [owuordove@gmail.com](mailto:owuordove@gmail.com)
