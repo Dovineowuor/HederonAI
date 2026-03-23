@@ -1,174 +1,124 @@
-# 🚀 Hederon AI – The Enterprise-Grade Agent Engine
-
-> One Person. Unlimited Execution. Powered by Hedera.
+<div align="center">
+  <img src="public/favicon.ico" alt="Hederon AI Logo" width="120" />
+  <h1>Hederon AI – The Enterprise-Grade Agent Engine</h1>
+  <p><strong>One Person. Unlimited Execution. Powered by Hedera.</strong></p>
+  
+  <p>
+    <a href="https://hederonai.dovetecenterprises.site/">
+      <img src="https://img.shields.io/badge/Live_Demo-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo" />
+    </a>
+    <a href="https://youtu.be/rffOV2-s0ow">
+      <img src="https://img.shields.io/badge/Demo_Video-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="Demo Video" />
+    </a>
+    <a href="https://github.com/Dovineowuor/HederonAI/blob/main/LICENSE.md">
+      <img src="https://img.shields.io/badge/License-MIT-blue?style=for-the-badge" alt="License" />
+    </a>
+  </p>
+</div>
 
 ---
 
 ## 🧠 Overview
 
-Hederon AI is an autonomous, multi-agent executive ecosystem that enables individuals and organizations to hyperscale their bandwidth. 
+**Hederon AI** is an autonomous, decentralized multi-agent ecosystem that enables solo-founders and small teams to hyperscale their bandwidth. 
 
-Users input a strategic goal, and a coordinated swarm of specialized AI agents collaborate to decompose, research, and execute tasks. Built natively on Hedera, Hederon AI introduces the **Agent Creator Economy** — a verifiable marketplace for algorithmic labor.
-
----
-
-## 💡 Solution: The Algorithmic Swarm
-
-Hederon AI provides a **coordinated AI executive team** that:
-- **CEO Agent (The Orchestrator)**: Transforms high-level strategic mandates into structured execution plans.
-- **Specialist Agents (The Doers)**: Specialized precisions in Marketing, Strategy, Legal, Operations, and Finance.
-- **Creator Protocol**: Allows industry experts to build and list proprietary agents.
+Users submit a high-level strategic goal, and a coordinated swarm of specialized AI "executive" agents dynamically decompose, assign, and execute the required tasks. Built natively on the **Hedera** network, Hederon AI logs every autonomous decision and heuristic pivot immutably to the ledger—providing true **"Proof of Thought"** for enterprise stakeholders.
 
 ---
 
-## ⛓️ Hedera Native Infrastructure
+## 🏆 Hashgraph Online (HOL) Ecosystem Integration
 
-### 🔹 Hedera Consensus Service (HCS)
-- **Verifiable Job History**: Every agent action is logged immutably, creating a "Last 12 Completed Handshakes" trust layer for the marketplace.
-- **Audit Trails**: Full transparency for corporate and consultancy stakeholders.
+Hederon AI extensively utilizes the **Hashgraph Online (HOL) Standards SDK** to bring high-throughput autonomous agents on-chain. This submission fulfills the **$8,000 HOL Ecosystem Bounty**:
 
-### 🔹 Hedera Token Service (HTS)
-- **Real Settlement**: Instant, final settlement between users and creators.
-- **70/30 Fee Distribution**: Automated revenue splitting (70% to Creator, 30% to Platform).
+1. **Agent Registration (HCS-11)**: Our 4 core agents (CEO, Strategy, Marketing, Operations) formalize their identities dynamically on the HOL Registry Broker.
+2. **Dynamic Discovery (HCS-10)**: The CEO Agent queries the HOL Registry to locate and contract specialized sub-agents based on their registered capabilities.
+3. **Execution Negotiation (A2A)**: Agents communicate via standardized HOL Agent-to-Agent (A2A) messaging for task delegation, status updates, and settlement.
+4. **Immutable Deliverables (HCS-1)**: All generated codebases, PRDs, and marketing assets are pushed to IPFS, with their references logged immutably via HCS-1 inscriptions.
 
 ---
 
-## 🖥️ Core Features
+## 💡 The Algorithmic Swarm
 
-- **Goal-to-Execution Pipeline**: Decomposition of complex missions into actionable sub-tasks.
-- **Agent Marketplace**: Discover and recruit specialized agents built by the community.
-- **Creator Studio**: Professional environment for deploying and managing custom AI agents.
-- **Verifiable Reputation**: Cryptographically proven performance logs for every agent.
-- **Interactive Multi-Deck**: Enterprise-grade pitch deck integrated directly into the dashboard.
+Hederon provides a **coordinated AI executive team** out of the box:
+* 👔 **CEO Agent (The Orchestrator)**: Transforms strategic mandates into distributed execution plans.
+* 📈 **Strategy Agent**: Handles market gap analysis and business models.
+* 📢 **Marketing Agent**: Outputs GTM campaigns, copywriting, and social orchestration.
+* ⚙️ **Operations Agent**: Designs system workflows, PRDs, and architecture specs.
 
 ---
 
 ## 🏗️ Tech Stack & Architecture
 
-- **Frontend Application:** Next.js 16 (App Router), React 19, TypeScript
-- **Styling & UI:** TailwindCSS 4, Framer Motion (Glassmorphism & Micro-animations)
-- **Identity & Auth:** Auth.js (NextAuth v5) supporting Web3 Wallets, Auth0 SSO, and Credentials
-- **Data Persistence:** SQLite (`better-sqlite3`) for high-speed local caching
-- **Decentralized Storage:** IPFS for immutable backups of agent deliverables and project bundles
-- **Blockchain Infrastructure:** Hedera SDK natively integrated
-  - **HCS:** Immutable logging of agent decisions and execution handshakes
-  - **HTS:** Micro-settlements and 70/30 fee distribution for the Creator Economy
+* **Frontend Framework:** Next.js 16.2.0 (App Router), React 19, TypeScript
+* **Styling & UI:** TailwindCSS v4, Framer Motion (Glassmorphism & Micro-animations)
+* **Identity & Auth:** NextAuth v5 (Supporting Auth0 / Credentials / SSO)
+* **Data Persistence:** SQLite (`better-sqlite3`) for high-speed edge caching
+* **Decentralized Storage:** IPFS (via `ipfs-http-client` & `kubo-rpc-client`)
+* **AI Orchestration:** OpenAI API (`openai` SDK for Swarm heuristics)
+* **Blockchain Infrastructure:** Hedera JavaScript SDK natively integrated
+  * **HCS:** Immutable logging of agent decisions and execution handshakes
+  * **HTS:** Infrastructure for potential micro-settlements and the absolute Creator Economy
 
 ---
 
-## 🏆 Hashgraph Online (HOL) Bounty Integration
+## 🚀 Quick Start (Judge Evaluation)
 
-Hederon AI is fully integrated with the **Hashgraph Online (HOL)** ecosystem to satisfy the $8,000 AI & Agents bounty:
+### 1. Online Evaluation (Recommended)
+You do not need to run the project locally to interact with it. The platform is fully deployed and connected to the Hedera testnet:
+👉 **[Launch Hederon AI Live](https://hederonai.dovetecenterprises.site/)**
 
-- **Universal Agent Identifiers (UAID)**: Every agent (CEO, Strategy, etc.) is assigned a unique UAID for cross-platform discovery.
-- **HCS-11 Agent Registration**: Automatic self-registration of the executive swarm with the HOL Registry Broker.
-- **Agent-to-Agent (A2A) Communication**: Secure messaging between agents using the HOL A2A protocol (e.g., CEO delegating to Swarm).
-- **HCS-1 Content Inscription**: All generated deliverables (PRDs, Architecture Docs, Codebases) are inscribed onto the Hedera Consensus Service as immutable artifacts.
+### 2. Local Setup
+If you prefer to audit the source code execution locally:
 
----
-
-## 🚀 Quick Start
-
-### Prerequisites
-- Node.js 18+ 
-- npm or yarn
-
-### Installation
+**Prerequisites:** Node.js 20+
 
 ```bash
+# Clone the repository
 git clone https://github.com/Dovineowuor/HederonAI.git
 cd hederon-ai
+
+# Install dependencies
 npm install
 ```
 
-### Environment Variables
-
-Create a `.env.local` file:
-
+**Environment Variables**
+Create a `.env.local` file at the root. You must provide a valid Hedera Testnet Account ID and Private Key:
 ```env
-# AI Services
-OPENAI_API_KEY=your_openai_api_key_here
-
-# Hedera Testnet Credentials
-HEDERA_ACCOUNT_ID=0.0.xxxxxx
-HEDERA_PRIVATE_KEY=your_hedera_private_key_here
-
-# HOL Registry Broker (Bounty)
-REGISTRY_BROKER_API_KEY=your_hol_api_key_here
-REGISTRY_BROKER_API_URL=https://hol.org/registry/api/v1
+NEXT_PUBLIC_HEDERA_NETWORK=testnet
+HEDERA_OPERATOR_ID=0.0.xxxxx
+HEDERA_OPERATOR_KEY=302e02...
+OPENAI_API_KEY=sk-...
 ```
 
-### 🧪 Verification & Testing
-
-To verify the Hedera and HOL integrations:
-1. Run a **Goal** or **Challenge** execution from the dashboard.
-2. Monitor the **Hedera Activity Log** in the UI:
-   - Look for `[HOL] Agent registered` logs.
-   - Look for `[HOL] Inscribed deliverable` logs.
-   - Look for HCS transaction IDs for every agent action.
-3. Check the **Deliverables** section; inscribed artifacts will have HOL Inscription IDs in their metadata.
-
-### Running the Application
-
+**Run Development Server**
 ```bash
-# Development server
 npm run dev
-
-# Build for production
-npm run build
 ```
+Navigate to `http://localhost:3000` to interact with the DApp locally.
 
 ---
 
-## 🎥 Demo
+## 🧪 Verifying the Integration
 
-- **Live Demo:** [https://hederonai.dovetecenterprises.site/](https://hederonai.dovetecenterprises.site/)
-- **Demo Video:** [https://youtu.be/rffOV2-s0ow](https://youtu.be/rffOV2-s0ow)
-
----
-
-## 🚀 Future Roadmap
-
-### Phase 1 & 2: Implementation & Marketplace (COMPLETED ✅)
-- Multi-agent coordination system with industry SOPs.
-- Agent Creator Studio & Marketplace.
-- Verifiable Job History on HCS.
-- 70/30 HTS-native fee splitting logic.
-- Enterprise-grade interactive pitch deck.
-
-### Phase 3: Autonomy & Scale (IN PROGRESS 🚧)
-- **Institutional Auth**: SSO and Multi-Wallet (Hashpack, Blade) production integration.
-- **Agent-Managed DAOs**: Fully autonomous companies governed by agent signers.
-- **Helia Migration**: Moving to the latest IPFS standard for improved persistence.
-- **Cross-Agent Collaboration v2**: Advanced autonomous peer-to-peer agent resource sharing.
-
----
-
-## 📄 License
-
-MIT License - see [LICENSE.md](LICENSE.md) file for details.
+To verify the Hedera and HOL integrations works:
+1. Log in to the dashboard and instantiate a new **Goal** execution.
+2. Monitor the **Hedera Activity Log** scrolling on the right side of the dashboard UI.
+3. You will see real-time blockchain operations:
+   - `[HOL] Agent Registered`
+   - `[HOL] Delegating sub-task via A2A`
+   - `[HCS] Immutable decision logged (Proof of Thought)`
+4. Check the **Deliverables** tab; completed tasks feature verifiable IPFS CID links.
 
 ---
 
 ## 👥 Team
-
-- **Dovine Owuor**: Founder & Lead Software Engineer.
-  - Architected the multi-agent coordination system and Hedera integration.
-  - Leads the vision for autonomous agent economies on decentralized ledgers.
+* **Dovine Owuor**: Founder & Lead Architect
+  * _Building the future of autonomous agent economies on decentralized ledgers._
 
 ---
 
-## 🏁 Conclusion
-
-Hederon AI is not just a tool — it’s the foundation for a future where a "Company of One" has the execution force of a global corporation. 
-
-**Welcome to the Sovereign Revolution.**
-
----
-
-## 🔗 Links
-
-- **Live Demo:** https://hederonai.dovetecenterprises.site/
-- **Demo Video:** [Youtube Demo Video](https://youtu.be/rffOV2-s0ow?si=zh4XGtSnE7PVdoWZ)
-- **GitHub:** https://github.com/Dovineowuor/HederonAI
-- **Contact:** [owuordove@gmail.com](mailto:owuordove@gmail.com)
+<div align="center">
+  <br />
+  <strong>Welcome to the Sovereign Revolution.</strong><br />
+  Built for the Hedera Hello Future Apex Hackathon 2026.
+</div>
