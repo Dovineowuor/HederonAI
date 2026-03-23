@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
-import { ArrowLeft, CheckCircle2, XCircle, Loader2, Activity, Star, DownloadCloud, ShieldCheck } from "lucide-react";
+import { ArrowLeft, CheckCircle2, XCircle, Loader2, Activity, Star, DownloadCloud, ShieldCheck, User } from "lucide-react";
 import ReactMarkdown from "react-markdown";
+import { useHOL } from "@/components/providers/HOLProvider";
 
 type EscrowJob = {
   id: string;
@@ -21,6 +22,7 @@ export default function HandshakeJobPage() {
   const router = useRouter();
   const params = useParams();
   const jobId = params?.id as string;
+  const { isConnected, accountId } = useHOL();
   
   const [job, setJob] = useState<EscrowJob | null>(null);
   const [processing, setProcessing] = useState(false);
@@ -144,25 +146,34 @@ ${job.output || "No output provided."}
           <ArrowLeft className="w-4 h-4" /> Back to Marketplace
         </button>
 
-        <div className="flex items-center gap-3 mb-8">
-          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
-            <Activity className="w-6 h-6 text-white animate-pulse" />
-          </div>
-          <div>
-            <h1 className="text-2xl font-bold">Escrow Contract: {job.id}</h1>
-            <div className="flex items-center gap-2 mt-1">
-              <p className="text-zinc-400">Agent autonomously executing task instructions</p>
-              {job.clientId && (
-                <div className="flex items-center gap-1.5 pl-2 ml-2 border-l border-white/10">
-                  <span className="text-[10px] text-zinc-500 uppercase font-bold tracking-widest">Hired By:</span>
-                  <span className="text-xs text-indigo-400 font-mono font-bold bg-indigo-500/10 px-2 py-0.5 rounded-full">
-                    {job.clientId}
-                  </span>
-                </div>
+          <div className="flex items-center gap-4">
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center relative group overflow-hidden border border-white/10">
+              <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+              {/* HOL Verifiable Agent Profile */}
+              {job.agentId && (
+                <hashgraph-agent-profile 
+                  uaid={`uaid:aid:hederon:${job.agentId.split('-')[0].toLowerCase()}`} 
+                  size="md"
+                  class="absolute inset-0 z-10"
+                />
               )}
+              <Activity className="w-7 h-7 text-white animate-pulse relative z-0" />
+            </div>
+            <div>
+              <h1 className="text-2xl font-bold tracking-tight">Escrow Contract: {job.id}</h1>
+              <div className="flex items-center gap-2 mt-1">
+                <p className="text-zinc-400 text-sm">Verifiable AI Agent is executing task instructions</p>
+                {job.clientId && (
+                  <div className="flex items-center gap-1.5 pl-2 ml-2 border-l border-white/10">
+                    <span className="text-[10px] text-zinc-500 uppercase font-extrabold tracking-widest">Client:</span>
+                    <span className="text-xs text-indigo-400 font-mono font-bold bg-indigo-500/10 px-2 py-0.5 rounded-full border border-indigo-500/20">
+                      {job.clientId}
+                    </span>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
-        </div>
 
         {/* Status Pipeline Visualizer */}
         <div className="glass p-6 rounded-2xl mb-8 border border-white/5 flex flex-wrap gap-4 items-center font-mono text-sm">
@@ -279,21 +290,33 @@ ${job.output || "No output provided."}
                 </div>
               )}
 
-              <div className="flex flex-col md:flex-row gap-4 mt-8">
-                <button
-                  disabled={processing}
-                  onClick={() => handleHandshake("confirm")}
-                  className="flex-1 bg-emerald-500 hover:bg-emerald-600 text-black font-bold py-4 rounded-xl transition-colors shadow-lg shadow-emerald-500/20 flex justify-center items-center gap-2"
-                >
-                  {processing ? <Loader2 className="w-5 h-5 animate-spin" /> : <><CheckCircle2 className="w-5 h-5" /> Accept Work & Release Funds</>}
-                </button>
-                <button
-                  disabled={processing}
-                  onClick={() => handleHandshake("reject")}
-                  className="w-full md:w-auto px-8 bg-zinc-800 hover:bg-rose-500/20 hover:text-rose-400 text-white font-bold py-4 rounded-xl transition-colors border border-transparent hover:border-rose-500/50"
-                >
-                  Reject & Refund
-                </button>
+              <div className="flex flex-col gap-6 mt-8">
+                {!isConnected ? (
+                  <div className="bg-amber-500/10 border border-amber-500/20 rounded-2xl p-6 flex flex-col items-center gap-4 text-center">
+                    <p className="text-amber-200 text-sm font-medium">Connect your Hedera wallet to securely release escrowed funds via the HOL Handshake protocol.</p>
+                    <hashgraph-wallet-connect 
+                      theme="dark" 
+                      btn-text="Connect Wallet to Accept"
+                    />
+                  </div>
+                ) : (
+                  <div className="flex flex-col md:flex-row gap-4">
+                    <button
+                      disabled={processing}
+                      onClick={() => handleHandshake("confirm")}
+                      className="flex-1 bg-emerald-500 hover:bg-emerald-600 text-black font-black uppercase tracking-widest text-xs py-5 rounded-2xl transition-all shadow-lg shadow-emerald-500/20 flex justify-center items-center gap-2"
+                    >
+                      {processing ? <Loader2 className="w-5 h-5 animate-spin" /> : <><CheckCircle2 className="w-5 h-5" /> Accept Work & Release Funds</>}
+                    </button>
+                    <button
+                      disabled={processing}
+                      onClick={() => handleHandshake("reject")}
+                      className="w-full md:w-auto px-10 bg-zinc-800 hover:bg-rose-500/20 hover:text-rose-400 text-white font-black uppercase tracking-widest text-xs py-5 rounded-2xl transition-all border border-transparent hover:border-rose-500/50"
+                    >
+                      Reject & Refund
+                    </button>
+                  </div>
+                )}
               </div>
               <p className="text-xs text-zinc-500 text-center mt-4">
                 * Rejecting the work initiates a smart contract reversal subject to a 5% system gas penalty.

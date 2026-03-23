@@ -7,7 +7,10 @@ import DashboardLayout from "./dashboard/DashboardLayout";
 import DashboardHero from "./dashboard/DashboardHero";
 import ActionInput from "./dashboard/ActionInput";
 import ProjectResults from "./dashboard/ProjectResults";
+import CustomizationModal from "./dashboard/CustomizationModal";
 import type { AgentRunResult, ExecutionMode, Deliverable } from "@/lib/types";
+import { useEffect } from "react";
+
 
 const EXAMPLE_GOALS = [
   "Launch an AI newsletter for developers",
@@ -32,20 +35,74 @@ export default function Dashboard() {
   const [result, setResult] = useState<AgentRunResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<"agents" | "hedera" | "deliverables">("agents");
+  const [showCustomization, setShowCustomization] = useState(false);
+  const [hasContext, setHasContext] = useState<boolean | null>(null);
+
+  // Check for existing context on mount
+  useEffect(() => {
+    if (session?.user?.email) {
+      // 1. Check for guest context to sync
+      const guestContext = localStorage.getItem("guest_user_context");
+      if (guestContext) {
+        try {
+          const parsed = JSON.parse(guestContext);
+          fetch("/api/user-context", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ context: parsed }),
+          }).then(() => {
+            localStorage.removeItem("guest_user_context");
+            setHasContext(true);
+          });
+        } catch (e) {
+          console.error("Failed to sync guest context", e);
+        }
+      } else {
+        // 2. Otherwise fetch from DB
+        fetch("/api/user-context")
+          .then(res => res.json())
+          .then(data => setHasContext(!!data.context))
+          .catch(() => setHasContext(false));
+      }
+    } else {
+      // For guests, check localStorage
+      const guestContext = localStorage.getItem("guest_user_context");
+      setHasContext(!!guestContext);
+    }
+  }, [session]);
+
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (mode === "goal" && !goal.trim() || isLoading) return;
     if (mode === "challenge" && !challenge.trim() || isLoading) return;
 
+    // Intercept if no context exists
+    if (hasContext === false) {
+      setShowCustomization(true);
+      return;
+    }
+
     setIsLoading(true);
+
     setResult(null);
     setError(null);
 
     try {
+      // Get context from localStorage for guests or use existing hasContext flag
+      let context = null;
+      const savedContext = localStorage.getItem("guest_user_context");
+      if (savedContext) {
+        try {
+          context = JSON.parse(savedContext);
+        } catch (e) {
+          console.error("Failed to parse guest context", e);
+        }
+      }
+
       const payload = mode === "goal" 
-        ? { mode: "goal", goal: goal.trim() }
-        : { mode: "challenge", challenge: challenge.trim() };
+        ? { mode: "goal", goal: goal.trim(), context }
+        : { mode: "challenge", challenge: challenge.trim(), context };
 
       const res = await fetch("/api/agents", {
         method: "POST",
@@ -100,7 +157,11 @@ export default function Dashboard() {
     <DashboardLayout>
       <div className="flex flex-col gap-10">
         {/* Top Hero Section */}
-        <DashboardHero mode={mode} />
+        <DashboardHero 
+          mode={mode} 
+          onRefine={() => setShowCustomization(true)}
+          hasContext={!!hasContext}
+        />
 
         {/* Action Center */}
         <ActionInput 
@@ -184,7 +245,28 @@ export default function Dashboard() {
             />
           )}
         </AnimatePresence>
+
+        {/* Customization Questionnaire */}
+        <AnimatePresence>
+          {showCustomization && (
+            <CustomizationModal 
+              goal={mode === "goal" ? goal : undefined}
+              challenge={mode === "challenge" ? challenge : undefined}
+              onClose={() => setShowCustomization(false)}
+              onComplete={() => {
+                setShowCustomization(false);
+                setHasContext(true);
+                // Re-trigger submit after setting context
+                setTimeout(() => {
+                  const submitBtn = document.querySelector('button[type="submit"]') as HTMLButtonElement;
+                  submitBtn?.click();
+                }, 100);
+              }}
+            />
+          )}
+        </AnimatePresence>
       </div>
     </DashboardLayout>
+
   );
 }

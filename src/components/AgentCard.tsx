@@ -107,11 +107,17 @@ export default function AgentCard({ task, index }: AgentCardProps) {
         <div className="flex items-center gap-3">
           <div
             className={cn(
-              "w-10 h-10 rounded-xl flex items-center justify-center text-lg bg-gradient-to-br",
+              "w-10 h-10 rounded-xl flex items-center justify-center text-lg bg-gradient-to-br relative group overflow-hidden",
               meta.gradient
             )}
           >
-            {meta.emoji}
+            {/* HOL Verifiable Agent Profile Overlay */}
+            <hashgraph-agent-profile 
+              uaid={`uaid:aid:hederon:${task.assignedTo.toLowerCase()}`}
+              size="sm"
+              class="absolute inset-0 z-10"
+            />
+            <span className="relative z-0">{meta.emoji}</span>
           </div>
           <div>
             <p className={cn("text-sm font-semibold", meta.color)}>{meta.label}</p>
