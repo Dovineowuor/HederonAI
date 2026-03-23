@@ -3,7 +3,10 @@ import authConfig from "./auth.config";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-const { auth } = NextAuth(authConfig);
+const { auth } = NextAuth({
+  ...authConfig,
+  trustHost: true,
+});
 
 export default async function proxy(request: NextRequest) {
   // Use the Edge-compatible auth check

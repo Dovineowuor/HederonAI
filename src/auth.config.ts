@@ -8,6 +8,12 @@ import AzureAD from "next-auth/providers/azure-ad";
 const auth0Issuer = process.env.AUTH0_ISSUER || 
   (process.env.AUTH0_DOMAIN ? `https://${process.env.AUTH0_DOMAIN}` : undefined);
 
+// Bypassing any locally-tested hardcoded localhost URLs set in Vercel's env dashboard
+if (process.env.VERCEL || process.env.VERCEL_URL) {
+  delete process.env.AUTH_URL;
+  delete process.env.NEXTAUTH_URL;
+}
+
 const authConfig = {
   secret: process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET || "fallback_secret_for_poc_only_do_not_use_in_prod",
   providers: [
