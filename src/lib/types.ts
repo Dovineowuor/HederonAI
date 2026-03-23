@@ -19,6 +19,7 @@ export interface Deliverable {
   description: string;
   generatedBy: AgentRole;
   timestamp: string;
+  metadata?: Record<string, any>;
 }
 
 export interface ExecutionPlan {

@@ -74,7 +74,7 @@ function brandedEmail(subject: string, contentHtml: string): string {
 // ─── Send helper ─────────────────────────────────────────────────────────────
 async function sendEmail(to: string, subject: string, contentHtml: string): Promise<boolean> {
   const mailOptions = {
-    from: process.env.EMAIL_FROM || '"Hederon AI" <noreply@hederon.ai>',
+    from: process.env.EMAIL_FROM || '"Hederon AI" <noreply@hederonai.dovetecenterprises.site>',
     to,
     subject,
     html: brandedEmail(subject, contentHtml),

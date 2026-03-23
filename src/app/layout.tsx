@@ -73,6 +73,8 @@ export const metadata: Metadata = {
   },
 };
 
+import Script from "next/script";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -80,7 +82,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} h-full`}>
-      <body className="min-h-full" suppressHydrationWarning>
+      <head>
+        {/* Hashgraph Online (HOL) Web Components */}
+        <Script 
+          src="https://cdn.jsdelivr.net/npm/@hashgraphonline/hashinal-wc/dist/hashinal-wc/hashinal-wc.esm.js" 
+          type="module"
+          strategy="beforeInteractive"
+        />
+      </head>
+      <body className="min-h-full font-sans antialiased bg-black text-white" suppressHydrationWarning>
         <Providers>{children}</Providers>
       </body>
     </html>
