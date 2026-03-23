@@ -36,7 +36,7 @@ export default function PitchDeckViewer() {
   const BRAND = {
     title: "Hederon AI",
     strapline: "One Person. Unlimited Execution. Powered by Hedera.",
-    website: "hederon.ai",
+    website: "hederonai.dovetecenterprises.site",
     repoUrl: "https://github.com/DovineOwuor/HederonAI",
   };
 
@@ -133,11 +133,11 @@ export default function PitchDeckViewer() {
                   ))}
                 </ul>
               </div>
-               <div className="col-span-2 pt-8 border-t border-white/5 mt-auto">
-                 <p className="text-xl text-zinc-400/80 leading-relaxed italic border-l-4 border-blue-500/30 pl-6">
-                   "The future of work is algorithmic. Scaling human creativity through coordinated, industry-agnostic AI swarms on Hedera."
-                 </p>
-               </div>
+              <div className="col-span-2 pt-8 border-t border-white/5 mt-auto">
+                <p className="text-xl text-zinc-400/80 leading-relaxed italic border-l-4 border-blue-500/30 pl-6">
+                  "The future of work is algorithmic. Scaling human creativity through coordinated, industry-agnostic AI swarms on Hedera."
+                </p>
+              </div>
             </div>
           </div>
         ),
@@ -178,7 +178,7 @@ export default function PitchDeckViewer() {
                 { title: "Specialist Agents", subtitle: "The Industry Experts", body: "Precision agents for Legal, Marketing, Finance, and Supply Chain." },
               ].map((a, i) => (
                 <div key={i} className="p-8 rounded-[2.5rem] bg-white/5 border border-white/10 flex gap-6">
-                  <div className="w-16 h-16 rounded-2xl bg-blue-500/10 flex items-center justify-center text-3xl font-bold text-blue-400">0{i+1}</div>
+                  <div className="w-16 h-16 rounded-2xl bg-blue-500/10 flex items-center justify-center text-3xl font-bold text-blue-400">0{i + 1}</div>
                   <div>
                     <h4 className="text-3xl font-bold text-white mb-1">{a.title}</h4>
                     <p className="text-blue-400 font-bold mb-3 uppercase tracking-widest text-sm">{a.subtitle}</p>
@@ -211,7 +211,7 @@ export default function PitchDeckViewer() {
               {["Objective", "Decomposition", "Execution", "Settlement", "Verification"].map((step, i) => (
                 <div key={step} className="relative flex flex-col items-center group">
                   <div className="w-full aspect-square rounded-[2rem] bg-white/5 border border-white/10 flex flex-col items-center justify-center p-6 transition-all group-hover:bg-blue-500/10 group-hover:border-blue-500/20">
-                    <div className="text-4xl font-black text-white/20 mb-2">{i+1}</div>
+                    <div className="text-4xl font-black text-white/20 mb-2">{i + 1}</div>
                     <div className="text-xl font-bold text-center text-white">{step}</div>
                   </div>
                   {i < 4 && (
@@ -230,22 +230,22 @@ export default function PitchDeckViewer() {
         subtitle: "A marketplace for consultants, lawyers, and engineers to list proprietary swarms.",
         content: (
           <div className="grid h-full grid-cols-2 gap-10">
-             <div className="p-12 rounded-[3rem] bg-zinc-900/50 border border-white/5 flex flex-col justify-center">
-               <h4 className="text-5xl font-black text-white mb-8">70 / 30 Revenue Split</h4>
-               <p className="text-2xl text-zinc-400 leading-relaxed">
-                 We reward the expertise and maintain the infrastructure. Hedera native settlement ensures immediate, low-fee payout for every handshake.
-               </p>
-             </div>
-             <div className="space-y-6 flex flex-col justify-center">
-               <div className="p-8 rounded-[2rem] bg-white/5 border border-white/10">
-                 <h5 className="text-2xl font-bold text-blue-400 mb-2">Hederon Studio</h5>
-                 <p className="text-lg text-zinc-400">Industry experts build specialized agents with zero-code interfaces.</p>
-               </div>
-               <div className="p-8 rounded-[2rem] bg-white/5 border border-white/10">
-                 <h5 className="text-2xl font-bold text-emerald-400 mb-2">Verifiable History</h5>
-                 <p className="text-lg text-zinc-400">Cryptographic proof of previous high-performance agent handshakes.</p>
-               </div>
-             </div>
+            <div className="p-12 rounded-[3rem] bg-zinc-900/50 border border-white/5 flex flex-col justify-center">
+              <h4 className="text-5xl font-black text-white mb-8">70 / 30 Revenue Split</h4>
+              <p className="text-2xl text-zinc-400 leading-relaxed">
+                We reward the expertise and maintain the infrastructure. Hedera native settlement ensures immediate, low-fee payout for every handshake.
+              </p>
+            </div>
+            <div className="space-y-6 flex flex-col justify-center">
+              <div className="p-8 rounded-[2rem] bg-white/5 border border-white/10">
+                <h5 className="text-2xl font-bold text-blue-400 mb-2">Hederon Studio</h5>
+                <p className="text-lg text-zinc-400">Industry experts build specialized agents with zero-code interfaces.</p>
+              </div>
+              <div className="p-8 rounded-[2rem] bg-white/5 border border-white/10">
+                <h5 className="text-2xl font-bold text-emerald-400 mb-2">Verifiable History</h5>
+                <p className="text-lg text-zinc-400">Cryptographic proof of previous high-performance agent handshakes.</p>
+              </div>
+            </div>
           </div>
         ),
       },
@@ -294,8 +294,8 @@ export default function PitchDeckViewer() {
               ))}
             </ul>
             <div className="flex flex-col items-center justify-center rounded-[3rem] bg-white/5 border border-white/10 p-12">
-               <div className="text-9xl mb-8">🛡️</div>
-               <div className="text-center font-bold text-2xl text-zinc-400">Zero-Compromise Security</div>
+              <div className="text-9xl mb-8">🛡️</div>
+              <div className="text-center font-bold text-2xl text-zinc-400">Zero-Compromise Security</div>
             </div>
           </div>
         ),
@@ -305,22 +305,57 @@ export default function PitchDeckViewer() {
         category: "Live Demo",
         title: "Multi-Agent Swarm in Action",
         subtitle: "Watch the future of verifiable executive labor on Hedera.",
-        content: (
-          <div className="h-full flex flex-col items-center justify-center">
-            <div className="w-full max-w-5xl aspect-video rounded-[3rem] overflow-hidden border-8 border-white/5 bg-zinc-900 flex items-center justify-center relative group">
-              <div className="text-center">
-                <div className="w-24 h-24 rounded-full bg-blue-500/20 flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform cursor-pointer">
-                  <div className="w-0 h-0 border-l-[30px] border-l-blue-500 border-y-[20px] border-y-transparent ml-2" />
+        content: (() => {
+          const VideoEmbed = () => {
+            const [playing, setPlaying] = React.useState(false);
+            const videoId = "rffOV2-s0ow";
+            return (
+              <div className="h-full flex flex-col items-center justify-center gap-8">
+                <div
+                  className="w-full max-w-5xl aspect-video rounded-[2.5rem] overflow-hidden border border-white/10 bg-zinc-950 relative group shadow-2xl"
+                  style={{ boxShadow: "0 0 80px rgba(59,130,246,0.15)" }}
+                >
+                  {playing ? (
+                    <iframe
+                      src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`}
+                      title="Hederon AI Demo YouTube Player"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerPolicy="strict-origin-when-cross-origin"
+                      allowFullScreen
+                      className="absolute inset-0 w-full h-full"
+                    />
+                  ) : (
+                    <button
+                      onClick={() => setPlaying(true)}
+                      className="absolute inset-0 w-full h-full flex items-center justify-center group"
+                      aria-label="Play demo video"
+                    >
+                      <img
+                        src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
+                        alt="Demo thumbnail"
+                        className="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:opacity-90 transition-opacity duration-500"
+                      />
+                      <div className="relative z-10 w-28 h-28 rounded-full bg-blue-500/80 backdrop-blur-md flex items-center justify-center group-hover:scale-110 group-hover:bg-blue-500 transition-all duration-300 shadow-[0_0_60px_rgba(59,130,246,0.5)]">
+                        <div className="w-0 h-0 border-l-[36px] border-l-white border-y-[24px] border-y-transparent ml-3" />
+                      </div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                      <div className="absolute bottom-8 left-8 text-left">
+                        <p className="text-2xl font-bold text-white">Click to watch Demo Presentation</p>
+                        <p className="mt-1 text-blue-400 font-mono text-lg">youtu.be/{videoId}</p>
+                      </div>
+                    </button>
+                  )}
                 </div>
-                <p className="text-2xl font-bold text-zinc-400">Click to watch Demo Presentation</p>
-                <p className="mt-2 text-zinc-600">youtu.be/rffOV2-s0ow</p>
+                <div className="flex items-center gap-6 text-xl font-medium text-zinc-500">
+                  <span className="text-blue-500">⚡</span>
+                  Recursive Swarm Expansion &amp; HCS Audit Trails
+                  <span className="text-emerald-500">⚡</span>
+                </div>
               </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-12">
-                 <div className="text-white text-xl font-medium">Recursive Swarm Expansion & HCS Audit Trails</div>
-              </div>
-            </div>
-          </div>
-        ),
+            );
+          };
+          return <VideoEmbed />;
+        })(),
       },
       {
         id: "slide-10",
@@ -337,10 +372,10 @@ export default function PitchDeckViewer() {
                 { q: "Q4 2026", t: "Agent DAOs", d: "Autonomous consultancies launch", status: "VISION" },
               ].map((r) => (
                 <div key={r.q} className="p-8 rounded-[2.5rem] bg-white/5 border border-white/10 flex flex-col h-full">
-                   <div className={`text-sm font-bold px-3 py-1 rounded-full w-min mb-6 ${r.status === "COMPLETE" ? "bg-emerald-500/20 text-emerald-400" : "bg-zinc-800 text-zinc-500"}`}>{r.status}</div>
-                   <div className="text-3xl font-black text-white mb-2">{r.q}</div>
-                   <div className="text-xl font-bold text-blue-400 mb-4">{r.t}</div>
-                   <p className="text-lg text-zinc-500 leading-relaxed">{r.d}</p>
+                  <div className={`text-sm font-bold px-3 py-1 rounded-full w-min mb-6 ${r.status === "COMPLETE" ? "bg-emerald-500/20 text-emerald-400" : "bg-zinc-800 text-zinc-500"}`}>{r.status}</div>
+                  <div className="text-3xl font-black text-white mb-2">{r.q}</div>
+                  <div className="text-xl font-bold text-blue-400 mb-4">{r.t}</div>
+                  <p className="text-lg text-zinc-500 leading-relaxed">{r.d}</p>
                 </div>
               ))}
             </div>
@@ -354,27 +389,27 @@ export default function PitchDeckViewer() {
         subtitle: "Why organizations choose Hederon AI over generic wrappers.",
         content: (
           <div className="grid h-full grid-cols-2 gap-8 items-center">
-             <div className="grid grid-cols-1 gap-6">
-                {[
-                  ["Industry Agnostic", "From creative teams to fintech consultancies."],
-                  ["Algorithmic Trust", "Proven results on-ledger, not marketing claims."],
-                  ["Sovereign Security", "Your workflows, your keys, your data."],
-                  ["Scale on Demand", "Instantly recruit a team of 100 specialized agents."],
-                ].map(([t, b], i) => (
-                  <div key={i} className="p-6 rounded-2xl bg-white/5 border border-white/10 flex items-center gap-6">
-                    <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 text-2xl font-black">{i+1}</div>
-                    <div>
-                      <h5 className="text-xl font-bold text-white">{t}</h5>
-                      <p className="text-zinc-400">{b}</p>
-                    </div>
+            <div className="grid grid-cols-1 gap-6">
+              {[
+                ["Industry Agnostic", "From creative teams to fintech consultancies."],
+                ["Algorithmic Trust", "Proven results on-ledger, not marketing claims."],
+                ["Sovereign Security", "Your workflows, your keys, your data."],
+                ["Scale on Demand", "Instantly recruit a team of 100 specialized agents."],
+              ].map(([t, b], i) => (
+                <div key={i} className="p-6 rounded-2xl bg-white/5 border border-white/10 flex items-center gap-6">
+                  <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 text-2xl font-black">{i + 1}</div>
+                  <div>
+                    <h5 className="text-xl font-bold text-white">{t}</h5>
+                    <p className="text-zinc-400">{b}</p>
                   </div>
-                ))}
-             </div>
-             <div className="h-full bg-blue-500/10 rounded-[3rem] border border-blue-500/20 p-12 flex flex-col justify-center text-center">
-               <div className="text-8xl mb-8">💎</div>
-               <h4 className="text-4xl font-black text-white mb-4">Unfair Advantage</h4>
-               <p className="text-xl text-zinc-400 leading-relaxed">The only platform bridging institutional trust and autonomous agent swarms.</p>
-             </div>
+                </div>
+              ))}
+            </div>
+            <div className="h-full bg-blue-500/10 rounded-[3rem] border border-blue-500/20 p-12 flex flex-col justify-center text-center">
+              <div className="text-8xl mb-8">💎</div>
+              <h4 className="text-4xl font-black text-white mb-4">Unfair Advantage</h4>
+              <p className="text-xl text-zinc-400 leading-relaxed">The only platform bridging institutional trust and autonomous agent swarms.</p>
+            </div>
           </div>
         ),
       },
@@ -385,26 +420,26 @@ export default function PitchDeckViewer() {
         subtitle: "Sustainable growth through a creator-aligned fee structure.",
         content: (
           <div className="grid h-full grid-cols-[1fr_0.8fr] gap-10">
-             <div className="grid grid-rows-2 gap-8">
-               <div className="p-10 rounded-[2.5rem] bg-zinc-900/50 border border-white/5">
-                 <h5 className="text-2xl font-bold text-zinc-500 uppercase tracking-widest mb-6 underline decoration-blue-500 underline-offset-8">Revenue Streams</h5>
-                 <ul className="space-y-4 text-2xl text-zinc-200">
-                    <li className="flex items-center gap-4"><div className="w-2 h-2 rounded-full bg-blue-500" /> 30% Platform Fee on mirco-tx</li>
-                    <li className="flex items-center gap-4"><div className="w-2 h-2 rounded-full bg-blue-500" /> Enterprise Studio Subscriptions</li>
-                 </ul>
-               </div>
-               <div className="p-10 rounded-[2.5rem] bg-zinc-900/50 border border-white/5">
-                 <h5 className="text-2xl font-bold text-zinc-500 uppercase tracking-widest mb-6 underline decoration-emerald-500 underline-offset-8">Cost Structure</h5>
-                 <ul className="space-y-4 text-2xl text-zinc-200">
-                    <li className="flex items-center gap-4"><div className="w-2 h-2 rounded-full bg-emerald-500" /> Hedera Net Fees ($0.0001 avg)</li>
-                    <li className="flex items-center gap-4"><div className="w-2 h-2 rounded-full bg-emerald-500" /> AI API / Compute Units</li>
-                 </ul>
-               </div>
-             </div>
-             <div className="p-12 rounded-[3.5rem] bg-gradient-to-b from-emerald-600/20 to-blue-600/20 border border-white/10 flex flex-col items-center justify-center text-center">
-                <div className="text-7xl font-black text-white mb-4">100x</div>
-                <p className="text-2xl font-medium text-zinc-300">Reduction in coordination overhead for institutional partners.</p>
-             </div>
+            <div className="grid grid-rows-2 gap-8">
+              <div className="p-10 rounded-[2.5rem] bg-zinc-900/50 border border-white/5">
+                <h5 className="text-2xl font-bold text-zinc-500 uppercase tracking-widest mb-6 underline decoration-blue-500 underline-offset-8">Revenue Streams</h5>
+                <ul className="space-y-4 text-2xl text-zinc-200">
+                  <li className="flex items-center gap-4"><div className="w-2 h-2 rounded-full bg-blue-500" /> 30% Platform Fee on mirco-tx</li>
+                  <li className="flex items-center gap-4"><div className="w-2 h-2 rounded-full bg-blue-500" /> Enterprise Studio Subscriptions</li>
+                </ul>
+              </div>
+              <div className="p-10 rounded-[2.5rem] bg-zinc-900/50 border border-white/5">
+                <h5 className="text-2xl font-bold text-zinc-500 uppercase tracking-widest mb-6 underline decoration-emerald-500 underline-offset-8">Cost Structure</h5>
+                <ul className="space-y-4 text-2xl text-zinc-200">
+                  <li className="flex items-center gap-4"><div className="w-2 h-2 rounded-full bg-emerald-500" /> Hedera Net Fees ($0.0001 avg)</li>
+                  <li className="flex items-center gap-4"><div className="w-2 h-2 rounded-full bg-emerald-500" /> AI API / Compute Units</li>
+                </ul>
+              </div>
+            </div>
+            <div className="p-12 rounded-[3.5rem] bg-gradient-to-b from-emerald-600/20 to-blue-600/20 border border-white/10 flex flex-col items-center justify-center text-center">
+              <div className="text-7xl font-black text-white mb-4">100x</div>
+              <p className="text-2xl font-medium text-zinc-300">Reduction in coordination overhead for institutional partners.</p>
+            </div>
           </div>
         ),
       },
@@ -415,22 +450,22 @@ export default function PitchDeckViewer() {
         subtitle: "Targeted expansion from Web3 pioneers to global consultancies.",
         content: (
           <div className="grid h-full grid-cols-2 gap-10 items-center">
-             <div className="space-y-10">
-                <div className="relative pl-12">
-                   <div className="absolute left-0 top-0 text-3xl font-black text-blue-500/40">01</div>
-                   <h5 className="text-3xl font-bold text-white mb-2">Build & Validate</h5>
-                   <p className="text-xl text-zinc-400">Target solo-founders and small dev shops in the Hedera ecosystem via HOL Registry.</p>
-                </div>
-                <div className="relative pl-12">
-                   <div className="absolute left-0 top-0 text-3xl font-black text-emerald-500/40">02</div>
-                   <h5 className="text-3xl font-bold text-white mb-2">Scale & Ecosystem</h5>
-                   <p className="text-xl text-zinc-400">Launch the Agent Marketplace and white-labeling for Legal-Tech firms.</p>
-                </div>
-             </div>
-             <div className="rounded-[3rem] bg-white/5 border border-white/10 p-12 text-center overflow-hidden">
-                <h6 className="text-zinc-500 font-bold uppercase tracking-widest text-sm mb-12">Integrated Discovery</h6>
-                <div className="text-4xl font-black text-white mb-4 italic">HOL + MCP</div>
-             </div>
+            <div className="space-y-10">
+              <div className="relative pl-12">
+                <div className="absolute left-0 top-0 text-3xl font-black text-blue-500/40">01</div>
+                <h5 className="text-3xl font-bold text-white mb-2">Build & Validate</h5>
+                <p className="text-xl text-zinc-400">Target solo-founders and small dev shops in the Hedera ecosystem via HOL Registry.</p>
+              </div>
+              <div className="relative pl-12">
+                <div className="absolute left-0 top-0 text-3xl font-black text-emerald-500/40">02</div>
+                <h5 className="text-3xl font-bold text-white mb-2">Scale & Ecosystem</h5>
+                <p className="text-xl text-zinc-400">Launch the Agent Marketplace and white-labeling for Legal-Tech firms.</p>
+              </div>
+            </div>
+            <div className="rounded-[3rem] bg-white/5 border border-white/10 p-12 text-center overflow-hidden">
+              <h6 className="text-zinc-500 font-bold uppercase tracking-widest text-sm mb-12">Integrated Discovery</h6>
+              <div className="text-4xl font-black text-white mb-4 italic">HOL + MCP</div>
+            </div>
           </div>
         ),
       },
@@ -441,32 +476,32 @@ export default function PitchDeckViewer() {
         subtitle: "Why we built a swarm instead of a wrapper.",
         content: (
           <div className="grid h-full grid-cols-2 gap-8">
-             <div className="grid grid-cols-1 gap-4">
-                {[
-                  ["Multi-Agent Swarm", "Higher precision, lower hallucinations than single LLMs."],
-                  ["HCS State Mgmt", "Provides 'Proof of Thought' audit trail for institutions."],
-                  ["Glassmorphism UI", "Enterprise aesthetic for non-crypto natives."],
-                ].map(([t, d]) => (
-                  <div key={t} className="p-6 rounded-2xl bg-white/5 border border-white/10">
-                    <h5 className="text-xl font-bold text-blue-400 mb-1">{t}</h5>
-                    <p className="text-zinc-400">{d}</p>
-                  </div>
-                ))}
-             </div>
-             <div className="grid grid-cols-2 gap-4">
-               {[
-                 ["Throughput", "10-15 HCS tx", "per goal"],
-                 ["Speed", "< 60s", "per deliverable"],
-                 ["Adoption", "4+ Accounts", "per user"],
-                 ["Efficiency", "100%", "Traceable"],
-               ].map(([l, v, s]) => (
-                 <div key={l} className="p-6 rounded-2xl bg-zinc-950/50 border border-white/5 flex flex-col justify-center text-center">
-                    <div className="text-zinc-500 text-sm font-bold uppercase tracking-widest mb-2">{l}</div>
-                    <div className="text-2xl font-black text-white">{v}</div>
-                    <div className="text-xs text-zinc-600">{s}</div>
-                 </div>
-               ))}
-             </div>
+            <div className="grid grid-cols-1 gap-4">
+              {[
+                ["Multi-Agent Swarm", "Higher precision, lower hallucinations than single LLMs."],
+                ["HCS State Mgmt", "Provides 'Proof of Thought' audit trail for institutions."],
+                ["Glassmorphism UI", "Enterprise aesthetic for non-crypto natives."],
+              ].map(([t, d]) => (
+                <div key={t} className="p-6 rounded-2xl bg-white/5 border border-white/10">
+                  <h5 className="text-xl font-bold text-blue-400 mb-1">{t}</h5>
+                  <p className="text-zinc-400">{d}</p>
+                </div>
+              ))}
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                ["Throughput", "10-15 HCS tx", "per goal"],
+                ["Speed", "< 60s", "per deliverable"],
+                ["Adoption", "4+ Accounts", "per user"],
+                ["Efficiency", "100%", "Traceable"],
+              ].map(([l, v, s]) => (
+                <div key={l} className="p-6 rounded-2xl bg-zinc-950/50 border border-white/5 flex flex-col justify-center text-center">
+                  <div className="text-zinc-500 text-sm font-bold uppercase tracking-widest mb-2">{l}</div>
+                  <div className="text-2xl font-black text-white">{v}</div>
+                  <div className="text-xs text-zinc-600">{s}</div>
+                </div>
+              ))}
+            </div>
           </div>
         ),
       },
@@ -479,7 +514,7 @@ export default function PitchDeckViewer() {
         content: (
           <div className="flex h-full flex-col justify-between">
             <h4 className="text-6xl font-black text-white italic mb-10">One Person. Unlimited Execution.</h4>
-            
+
             <div className="grid grid-cols-[1fr_0.8fr] gap-12 items-center flex-1 min-h-0 mb-10">
               <div className="space-y-6">
                 {[
@@ -496,29 +531,79 @@ export default function PitchDeckViewer() {
                   </div>
                 ))}
               </div>
-              
+
               <div className="h-full flex flex-col justify-center">
                 <div className="p-10 rounded-[3.5rem] bg-blue-500/10 border border-blue-500/20 text-left relative overflow-hidden group">
-                   <div className="relative z-10">
-                     <div className="flex items-center gap-6 mb-8">
-                       <img src="/visionary_founder.png" alt="Dovine Owuor" className="w-24 h-24 rounded-full border-2 border-blue-500/30 object-cover" />
-                       <div>
-                         <div className="text-xl font-bold text-white">Dovine Owuor</div>
-                         <div className="text-sm text-blue-400 font-bold uppercase tracking-widest">Founder & Lead Architect</div>
-                       </div>
-                     </div>
-                     <p className="text-3xl font-black text-white italic leading-tight mb-4">
-                       "The future of work is algorithmic. Let's build it together."
-                     </p>
-                   </div>
-                   <div className="absolute top-0 right-0 p-8 text-6xl opacity-5">"</div>
+                  <div className="relative z-10">
+                    <div className="flex items-center gap-6 mb-8">
+                      <img src="/visionary_founder.png" alt="Dovine Owuor" className="w-24 h-24 rounded-full border-2 border-blue-500/30 object-cover" />
+                      <div>
+                        <div className="text-xl font-bold text-white">Dovine Owuor</div>
+                        <div className="text-sm text-blue-400 font-bold uppercase tracking-widest">Founder & Lead Architect</div>
+                      </div>
+                    </div>
+                    <p className="text-3xl font-black text-white italic leading-tight mb-4">
+                      "The future of work is algorithmic. Let's build it together."
+                    </p>
+                  </div>
+                  <div className="absolute top-0 right-0 p-8 text-6xl opacity-5">"</div>
                 </div>
               </div>
             </div>
 
             <div className="flex gap-8 justify-center mt-auto">
-               <button className="px-16 py-7 rounded-3xl bg-blue-500 text-white font-black text-3xl shadow-[0_0_60px_rgba(59,130,246,0.5)] transition hover:scale-105">Invest Now</button>
-               <button className="px-16 py-7 rounded-3xl border-2 border-white/20 bg-white/5 text-white font-black text-3xl transition hover:bg-white/10">Partner with Us</button>
+              <button className="px-16 py-7 rounded-3xl bg-blue-500 text-white font-black text-3xl shadow-[0_0_60px_rgba(59,130,246,0.5)] transition hover:scale-105">Invest Now</button>
+              <button className="px-16 py-7 rounded-3xl border-2 border-white/20 bg-white/5 text-white font-black text-3xl transition hover:bg-white/10">Partner with Us</button>
+            </div>
+          </div>
+        )
+      },
+      {
+        id: "slide-16",
+        category: "Contact",
+        title: "Connect & Build",
+        subtitle: "Join the future of verifiable executive labor.",
+        content: (
+          <div className="flex h-[calc(100%-80px)] items-center justify-center">
+            <div className="grid grid-cols-[1fr_400px] gap-16 w-full max-w-6xl">
+              
+              <div className="flex flex-col justify-center gap-10">
+                <div className="space-y-4">
+                  <h4 className="text-4xl font-black text-white">Let's Talk.</h4>
+                  <p className="text-2xl text-zinc-400">Discover how Hederon AI can scale your organizational throughput.</p>
+                </div>
+                
+                <div className="space-y-6">
+                  {[
+                    { label: "Website", val: "hederonai.dovetecenterprises.site" },
+                    { label: "Email", val: "founders@hederon.ai" },
+                    { label: "X (Twitter)", val: "@HederonAILabs" },
+                    { label: "GitHub", val: "github.com/dovetec/hederon-ai" },
+                  ].map(l => (
+                    <div key={l.label} className="flex flex-col bg-white/5 border border-white/10 rounded-2xl p-6">
+                      <span className="text-zinc-500 font-bold uppercase tracking-widest text-sm mb-1">{l.label}</span>
+                      <span className="text-white text-xl font-medium font-mono">{l.val}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="flex flex-col justify-center items-center">
+                <div className="bg-white p-6 rounded-3xl shadow-[0_0_80px_rgba(59,130,246,0.2)] mb-8">
+                  <img 
+                    src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://hederonai.dovetecenterprises.site" 
+                    alt="Hederon AI Website QR Code" 
+                    className="w-full h-auto aspect-square rounded-xl"
+                  />
+                </div>
+                <p className="text-zinc-400 text-lg font-bold">Scan to open website</p>
+                <div className="mt-4 flex gap-4 text-3xl">
+                  {/* Decorative simple icons for visual interest */}
+                  <div className="w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center">🌍</div>
+                  <div className="w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center">💬</div>
+                </div>
+              </div>
+
             </div>
           </div>
         )
@@ -672,15 +757,15 @@ export default function PitchDeckViewer() {
     >
       {slides.map((slide, index) => {
         if (isMaximized && index !== activeSlide) return null;
-        
+
         return (
           <SlideBase key={slide.id} id={slide.id} isMaximized={isMaximized}>
-            <SlideHeader 
-              title={slide.title} 
-              subtitle={slide.subtitle} 
-              category={slide.category} 
+            <SlideHeader
+              title={slide.title}
+              subtitle={slide.subtitle}
+              category={slide.category}
             />
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={index === activeSlide || !isMaximized ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.2 }}
@@ -749,7 +834,7 @@ export default function PitchDeckViewer() {
               <span className="text-xs px-2 py-1 rounded bg-white/5 border border-white/10 text-zinc-400">Slide {activeSlide + 1} / {slides.length}</span>
             </div>
             <div className="flex items-center gap-4">
-               <button
+              <button
                 onClick={prevSlide}
                 disabled={activeSlide === 0}
                 className="rounded-xl border border-white/10 bg-white/5 p-3 text-white transition hover:bg-white/10 disabled:opacity-20"
@@ -771,19 +856,19 @@ export default function PitchDeckViewer() {
               </button>
             </div>
           </div>
-          
+
           <div className="flex-1 flex items-center justify-center p-4 min-h-0 overflow-hidden">
             {renderSlides()}
           </div>
-          
+
           <div className="p-6 flex justify-center gap-2 overflow-x-auto">
-             {slides.map((_, i) => (
-               <button
-                 key={i}
-                 onClick={() => setActiveSlide(i)}
-                 className={`w-3 h-1.5 rounded-full transition-all ${i === activeSlide ? "bg-blue-500 w-8" : "bg-white/10 hover:bg-white/20"}`}
-               />
-             ))}
+            {slides.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setActiveSlide(i)}
+                className={`w-3 h-1.5 rounded-full transition-all ${i === activeSlide ? "bg-blue-500 w-8" : "bg-white/10 hover:bg-white/20"}`}
+              />
+            ))}
           </div>
         </div>
       )}
