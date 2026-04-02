@@ -14,15 +14,15 @@
     "simple-test": "node test/system-test.js"
   },
   "dependencies": {
-    "@openzeppelin/contracts": "^4.9.3",
+    "@openzeppelin/contracts": "^4.9.6",
     "@openzeppelin/contracts-upgradeable": "^4.9.3",
     "chai": "^4.3.8",
     "dotenv": "^16.3.1",
     "ethers": "^6.16.0",
-    "hardhat": "^2.19.0"
+    "hardhat": "^3.2.0"
   },
   "devDependencies": {
-    "@nomicfoundation/hardhat-toolbox": "^4.0.0"
+    "@nomicfoundation/hardhat-toolbox": "^7.0.0"
   },
   "directories": {
     "contracts": "./contracts",
